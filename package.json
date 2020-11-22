@@ -3,6 +3,9 @@
   "version": "1.0.0",
   "description": "bot-shrink",
   "main": "main.js",
+  "engines": {
+    "node": "14.x"
+  },
   "directories": {
     "doc": "docs"
   },

@@ -1,5 +1,5 @@
 const vk_token = 'ffd8131c3cabeab91dc3b6e53c70d958cb711c88221907e0a7a7b09eb10a577c9b024acd04ec56c7f280a';
-const confirm_key = '90fbe27e';
+const confirm_key = 'aa9fbe7a';
 const express = require('express');
 const bodyParser = require('body-parser');
 const { Botact } = require('botact');
