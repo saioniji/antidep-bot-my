@@ -72,4 +72,4 @@ server.use(bodyParser.json());
 server.post('/', bot.listen);
 server.get('https://bot-antidep.herokuapp.com/', bot.listen);
 
-server.listen(5000);
+server.listen(process.env.PORT || 5000);
