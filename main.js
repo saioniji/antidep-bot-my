@@ -5,6 +5,7 @@ const bodyParser = require('body-parser');
 const { Botact } = require('botact');
 
 const server = express();
+
 const bot = new Botact({
     token: vk_token,
     confirmation: confirm_key
@@ -66,9 +67,10 @@ bot.catch((msg,err) => {
     console.error(msg, err);
 });
 
+
 server.use(bodyParser.json());
 
-server.post('/', bot.listen);
+server.post('https://bot-antidep.herokuapp.com/', bot.listen);
 
 server.listen(5000);
 
