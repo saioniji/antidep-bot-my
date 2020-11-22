@@ -21,7 +21,7 @@ bot.command('help', (msg) => {
 });
 
 bot.command('start', (msg) => {
-    msg.reply( 'Выберите пункт из меню:', null, {
+    msg.reply( 'Здравствуйте, вы бы хотели пройти тестирование или связаться со специалистом?', null, {
         one_time: true,
         buttons: [
             [
@@ -68,4 +68,8 @@ server.use(bodyParser.json());
 
 server.post('/', bot.listen);
 
-server.listen(8080);
+server.listen(5000);
+
+setInterval(function () {
+    server.get('http://ybf-bot.herokuapp.com/');
+}, 300000);
