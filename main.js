@@ -70,9 +70,6 @@ bot.catch((msg,err) => {
 
 server.use(bodyParser.json());
 
-server.post('https://bot-antidep.herokuapp.com/', bot.listen);
+server.post('/', bot.listen);
 
 server.listen(5000);
-
-setInterval(function () {
-    server.get('https://bot-antidep.herokuapp.com/'); }, 300000);
