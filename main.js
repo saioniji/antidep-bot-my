@@ -10,6 +10,34 @@ const bot = new Botact({
     confirmation: confirm_key
 });
 
+const keyboard = {
+    one_time: true,
+    buttons: [
+        [
+            {
+                action: {
+                    type: 'text',
+                    payload: { 
+                        button: 'button1' 
+                    },
+                    label: 'Пройти тест'
+                },
+                color: 'primary'
+            },
+            {
+                action: {
+                    type: 'text',
+                    payload: {
+                        button: 'button2'
+                    },
+                    label: 'Получить помощь'
+                },
+                color: 'primary'
+            }  
+        ]
+    ]
+};
+
 
 bot.event('group_join', (msg) => {
     msg.reply('Спасибо, что стали пользователем нашего бота. Мы постараемся вам помочь!');
@@ -17,37 +45,11 @@ bot.event('group_join', (msg) => {
 
 bot.command('help', (msg) => {
     msg.sendMessage(msg.user_id, 'Список доступных команд: ' + '\n' +
-    'start – начать взаимодействие с ботом')
+    'start – начать взаимодействие с ботом');
 });
 
 bot.command('start', (msg) => {
-    msg.reply( 'Здравствуйте, вы бы хотели пройти тестирование или связаться со специалистом?', null, {
-        one_time: true,
-        buttons: [
-            [
-                {
-                    action: {
-                        type: 'text',
-                        payload: { 
-                            button: 'button1' 
-                        },
-                        label: 'Пройти тест'
-                    },
-                    color: 'primary'
-                },
-                {
-                    action: {
-                        type: 'text',
-                        payload: {
-                            button: 'button2'
-                        },
-                        label: 'Получить помощь'
-                    },
-                    color: 'primary'
-                }  
-            ]
-        ]
-      })
+    msg.reply( 'Здравствуйте, вы бы хотели пройти тестирование или связаться со специалистом?', null, keyboard);
 });
 
 bot.command('Пройти тест', (msg) => {
@@ -71,5 +73,4 @@ server.post('/', bot.listen);
 server.listen(5000);
 
 setInterval(function () {
-    server.get('http://ybf-bot.herokuapp.com/');
-}, 300000);
+    server.get('https://bot-antidep.herokuapp.com/'); }, 300000);
