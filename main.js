@@ -67,9 +67,9 @@ bot.catch((msg,err) => {
     console.error(msg, err);
 });
 
-
 server.use(bodyParser.json());
 
 server.post('/', bot.listen);
+server.get('https://bot-antidep.herokuapp.com/', bot.listen);
 
 server.listen(5000);
