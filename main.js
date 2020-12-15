@@ -5,16 +5,30 @@ const { Botact } = require('botact');
 
 const server = express();
 
-const config = require('./src/config.json');
-const bot = new Botact({
-    token: config.VK_TOKEN,
-    confirmation: "8b141534",
-    redis: true,
-    redisConfig: {
-        host: '127.0.0.1',
-        port: 6379
-    }
-});
+var bot;
+if (process.env.VK_TOKEN) {
+    bot = new Botact({
+        token: process.env.VK_TOKEN,
+        confirmation: process.env.CONFIRM_KEY,
+        redis: true,
+        redisConfig: {
+            host: process.env.REDIS_URL,
+            port: process.env.PORT
+        }
+    });
+}
+else {
+    const config = require('./src/config.json');
+    bot = new Botact({
+        token: config.VK_TOKEN,
+        confirmation: config.CONFIRM_KEY,
+        redis: true,
+        redisConfig: {
+            host: '127.0.0.1',
+            port: 6379
+        }
+    });
+}
 
 logStart();
 
@@ -548,6 +562,10 @@ bot.event('group_join', (msg) => {
 });
 
 bot.command('help', (msg) => {
+    msg.sendMessage(msg.user_id, 'Список доступных команд: ' + '\n' +
+    'start – начать взаимодействие с ботом');
+});
+bot.command('Help', (msg) => {
     msg.sendMessage(msg.user_id, 'Список доступных команд: ' + '\n' +
     'start – начать взаимодействие с ботом');
 });
