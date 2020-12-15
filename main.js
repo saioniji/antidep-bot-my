@@ -13,8 +13,8 @@ if (process.env.REDIS_URL) {
         confirmation: process.env.CONFIRM_KEY,
         redis: true,
         redisConfig: {
-            host: '127.0.0.1',
-            port: 6379
+            host: client.host,
+            port: client.port
         }
     });
 }
@@ -32,11 +32,6 @@ else {
 }
 
 logStart();
-
-client.on('error', (err) => {
-    console.log('Redis error: ', err);
-});
-
 
 const keyboard = {
     one_time: true,
