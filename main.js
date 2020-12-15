@@ -6,12 +6,16 @@ const { Botact } = require('botact');
 const server = express();
 
 var bot;
-if (process.env.VK_TOKEN) {
+if (process.env.REDIS_URL) {
+    var client = require('redis').createClient(process.env.REDIS_URL);
     bot = new Botact({
         token: process.env.VK_TOKEN,
         confirmation: process.env.CONFIRM_KEY,
         redis: true,
-        REDIS_URL: process.env.REDIS_URL
+        redisConfig: {
+            host: '127.0.0.1',
+            port: 6379
+        }
     });
 }
 else {
@@ -28,6 +32,11 @@ else {
 }
 
 logStart();
+
+client.on('error', (err) => {
+    console.log('Redis error: ', err);
+});
+
 
 const keyboard = {
     one_time: true,
@@ -129,6 +138,7 @@ var counter_direct = 0;
 var sex;
 
 const { reverseScore, checkDepression, checkAnxiety, checkStress, checkChoice } = require("./src/external");
+const { RedisClient } = require('redis');
 
 
 bot.addScene('depression',
