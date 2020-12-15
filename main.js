@@ -7,12 +7,13 @@ const server = express();
 
 var bot;
 if (process.env.VK_TOKEN) {
+    var client = require('redis').createClient(process.env.REDIS_URL);
     bot = new Botact({
         token: process.env.VK_TOKEN,
         confirmation: process.env.CONFIRM_KEY,
         redis: true,
         redisConfig: {
-            host: process.env.REDIS_URL,
+            host: client,
             port: process.env.PORT
         }
     });
