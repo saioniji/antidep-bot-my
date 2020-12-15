@@ -4,3 +4,4 @@ node_modules
 *-lock.json
 src/config.json
 ngrok
+*.rdb
