@@ -6,15 +6,19 @@ const { Botact } = require('botact');
 const server = express();
 
 var bot;
-if (process.env.REDIS_URL) {
-    var client = require('redis').createClient(process.env.REDIS_URL);
+if (process.env.VK_TOKEN) {
+
+    var url = require('url');
+    var redisURL = url.parse(process.env.REDIS_URL);
+    
     bot = new Botact({
         token: process.env.VK_TOKEN,
         confirmation: process.env.CONFIRM_KEY,
+        RedisClient: client,
         redis: true,
         redisConfig: {
-            host: client.host,
-            port: client.port
+            host: redisURL.host,
+            port: redisURL.port
         }
     });
 }
@@ -617,6 +621,8 @@ server.post('/', bot.listen);
 
 // добавить команду 'call admin' для отправки сигнала мне
 // добавить информационную страницу в браузере приложения
+// добавить базу данных для хранения результатов
+// result: { stress: { score: xx, date: new Date }  }
 
 server.listen(process.env.PORT || 5000, () => console.log('Server is running ... '));
 setInterval(function () { server.get('https://bot-antidep.herokuapp.com/'); }, 300000);
