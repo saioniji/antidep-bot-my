@@ -16,7 +16,7 @@ if (process.env.VK_TOKEN) {
         confirmation: process.env.CONFIRM_KEY,
         redis: true,
         redisConfig: {
-            host: redisURL.host,
+            host: redisURL.hostname,
             port: redisURL.port
         }
     });
