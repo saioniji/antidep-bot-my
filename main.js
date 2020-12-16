@@ -7,18 +7,11 @@ const server = express();
 
 var bot;
 if (process.env.VK_TOKEN) {
-
-    var url = require('url');
-    var redisURL = url.parse(process.env.REDIS_URL);
     
     bot = new Botact({
         token: process.env.VK_TOKEN,
         confirmation: process.env.CONFIRM_KEY,
-        redis: true,
-        redisConfig: {
-            host: redisURL.hostname,
-            port: redisURL.port
-        }
+
     });
 }
 else {
@@ -136,7 +129,6 @@ var counter_direct = 0;
 var sex;
 
 const { reverseScore, checkDepression, checkAnxiety, checkStress, checkChoice } = require("./src/external");
-const { RedisClient } = require('redis');
 
 
 bot.addScene('depression',
@@ -622,6 +614,8 @@ server.post('/', bot.listen);
 // добавить информационную страницу в браузере приложения
 // добавить базу данных для хранения результатов
 // result: { stress: { score: xx, date: new Date }  }
+// пофиксить ошибку в тесте про депрессию в вопросе №6 для женского пола
+// нужно добавить вопрос про пол в начале и сделать 2 варианта вопроса в 6 вопросе
 
 server.listen(process.env.PORT || 5000, () => console.log('Server is running ... '));
 setInterval(function () { server.get('https://bot-antidep.herokuapp.com/'); }, 300000);
