@@ -7,11 +7,19 @@ const server = express();
 
 var bot;
 if (process.env.VK_TOKEN) {
+
+    var url = require('url');
+    var redisURL = url.parse(process.env.REDIS_URL);
+    var redis = createClient(redisURL.port, redisURL.hostname);
     
     bot = new Botact({
         token: process.env.VK_TOKEN,
         confirmation: process.env.CONFIRM_KEY,
-
+        redis: true,
+        redisConfig: {
+            hostname: redis.hostname,
+            port: redis.PORT
+        }
     });
 }
 else {
@@ -129,6 +137,7 @@ var counter_direct = 0;
 var sex;
 
 const { reverseScore, checkDepression, checkAnxiety, checkStress, checkChoice } = require("./src/external");
+const { createClient } = require('http');
 
 
 bot.addScene('depression',
