@@ -14,7 +14,6 @@ if (process.env.VK_TOKEN) {
     bot = new Botact({
         token: process.env.VK_TOKEN,
         confirmation: process.env.CONFIRM_KEY,
-        RedisClient: client,
         redis: true,
         redisConfig: {
             host: redisURL.host,
