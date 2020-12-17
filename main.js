@@ -15,7 +15,7 @@ if (process.env.VK_TOKEN) {
         confirmation: process.env.CONFIRM_KEY,
         redis: true,
         redisConfig: {
-            host: rtg.hostname,
+            host: rtg.host,
             port: rtg.port
         }
     });
