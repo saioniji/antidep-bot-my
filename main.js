@@ -9,6 +9,8 @@ var bot;
 if (process.env.VK_TOKEN) {
 
     var rtg = require("url").parse(process.env.REDIS_URL);
+    var redis = require("redis").createClient(rtg.port, rtg.hostname);
+    redis.auth(rtg.auth.split(":")[1]);
 
     bot = new Botact({
         token: process.env.VK_TOKEN,
