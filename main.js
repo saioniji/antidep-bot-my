@@ -8,13 +8,17 @@ const server = express();
 var bot;
 if (process.env.VK_TOKEN) {
 
+    var rtg   = require("url").parse(process.env.REDISTOGO_URL);
+    var redis = require("redis").createClient(rtg.port, rtg.hostname);
+    redis.auth(rtg.auth.split(":")[1]);
+
     bot = new Botact({
         token: process.env.VK_TOKEN,
         confirmation: process.env.CONFIRM_KEY,
         redis: true,
         redisConfig: {
-            host: process.env.REDISTOGO_URL,
-            port: process.env.PORT
+            host: rtg.hostname,
+            port: rtg.port
         }
     });
 }
