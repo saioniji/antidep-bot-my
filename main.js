@@ -13,6 +13,11 @@ if (process.env.VK_TOKEN) {
     bot = new Botact({
         token: process.env.VK_TOKEN,
         confirmation: process.env.CONFIRM_KEY,
+        redis: true,
+        redisConfig: {
+            host: rtg.hostname,
+            port: rtg.port
+        }
     });
 }
 else {
