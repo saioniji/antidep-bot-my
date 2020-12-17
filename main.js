@@ -9,7 +9,12 @@ var bot;
 if (process.env.VK_TOKEN) {
 
     var rtg = require("url").parse(process.env.REDIS_URL);
-    var redis = require("redis").createClient(rtg.port, rtg.hostname);
+    var redis = require("redis").createClient({
+            host: rtg.hostname,
+            port: rtg.port,
+            no_ready_check: true,
+            auth_pass: rtg.auth
+    });
     redis.auth(rtg.auth.split(":")[1]);
 
     bot = new Botact({
