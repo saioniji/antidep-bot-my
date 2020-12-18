@@ -10,8 +10,8 @@ if (process.env.VK_TOKEN) {
     var redis = require('url').parse(process.env.REDIS_URL);
     var redisAuth = redis.auth.split(':')[1];
     var client = require('redis').createClient(process.env.REDIS_URL, {
-        host: client.options.host,
-        port: client.options.port,
+        host: redis.host,
+        port: redis.port,
         no_ready_check: true,
         auth_pass: redisAuth
     });
