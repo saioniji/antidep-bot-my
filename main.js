@@ -16,7 +16,7 @@ if (process.env.VK_TOKEN) {
         redisConfig: {
             host: redis.hostname,
             port: redis.port,
-            auth_pass: redis.auth
+            auth_pass: redis.auth.split(':')[1]
         }
     });
 }
