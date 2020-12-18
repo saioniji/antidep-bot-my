@@ -12,10 +12,15 @@ if (process.env.VK_TOKEN) {
     server.set('redisHost', client.options.host);
     server.set('redisPort', client.options.port);
     server.set('redisPass', redisAuth);
+
     bot = new Botact({
         token: process.env.VK_TOKEN,
         confirmation: process.env.CONFIRM_KEY,
         redis: true,
+        redisConfig: {
+            host: client.options.host,
+            port: client.options.port
+        }
     });
 }
 else {
