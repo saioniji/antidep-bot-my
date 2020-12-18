@@ -7,8 +7,9 @@ const server = express();
 
 var bot;
 if (process.env.VK_TOKEN) {
-    var client = require('redis').createClient(process.env.REDIS_URL);
-    client.auth_pass.split(':')[1];
+    var client = require('redis').createClient(process.env.REDIS_URL, {
+        no_ready_check: true
+    });
 
     bot = new Botact({
         token: process.env.VK_TOKEN,
