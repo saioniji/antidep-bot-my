@@ -25,6 +25,7 @@
   "homepage": "https://github.com/meeba-nc/bot-antidep#readme",
   "dependencies": {
     "botact": "^2.4.2",
+    "connect-redis": "^5.0.0",
     "es6-promise": "^4.2.8",
     "express": "^4.17.1",
     "html-to-text": "^6.0.0",
