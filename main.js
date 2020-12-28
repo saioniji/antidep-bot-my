@@ -1,17 +1,18 @@
-const { logStart } = require('./src/external');
+const { logStart, formatDate } = require('./src/external');
 const express = require('express');
 const bodyParser = require('body-parser');
-const { Botact } = require('botact');
+const { Botact, getLastMessage } = require('botact');
+const mongoose = require('mongoose');
 
 const server = express();
 
 var bot;
 if (process.env.VK_TOKEN) {
     var redis = require('url').parse(process.env.REDIS_URL);
-    
     bot = new Botact({
         token: process.env.VK_TOKEN,
         confirmation: process.env.CONFIRM_KEY,
+        flowTimeout: 40,
         redis: true,
         redisConfig: {
             host: redis.hostname,
@@ -19,21 +20,36 @@ if (process.env.VK_TOKEN) {
             auth_pass: redis.auth.split(':')[1]
         }
     });
+    mongoose.connect(process.env.DB_URL, {
+		useNewUrlParser: true,
+		useUnifiedTopology: true
+	}).then(() => console.log('MongoDB was connected'))
+	  .catch((err) => console.log(err));
 }
 else {
     const config = require('./src/config.json');
     bot = new Botact({
         token: config.VK_TOKEN,
         confirmation: config.CONFIRM_KEY,
+        flowTimeout: 40,
         redis: true,
         redisConfig: {
             host: '127.0.0.1',
             port: 6379
         }
     });
+    mongoose.connect(config.DB_URL, {
+		useNewUrlParser: true,
+		useUnifiedTopology: true
+	}).then(() => console.log('MongoDB was connected'))
+	  .catch((err) => console.log(err));
 }
 
 logStart();
+const { addUser } = require('./src/repository/UserRepository');
+const { createResult, updateResult } = require('./src/repository/ResultRepository');
+const { addFeedback } = require('./src/repository/FeedbackRepository')
+const { determineSanity } = require('./src/external');
 
 const keyboard = {
     one_time: true,
@@ -86,7 +102,9 @@ const test_keyboard = {
                     label: 'Тревожность'
                 },
                 color: 'primary'
-            },
+            }
+        ],
+        [
             {
                 action: {
                     type: 'text',
@@ -94,6 +112,38 @@ const test_keyboard = {
                         button: 'button5'
                     },
                     label: 'Стресс'
+                },
+                color: 'primary'
+            },
+            {
+                action: {
+                    type: 'text',
+                    payload: {
+                        button: 'button6'
+                    },
+                    label: 'Мотивация'
+                },
+                color: 'primary'
+            }
+        ],
+        [
+            {
+                action: {
+                    type: 'text',
+                    payload: {
+                        button: 'button7'
+                    },
+                    label: 'Выгорание'
+                },
+                color: 'primary'
+            },
+            {
+                action: {
+                    type: 'text',
+                    payload: {
+                        button: 'button8'
+                    },
+                    label: 'Склонность'
                 },
                 color: 'primary'
             }
@@ -129,20 +179,118 @@ const anxiety_keyboard = {
     ]
 };
 
-var counter = 0;
-var counter_reverse = 0; 
-var counter_direct = 0;
-var sex;
+const admin_keyboard = {
+    one_time: true,
+    buttons: [
+        [
+            {
+                action: {
+                    type: 'text',
+                    payload: { 
+                        button: 'button8' 
+                    },
+                    label: 'Пожелания'
+                },
+                color: 'primary'
+            },
+            {
+                action: {
+                    type: 'text',
+                    payload: {
+                        button: 'button9'
+                    },
+                    label: 'Пользователи'
+                },
+                color: 'primary'
+            }  
+        ]
+    ]
+};
 
-const { reverseScore, checkDepression, checkAnxiety, checkStress, checkChoice } = require("./src/external");
-const { createClient } = require('http');
+const contacts_keyboard = {
+    one_time: true,
+    buttons: [
+        [
+            {
+                action: {
+                    type: 'text',
+                    payload: { 
+                        button: 'button10' 
+                    },
+                    label: 'Татьяна Чапала'
+                },
+                color: 'primary'
+            },
+            {
+                action: {
+                    type: 'text',
+                    payload: {
+                        button: 'button11'
+                    },
+                    label: 'Мария Илич'
+                },
+                color: 'primary'
+            }  
+        ],
+        [
+            {
+                action: {
+                    type: 'text',
+                    payload: { 
+                        button: 'button12' 
+                    },
+                    label: 'Юлия Петрова'
+                },
+                color: 'primary'
+            },
+            {
+                action: {
+                    type: 'text',
+                    payload: {
+                        button: 'button13'
+                    },
+                    label: 'Оксана Зотова'
+                },
+                color: 'primary'
+            }  
+        ],
+        [
+            {
+                action: {
+                    type: 'text',
+                    payload: { 
+                        button: 'button14' 
+                    },
+                    label: 'Алина Гельметдинова'
+                },
+                color: 'primary'
+            }
+        ]
+    ]
+};
 
+var counter = 0, counter_direct = 0, counter_reverse = 0;
+var sex, userId, exhaustion = 0, depersonalization = 0, reduction = 0;
+var arr = [], feedback_records =[];
+
+const { reverseScore, checkDepression, checkAnxiety, checkStress, checkChoice, checkMotiv } = require("./src/external");
+const { checkExhaustion, checkDepersonalization, checkReduction, checkInclination } = require("./src/external");
+const { determineInclination } = require('./src/external');
+
+const contacts = [
+    ['Татьяна Владимировна Чапала' + '\n' + '89371837900'],
+    ['Мария Илич' + '\n' + 'https://vk.com/mariailich'],
+    ['Юлия Петрова' + '\n' + 'https://vk.com/id6037251'],
+    ['Оксана Зотова' + '\n' + 'https://vk.com/id128316097'],
+    ['Алина Гельметдинова' + '\n' + 'https://vk.com/id73431394']
+]
 
 bot.addScene('depression',
     ({ reply, scene: { next } }) => {
         next();
-        reply('Прочитайте внимательно каждый вопрос, долго не задумывайтесь, ' +
-              'поскольку правильных или неправильных ответов нет.');
+        reply('Вы выбрали тест для определения уровня депрессии')
+        reply('В тесте 20 вопросов. Не торопитесь отвечать на вопросы и не забывайте, ' +
+            'что в тесте нет правильных ответов')
         reply('В каждом вопросе введите число от 1 до 4, где:' + '\n' +
               '1 – Никогда или изредка' + '\n' +
               '2 – Иногда' + '\n' + 
@@ -249,8 +397,10 @@ bot.addScene('depression',
         leave();
         counter += reverseScore(parseInt(body));
         var choice = checkDepression(counter);
+        var sanity = determineSanity('depression', choice);
         reply('Вы набрали: ' + counter);
         reply(checkChoice(1, choice));
+        updateResult(userId, 'depression', counter, sanity);
         counter = 0;
     }
 );
@@ -258,8 +408,9 @@ bot.addScene('depression',
 bot.addScene('anxiety1',
     ({ reply, scene: { next } }) => {
         next();
-        reply('Внимательно читайте вопросы и долго' +
-              'не задумывайтесь, поскольку правильных или неправильных ответов нет.');
+        reply('Вы выбрали тест для анализа ситуативной тревожности')
+        reply('В тесте 20 вопросов. Не торопитесь отвечать на вопросы и не забывайте, ' +
+            'что в тесте нет правильных ответов')
         reply('В каждом вопросе введите число от 1 до 4, где:' + '\n' +
               '1 – Нет, это не так' + '\n' +
               '2 – Пожалуй так' + '\n' + 
@@ -368,8 +519,10 @@ bot.addScene('anxiety1',
         counter_reverse += reverseScore(parseInt(body));
         var result = counter_direct - counter_reverse + 50;
         var choice = checkAnxiety(result);
+        var sanity = determineSanity('anxiety1', choice);
         reply('Вы набрали: ' + result);
         reply(checkChoice(2, choice));
+        updateResult(userId, 'anxiety1', result, sanity);
         counter = 0;
     }
 );
@@ -377,8 +530,9 @@ bot.addScene('anxiety1',
 bot.addScene('anxiety2',
     ({ reply, scene: { next } }) => {
         next();
-        reply('Внимательно читайте вопросы и долго ' +
-              'не задумывайтесь, поскольку правильных или неправильных ответов нет.');
+        reply('Вы выбрали тест для анализа личностной тревожности')
+        reply('В тесте 20 вопросов. Не торопитесь отвечать на вопросы и не забывайте, ' +
+            'что в тесте нет правильных ответов')
         reply('В каждом вопросе введите число от 1 до 4, где:' + '\n' +
               '1 – Нет, это не так' + '\n' +
               '2 – Пожалуй так' + '\n' + 
@@ -491,8 +645,10 @@ bot.addScene('anxiety2',
         counter_direct += parseInt(body);
         var result = counter_direct - counter_reverse + 35;
         var choice = checkAnxiety(result);
+        var sanity = determineSanity('anxiety2', choice);
         reply('Вы набрали: ' + result);
         reply(checkChoice(3, choice));
+        updateResult(userId, 'anxiety2', result, sanity);
         counter = 0;
     }
 );
@@ -500,13 +656,15 @@ bot.addScene('anxiety2',
 bot.addScene('stress',
     ({ reply, scene: { next } }) => {
         next();
-        reply('Над вопросами долго не задумывайтесь, поскольку правильных или неправильных ответов нет.');
+        reply('Вы выбрали тест на проверку уровня психологического стресса')
+        reply('В тесте 7 вопросов. Не торопитесь отвечать на вопросы и не забывайте, ' +
+            'что в тесте нет правильных ответов')
         reply('В каждом вопросе введите число от 1 до 4, где:' + '\n' +
               '1 – Да, согласен' + '\n' +
               '2 – Скорее, согласен' + '\n' + 
               '3 – Скорее, не согласен' + '\n' + 
               '4 - Нет, не согласен');
-        reply('Укажите свой пол:' + '\n' + 
+        reply('Перед началом тестирования, укажите свой пол:' + '\n' + 
               'Если вы мужчина, введите 1' + '\n' +
               'Если вы женщина, введите 2');
     },
@@ -550,9 +708,606 @@ bot.addScene('stress',
         counter += parseInt(body);
         var result = (counter/7).toFixed(2);
         var choice = checkStress(sex, result);
+        var sanity = determineSanity('stress', choice);
         reply('Вы набрали: ' + result);
         reply(checkChoice(4, choice));
         counter = 0;
+        updateResult(userId, 'stress', result, sanity);
+    }
+);
+
+bot.addScene('motivation', 
+    ({ reply, scene: { next } }) => {
+        next();
+        reply('Вы выбрали тест для диагностики вашей личности на мотивацию к успеху')
+        reply('В тесте 41 вопрос. Не торопитесь отвечать на вопросы и не забывайте, ' +
+            'что в тесте нет правильных ответов')
+        reply('Отвечайте на вопросы по следующей форме:' + '\n' +
+            '1 - Согласен' + '\n' +
+            '2 - Не согласен');
+        reply('Вопрос №1:' + '\n' + 'Когда имеется выбор между двумя вариантами, ' + 
+        'его лучше сделать быстрее, чем отложить на определенное время.');
+    },
+    ({ reply, body, scene: { next } }) => {
+        next();
+        reply('Вопрос №2:' + '\n' + 'Я легко раздражаюсь, когда замечаю, ' + 
+            'что не могу на все 100% выполнить задание.');
+    },
+    ({ reply, body, scene: { next } }) => {
+        next();
+        reply('Вопрос №3:' + '\n' + 'Когда я работаю, это выглядит так, ' +
+            'будто я все ставлю на карту.');
+        if (body == '1') { counter += parseInt(body); };
+    },
+    ({ reply, body, scene: { next } }) => {
+        next();
+        reply('Вопрос №4:' + '\n' + 'Когда возникает проблемная ситуация, ' +
+            'я чаще всего принимаю решение одним из последних.');
+        if (body == '1') { counter += parseInt(body); };
+    },
+    ({ reply, body, scene: { next } }) => {
+        next();
+        reply('Вопрос №5:' + '\n' + 'Когда у меня два дня подряд нет дела, я теряю покой.');
+        if (body == '1') { counter += parseInt(body); };
+    },
+    ({ reply, body, scene: { next } }) => {
+        next();
+        reply('Вопрос №6:' + '\n' + 'В некоторые дни мои успехи ниже средних.');
+        if (body == '1') { counter += parseInt(body); };
+    },
+    ({ reply, body, scene: { next } }) => {
+        next();
+        reply('Вопрос №7:' + '\n' + 'По отношению к себе я более строг, чем по отношению к другим.');
+        if (body == '2') { counter += parseInt(body); };
+    },
+    ({ reply, body, scene: { next } }) => {
+        next();
+        reply('Вопрос №8:' + '\n' + 'Я более доброжелателен, чем другие.');
+        if (body == '1') { counter += parseInt(body); };  
+    },
+    ({ reply, body, scene: { next } }) => {
+        next();
+        reply('Вопрос №9:' + '\n' + 'Когда я отказываюсь от трудного задания, ' +
+        'я потом сурово осуждаю себя, так как знаю, что в нем я добился бы успеха.');
+        if (body == '1') { counter += parseInt(body); };
+    },
+    ({ reply, body, scene: { next } }) => {
+        next();
+        reply('Вопрос №10:' + '\n' + 'В процессе работы я нуждаюсь в небольших паузах для отдыха.');
+        if (body == '1') { counter += parseInt(body); };    
+    },
+    ({ reply, body, scene: { next } }) => {
+        next();
+        reply('Вопрос №11:' + '\n' + 'Усердие – это не основная моя черта.');
+        if (body == '1') { counter += parseInt(body); };    
+    },
+    ({ reply, body, scene: { next } }) => {
+        next();
+        reply('Вопрос №12:' + '\n' + 'Мои достижения в труде не всегда одинаковы.');
+    },
+    ({ reply, body, scene: { next } }) => {
+        next();
+        reply('Вопрос №13:' + '\n' + 'Меня больше привлекает другая работа, ' +
+            'чем та, которой я занят.');
+    },
+    ({ reply, body, scene: { next } }) => {
+        next();
+        reply('Вопрос №14:' + '\n' + 'Порицание стимулирует меня сильнее, чем похвала.');
+    },
+    ({ reply, body, scene: { next } }) => {
+        next();
+        reply('Вопрос №15:' + '\n' + 'Я знаю, что мои коллеги считают меня дельным человеком.');
+        if (body == '1') { counter += parseInt(body); };    
+    },
+    ({ reply, body, scene: { next } }) => {
+        next();
+        reply('Вопрос №16:' + '\n' + 'Препятствия делают мои решения более твердыми.');
+        if (body == '1') { counter += parseInt(body); };    
+    },
+    ({ reply, body, scene: { next } }) => {
+        next();
+        reply('Вопрос №17:' + '\n' + 'У меня легко вызвать честолюбие.');
+        if (body == '1') { counter += parseInt(body); };    
+    },
+    ({ reply, body, scene: { next } }) => {
+        next();
+        reply('Вопрос №18:' + '\n' + 'Когда я работаю без вдохновения, это обычно заметно.');
+        if (body == '1') { counter += parseInt(body); };    
+    },
+    ({ reply, body, scene: { next } }) => {
+        next();
+        reply('Вопрос №19:' + '\n' + 'При выполнении работы я не рассчитываю на помощь других.');
+        if (body == '2') { counter += parseInt(body); };
+    },
+    ({ reply, body, scene: { next } }) => {
+        next();
+        reply('Вопрос №20:' + '\n' + 'Иногда я откладываю то, что должен был сделать сейчас.');
+        if (body == '2') { counter += parseInt(body); };
+    },
+    ({ reply, body, scene: { next } }) => {
+        next();
+        reply('Вопрос №21:' + '\n' + 'Нужно полагаться только на самого себя.');
+        if (body == '2') { counter += parseInt(body); };
+    },
+    ({ reply, body, scene: { next } }) => {
+        next();
+        reply('Вопрос №22:' + '\n' + 'В жизни мало вещей, более важных, чем деньги.');
+        if (body == '1') { counter += parseInt(body); };    
+    },
+    ({ reply, body, scene: { next } }) => {
+        next();
+        reply('Вопрос №23:' + '\n' + 'Всегда, когда мне предстоит выполнить ' +
+            'важное задание, я ни о чем другом не думаю.');
+        if (body == '1') { counter += parseInt(body); };    
+    },
+    ({ reply, body, scene: { next } }) => {
+        next();
+        reply('Вопрос №24:' + '\n' + 'Я менее честолюбив, чем многие другие.');
+    },
+    ({ reply, body, scene: { next } }) => {
+        next();
+        reply('Вопрос №25:' + '\n' + 'В конце отпуска я обычно радуюсь, что скоро выйду на работу.');
+        if (body == '2') { counter += parseInt(body); };
+    },
+    ({ reply, body, scene: { next } }) => {
+        next();
+        reply('Вопрос №26:' + '\n' + 'Когда я расположен к работе, ' + 
+            'я делаю ее лучше и квалифицированнее, чем другие.');
+        if (body == '1') { counter += parseInt(body); };    
+    },
+    ({ reply, body, scene: { next } }) => {
+        next();
+        reply('Вопрос №27:' + '\n' + 'Мне проще и легче общаться с людьми, ' +
+            'которые могут упорно работать.');
+        if (body == '1') { counter += parseInt(body); };    
+    },
+    ({ reply, body, scene: { next } }) => {
+        next();
+        reply('Вопрос №28:' + '\n' + 'Когда у меня нет дел, я чувствую, что мне не по себе.');
+        if (body == '1') { counter += parseInt(body); };    
+    },
+    ({ reply, body, scene: { next } }) => {
+        next();
+        reply('Вопрос №29:' + '\n' + 'Мне приходится выполнять ответственную ' +
+            'работу чаще, чем другим.');
+        if (body == '1') { counter += parseInt(body); };    
+    },
+    ({ reply, body, scene: { next } }) => {
+        next();
+        reply('Вопрос №30:' + '\n' + 'Когда мне приходится принимать решение, ' +
+            'я стараюсь делать это как можно лучше.');
+        if (body == '1') { counter += parseInt(body); };    
+    },
+    ({ reply, body, scene: { next } }) => {
+        next();
+        reply('Вопрос №31:' + '\n' + 'Мои друзья иногда считают меня ленивым.');
+        if (body == '1') { counter += parseInt(body); };    
+    },
+    ({ reply, body, scene: { next } }) => {
+        next();
+        reply('Вопрос №32:' + '\n' + 'Мои успехи в какой-то мере зависят от моих коллег.');
+        if (body == '2') { counter += parseInt(body); };
+    },
+    ({ reply, body, scene: { next } }) => {
+        next();
+        reply('Вопрос №33:' + '\n' + 'Бессмысленно противодействовать воле руководителя.');
+        if (body == '1') { counter += parseInt(body); };    
+    },
+    ({ reply, body, scene: { next } }) => {
+        next();
+        reply('Вопрос №34:' + '\n' + 'Иногда не знаешь, какую работу придется выполнять.');
+    },
+    ({ reply, body, scene: { next } }) => {
+        next();
+        reply('Вопрос №35:' + '\n' + 'Когда что-то не ладиться, я нетерпелив.');
+    },
+    ({ reply, body, scene: { next } }) => {
+        next();
+        reply('Вопрос №36:' + '\n' + 'Я обычно обращаю мало внимания на свои достижения.');
+    },
+    ({ reply, body, scene: { next } }) => {
+        next();
+        reply('Вопрос №37:' + '\n' + 'Когда я работаю вместе с другими, ' +
+            'моя работа дает большие результаты, чем работы других.');
+        if (body == '2') { counter += parseInt(body); };
+    },
+    ({ reply, body, scene: { next } }) => {
+        next();
+        reply('Вопрос №38:' + '\n' + 'Многое, за что я берусь, я не довожу до конца.');
+        if (body == '1') { counter += parseInt(body); };    
+    },
+    ({ reply, body, scene: { next } }) => {
+        next();
+        reply('Вопрос №39:' + '\n' + 'Я завидую людям, которые но загружены работой.');
+        if (body == '2') { counter += parseInt(body); };
+    },
+    ({ reply, body, scene: { next } }) => {
+        next();
+        reply('Вопрос №40:' + '\n' + 'Я не завидую тем, кто стремится к власти и положению.');
+        if (body == '2') { counter += parseInt(body); };
+    },
+    ({ reply, body, scene: { next } }) => {
+        next();
+        reply('Вопрос №41:' + '\n' + 'Когда я уверен, что стою на правильном пути, ' +
+            'для доказательства своей правоты я иду вплоть до крайних мер.');
+    },
+    ({ reply, body, scene: { leave } }) => {
+        leave();
+        if (body == '1') { counter += parseInt(body); };
+        var choice = checkMotiv(counter);
+        var sanity = determineSanity('motivation', choice);
+        reply('Вы набрали: ' + counter);
+        reply(checkChoice(5, choice));
+        updateResult(userId, 'motivation', counter, sanity);
+        counter = 0;
+    }
+);
+
+bot.addScene('burnout', 
+    ({ reply, scene: { next } }) => {
+        next();
+        reply('Вы выбрали тест на проверку признаков профессионального выгорания')
+        reply('В тесте 22 вопроса. Не торопитесь отвечать на вопросы и не забывайте, ' +
+            'что в тесте нет правильных ответов')
+        reply('Введите ответ, соответствующий частоте ваших мыслей и переживаний:' + '\n' +
+            '0 - никогда' + '\n' +
+            '1 - очень редко' + '\n' +
+            '2 - редко' + '\n' +
+            '3 - иногда' + '\n' +
+            '4 - часто' + '\n' +
+            '5 - очень часто' + '\n' +
+            '6 - каждый день');
+        reply('Вопрос №1:' + '\n' + 'Я чувствую себя эмоционально опустошенным.');
+    },
+    ({ reply, body, scene: { next } }) => {
+        next();
+        reply('Вопрос №2:' + '\n' + 'После работы я чувствую себя, как «выжатый лимон».');
+        exhaustion += parseInt(body);
+    },
+    ({ reply, body, scene: { next } }) => {
+        next();
+        reply('Вопрос №3:' + '\n' + 'Утром я чувствую усталость и нежелание идти на работу.');
+        exhaustion += parseInt(body);
+    },
+    ({ reply, body, scene: { next } }) => {
+        next();
+        reply('Вопрос №4:' + '\n' + 'Я хорошо понимаю, что чувствуют мои ' + 
+            'подчинённые и коллеги, и стараюсь учитывать это в интересах дела.');
+        exhaustion += parseInt(body);
+    },
+    ({ reply, body, scene: { next } }) => {
+        next();
+        reply('Вопрос №5:' + '\n' + 'Я чувствую, что общаюсь с некоторыми ' + 
+            'подчинёнными и коллегами как с предметами (без теплоты и расположения к ним).');
+        reduction += parseInt(body);
+    },
+    ({ reply, body, scene: { next } }) => {
+        next();
+        reply('Вопрос №6:' + '\n' + 'После работы на некоторое время хочется уединиться от всех и всего.');
+        depersonalization += parseInt(body);
+    },
+    ({ reply, body, scene: { next } }) => {
+        next();
+        reply('Вопрос №7:' + '\n' + 'Я умею находить правильное решение ' + 
+            'в конфликтных ситуациях, возникающих при общении с коллегами.');
+        exhaustion += parseInt(body);
+    },
+    ({ reply, body, scene: { next } }) => {
+        next();
+        reply('Вопрос №8:' + '\n' + 'Я чувствую угнетённость и апатию.');
+        reduction += parseInt(body);
+    },
+    ({ reply, body, scene: { next } }) => {
+        next();
+        reply('Вопрос №9:' + '\n' + 'Я уверен, что моя работа нужна людям.');
+        exhaustion += parseInt(body);
+    },
+    ({ reply, body, scene: { next } }) => {
+        next();
+        reply('Вопрос №10:' + '\n' + 'В последнее время я стал более «чёрствым» ' +
+            'по отношению к тем, с кем работаю.');
+        reduction += parseInt(body);
+    },
+    ({ reply, body, scene: { next } }) => {
+        next();
+        reply('Вопрос №11:' + '\n' + 'Я замечаю, что моя работа ожесточает меня.');
+        depersonalization += parseInt(body);
+    },
+    ({ reply, body, scene: { next } }) => {
+        next();
+        reply('Вопрос №12:' + '\n' + 'У меня много планов на будущее, и я верю в их осуществление.');
+        depersonalization += parseInt(body);
+    },
+    ({ reply, body, scene: { next } }) => {
+        next();
+        reply('Вопрос №13:' + '\n' + 'Моя работа всё больше меня разочаровывает.');
+        reduction += parseInt(body);
+    },
+    ({ reply, body, scene: { next } }) => {
+        next();
+        reply('Вопрос №14:' + '\n' + 'Мне кажется, что я слишком много работаю.');
+        exhaustion += parseInt(body);
+    },
+    ({ reply, body, scene: { next } }) => {
+        next();
+        reply('Вопрос №15:' + '\n' + 'Бывает, что мне действительно безразлично то, ' + 
+            'что происходит с некоторыми моими подчиненными и коллегами.');
+        exhaustion += parseInt(body);
+    },
+    ({ reply, body, scene: { next } }) => {
+        next();
+        reply('Вопрос №16:' + '\n' + 'Мне хочется уединиться и отдохнуть от всего и всех.');
+        depersonalization += parseInt(body);
+    },
+    ({ reply, body, scene: { next } }) => {
+        next();
+        reply('Вопрос №17:' + '\n' + 'Я легко могу создать атмосферу доброжелательности и ' +
+            'сотрудничества в коллективе.');
+        exhaustion += parseInt(body);
+    },
+    ({ reply, body, scene: { next } }) => {
+        next();
+        reply('Вопрос №18:' + '\n' + 'Во время работы я чувствую приятное оживление.');
+        reduction += parseInt(body);
+    },
+    ({ reply, body, scene: { next } }) => {
+        next();
+        reply('Вопрос №19:' + '\n' + 'Благодаря своей работе я уже сделал в жизни много ' +
+            'действительно ценного.');
+        reduction += parseInt(body);
+    },
+    ({ reply, body, scene: { next } }) => {
+        next();
+        reply('Вопрос №20:' + '\n' + 'Я чувствую равнодушие и потерю интереса ко многому, ' +
+            'что радовало меня в моей работе.');
+        reduction += parseInt(body);
+    },
+    ({ reply, body, scene: { next } }) => {
+        next();
+        reply('Вопрос №21:' + '\n' + 'На работе я спокойно справляюсь с эмоциональными проблемами.');
+        exhaustion += parseInt(body);
+    },
+    ({ reply, body, scene: { next } }) => {
+        next();
+        reply('Вопрос №22:' + '\n' + 'В последнее время мне кажется, что коллеги и подчинённые ' +
+        'всё чаще перекладывают на меня груз своих проблем и обязанностей.');
+        reduction += parseInt(body);
+    },
+    ({ reply, body, scene: { leave } }) => {
+        leave();
+        depersonalization += parseInt(body);
+        var total_burnout = exhaustion + depersonalization + reduction;
+        reply('Эмоциональное истощение:' + '\n' + checkChoice(6, checkExhaustion(exhaustion)));
+        reply('Деперсонализация:' + '\n' + checkChoice(7, checkDepersonalization(depersonalization)));
+        reply('Редукция личных достижений:' + '\n' + checkChoice(8, checkReduction(reduction)));
+        reply('Общая тяжесть выгорания: ' + total_burnout);
+        updateResult(userId, 'burnout', total_burnout, null);
+        exhaustion = 0;
+        depersonalization = 0;
+        reduction = 0;
+    }
+);
+
+bot.addScene('inclination', 
+    ({ reply, scene: { next } }) => {
+        next();
+        reply('Вы выбрали тест для определения профессиональных склонностей')
+        reply('В тесте 24 вопроса. Не торопитесь отвечать на вопросы и не забывайте, ' +
+            'что в тесте нет правильных ответов')
+        reply('Внимательно читайте вопросы и выберете число, соответствующее вашему варианту ответа' + '\n' +
+            'В каждом вопросе будет по 3 варианта ответа. Введите 1, 2 или 3.');
+        reply('Вопрос №1:' + '\n' + 'Мне хотелось бы в своей профессиональной деятельности:' + '\n' +
+            '1) Общаться с самыми разными людьми' + '\n' +
+            '2) Cнимать фильмы, писать книги, рисовать, выступать на сцене и т.д.' + '\n' +
+            '3) Заниматься расчетами, вести документацию.');
+    },
+    ({ reply, body, scene: { next } }) => {
+        next();
+        reply('Вопрос №2:' + '\n' + 'В книге или кинофильме меня больше всего привлекает:' + '\n' +
+            '1) Bозможность следить за ходом мыслей автора' + '\n' +
+            '2) Художественная форма, мастерство писателя или режиссера' + '\n' +
+            '3) Сюжет, действия героев.');
+        arr[0] = parseInt(body);
+    },
+    ({ reply, body, scene: { next } }) => {
+        next();
+        reply('Вопрос №3:' + '\n' + 'Меня больше обрадует Нобелевская премия:' + '\n' +
+            '1) За общественную деятельность' + '\n' +
+            '2) В области науки' + '\n' +
+            '3) В области искусства');
+        arr[1] = parseInt(body);
+    },
+    ({ reply, body, scene: { next } }) => {
+        next();
+        reply('Вопрос №4:' + '\n' + 'Я скорее соглашусь стать:' + '\n' +
+            '1) Главным механиком' + '\n' +
+            '2) Начальником экспедиции' + '\n' +
+            '3) Главным бухгалтером');
+        arr[2] = parseInt(body);
+    },
+    ({ reply, body, scene: { next } }) => {
+        next();
+        reply('Вопрос №5:' + '\n' + 'Будущее людей определяют:' + '\n' +
+            '1) Взаимопонимание между людьми' + '\n' +
+            '2) Научные открытия' + '\n' +
+            '3) Развитие производства');
+        arr[3] = parseInt(body);
+    },
+    ({ reply, body, scene: { next } }) => {
+        next();
+        reply('Вопрос №6:' + '\n' + 'Если я стану руководителем, то в первую очередь займусь:' + '\n' +
+            '1) Созданием дружного, сплоченного коллектива' + '\n' +
+            '2) Разработкой новых технологий обучения' + '\n' +
+            '3) Работой с документами');
+        arr[4] = parseInt(body);
+    },
+    ({ reply, body, scene: { next } }) => {
+        next();
+        reply('Вопрос №7:' + '\n' + 'На технической выставке меня больше привлечет:' + '\n' +
+            '1) Внутреннее устройство экспонатов' + '\n' +
+            '2) Их практическое применение' + '\n' +
+            '3) Внешний вид экспонатов (цвет, форма)');
+        arr[5] = parseInt(body);
+    },
+    ({ reply, body, scene: { next } }) => {
+        next();
+        reply('Вопрос №8:' + '\n' + 'В людях я ценю, прежде всего:' + '\n' +
+            '1) Дружелюбие и отзывчивость' + '\n' +
+            '2) Смелость и выносливость' + '\n' +
+            '3) Обязательность и аккуратность');
+        arr[6] = parseInt(body);
+    },
+    ({ reply, body, scene: { next } }) => {
+        next();
+        reply('Вопрос №9:' + '\n' + 'В свободное время мне хотелось бы:' + '\n' +
+            '1) Ставить различные опыты, эксперименты' + '\n' +
+            '2) Писать стихи, сочинять музыку или рисовать' + '\n' +
+            '3) Тренироваться');
+        arr[7] = parseInt(body);
+    },
+    ({ reply, body, scene: { next } }) => {
+        next();
+        reply('Вопрос №10:' + '\n' + 'В заграничных поездках меня скорее заинтересует:' + '\n' +
+            '1) Возможность знакомства с историей и культурой другой страны' + '\n' +
+            '2) Экстремальный туризм (альпинизм, виндсерфинг, горные лыжи)' + '\n' +
+            '3) Деловое общение');
+        arr[8] = parseInt(body);
+    },
+    ({ reply, body, scene: { next } }) => {
+        next();
+        reply('Вопрос №11:' + '\n' + 'Мне интереснее беседовать о:' + '\n' +
+            '1) Человеческих взаимоотношениях' + '\n' +
+            '2) Новой научной гипотезе' + '\n' +
+            '3) Технических характеристиках новой модели машины, компьютера');
+        arr[9] = parseInt(body);
+    },
+    ({ reply, body, scene: { next } }) => {
+        next();
+        reply('Вопрос №12:' + '\n' + 'Если бы в моей школе было всего три кружка, я бы выбрал(а):' + '\n' +
+            '1) Технический' + '\n' +
+            '2) Музыкальный' + '\n' +
+            '3) Спортивный');
+        arr[10] = parseInt(body);
+    },
+    ({ reply, body, scene: { next } }) => {
+        next();
+        reply('Вопрос №13:' + '\n' + 'В школе следует обратить особое внимание на:' + '\n' +
+            '1) Улучшение взаимопонимания между учителями и учениками' + '\n' +
+            '2) Поддержание здоровья учащихся, занятия спортом' + '\n' +
+            '3) Укрепление дисциплины');
+        arr[11] = parseInt(body);
+    },
+    ({ reply, body, scene: { next } }) => {
+        next();
+        reply('Вопрос №14:' + '\n' + 'Я с большим удовольствием смотрю:' + '\n' +
+            '1) Научно-популярные фильмы' + '\n' +
+            '2) Программы о культуре и искусстве' + '\n' +
+            '3) Спортивные программы');
+        arr[12] = parseInt(body);
+    },
+    ({ reply, body, scene: { next } }) => {
+        next();
+        reply('Вопрос №15:' + '\n' + 'Мне хотелось бы работать:' + '\n' +
+            '1) С детьми или сверстниками' + '\n' +
+            '2) С машинами, механизмами' + '\n' +
+            '3) С объектами природы');
+        arr[13] = parseInt(body);
+    },
+    ({ reply, body, scene: { next } }) => {
+        next();
+        reply('Вопрос №16:' + '\n' + 'Школа в первую очередь должна:' + '\n' +
+            '1) Учить общению с другими людьми' + '\n' +
+            '2) Давать знания' + '\n' +
+            '3) Обучать навыкам работы');
+        arr[14] = parseInt(body);
+    },
+    ({ reply, body, scene: { next } }) => {
+        next();
+        reply('Вопрос №17:' + '\n' + 'Главное в жизни:' + '\n' +
+            '1) Иметь возможность заниматься творчеством' + '\n' +
+            '2) Вести здоровый образ жизни' + '\n' +
+            '3) Тщательно планировать свои дела');
+        arr[15] = parseInt(body);
+    },
+    ({ reply, body, scene: { next } }) => {
+        next();
+        reply('Вопрос №18:' + '\n' + 'Государство должно в первую очередь заботиться о:' + '\n' +
+            '1) Защите интересов и прав граждан' + '\n' +
+            '2) Достижениях в области науки и техники' + '\n' +
+            '3) Материальном благополучии граждан');
+        arr[16] = parseInt(body);
+    },
+    ({ reply, body, scene: { next } }) => {
+        next();
+        reply('Вопрос №19:' + '\n' + 'Мне больше всего нравятся уроки:' + '\n' +
+            '1) Труда' + '\n' +
+            '2) Физкультуры' + '\n' +
+            '3) Математики');
+        arr[17] = parseInt(body);
+    },
+    ({ reply, body, scene: { next } }) => {
+        next();
+        reply('Вопрос №20:' + '\n' + 'Мне интереснее было бы:' + '\n' +
+            '1) Заниматься сбытом товаров' + '\n' +
+            '2) Изготавливать изделия' + '\n' +
+            '3) Планировать производство товаров');
+        arr[18] = parseInt(body);
+    },
+    ({ reply, body, scene: { next } }) => {
+        next();
+        reply('Вопрос №21:' + '\n' + 'Я предпочитаю читать статьи о:' + '\n' +
+            '1) Выдающихся ученых и их открытиях' + '\n' +
+            '2) Интересных изобретениях' + '\n' +
+            '3) Жизни и творчестве писателей, художников, музыкантов');
+        arr[19] = parseInt(body);
+    },
+    ({ reply, body, scene: { next } }) => {
+        next();
+        reply('Вопрос №22:' + '\n' + 'В свободное время я люблю:' + '\n' +
+            '1) Читать, думать, рассуждать' + '\n' +
+            '2) Что-нибудь мастерить, шить, ухаживать за животными, растениями' + '\n' +
+            '3) Ходить на выставки, концерты, в музеи');
+        arr[20] = parseInt(body);
+    },
+    ({ reply, body, scene: { next } }) => {
+        next();
+        reply('Вопрос №23:' + '\n' + 'Больший интерес у меня вызовет сообщение о:' + '\n' +
+            '1) Научном открытии' + '\n' +
+            '2) Художественной выставке' + '\n' +
+            '3) Экономической ситуации');
+        arr[21] = parseInt(body);
+    },
+    ({ reply, body, scene: { next } }) => {
+        next();
+        reply('Вопрос №24:' + '\n' + 'Я предпочту работать:' + '\n' +
+            '1) В помещении, где много людей' + '\n' +
+            '2) В необычных условиях' + '\n' +
+            '3) В обычном кабинете');
+        arr[22] = parseInt(body);
+    },
+    ({ reply, body, scene: { leave } }) => {
+        leave();
+        arr[23] = parseInt(body);
+        var arr_res = checkInclination(...arr);
+        var max = Math.max(...arr_res);
+        var inclinations = determineInclination(max, ...arr_res);
+        updateResult(userId, 'inclination', max, null);
+        reply('Ваш результат:');
+        reply(inclinations);
+        arr = [];
+    }
+);
+
+bot.addScene('feedback',
+    ({ reply, scene: { next } }) => {
+        next();
+        reply('Оставьте свое сообщение с пожеланием об исправлении ошибки или ' +
+        'добавлении новой функции в программе:');
+    },
+    ({ reply, body, scene: { leave } }) => {
+        leave();
+        addFeedback(userId, body);
+        reply('Спасибо, мы вас услышали!');
     }
 );
 
@@ -560,6 +1315,10 @@ bot.command('Депрессия', ({ scene: { join } }) => join('depression'));
 bot.command('Реактивная', ({ scene: { join } }) => join('anxiety1'));
 bot.command('Личностная', ({ scene: { join } }) => join('anxiety2'));
 bot.command('Стресс', ({ scene: { join } }) => join('stress'));
+bot.command('Мотивация', ({ scene: { join } }) => join('motivation'));
+bot.command('Выгорание', ({ scene: { join } }) => join('burnout'));
+bot.command('Склонность', ({ scene: { join } }) => join('inclination'));
+bot.command('feedback', ({ scene: { join } }) => join('feedback'));
 
 bot.event('group_join', (msg) => {
     msg.reply('Спасибо, что стали пользователем нашего бота. Мы постараемся вам помочь!');
@@ -567,24 +1326,24 @@ bot.event('group_join', (msg) => {
 
 bot.command('help', (msg) => {
     msg.sendMessage(msg.user_id, 'Список доступных команд: ' + '\n' +
-    'start – начать взаимодействие с ботом');
-});
-bot.command('Help', (msg) => {
-    msg.sendMessage(msg.user_id, 'Список доступных команд: ' + '\n' +
-    'start – начать взаимодействие с ботом');
+    'start – начать взаимодействие с ботом' + '\n' +
+    'feedback – оставить пожелание для модификации' + '\n' +
+    'contacts – список контактов специалистов');
 });
 
 bot.command('start', (msg) => {
     msg.reply('Здравствуйте, вы бы хотели пройти тестирование или связаться со специалистом?', null, keyboard);
+    userId = msg.user_id;
+    addUser(userId);
+    createResult(userId);
 });
-bot.command('Start', (msg) => {
-    msg.reply('Здравствуйте, вы бы хотели пройти тестирование или связаться со специалистом?', null, keyboard);
+
+bot.command('admin', (msg) => {
+    msg.reply('Приветствуем вас в админ панеле:', null, admin_keyboard);
 });
-bot.command('Старт', (msg) => {
-    msg.reply('Здравствуйте, вы бы хотели пройти тестирование или связаться со специалистом?', null, keyboard);
-});
-bot.command('старт', (msg) => {
-    msg.reply('Здравствуйте, вы бы хотели пройти тестирование или связаться со специалистом?', null, keyboard);
+
+bot.command('contacts', (msg) => {
+    msg.reply('Список контактов доступных специалистов:', null, contacts_keyboard);
 });
 
 bot.command('Пройти тест', (msg) => {
@@ -592,8 +1351,7 @@ bot.command('Пройти тест', (msg) => {
 });
 
 bot.command('Получить помощь', (msg) => {
-    msg.sendMessage(msg.user_id, 'Да поможет вам бог, мы еще не знаем номер телефона');
-    
+    msg.reply('Список контактов доступных специалистов:', null, contacts_keyboard);
 });
 
 bot.command('Тревожность', (msg) => {
@@ -602,14 +1360,37 @@ bot.command('Тревожность', (msg) => {
         'Личностная тревожность – тревожность, как свойство личности', null, anxiety_keyboard);
 });
 
+bot.command('Пожелания', (msg) => {
+    if (feedback_records === undefined || feedback_records.length == 0) {
+        msg.reply('Список пожеланий пуст ...');
+    }
+    else msg.reply(feedback_records);
+    // тут нужно будет вытащить все содержимое коллекции feedback в mongodb 
+});
+
+bot.command('Татьяна Чапала', (msg) => {
+    msg.reply(contacts[0]);
+});
+bot.command('Мария Илич', (msg) => {
+    msg.reply(contacts[1]);
+});
+bot.command('Юлия Петрова', (msg) => {
+    msg.reply(contacts[2]);
+});
+bot.command('Оксана Зотова', (msg) => {
+    msg.reply(contacts[3]);
+});
+bot.command('Алина Гельметдинова', (msg) => {
+    msg.reply(contacts[4]);
+});
+
 bot.catch((msg,err) => {
     console.error(msg, err);
 });
 
 /*
-// check input message
-bot.on((msg) => {
-    console.log(msg.body);
+bot.hears((msg) => {
+    console.log(msg);
 });
 */
 
@@ -619,10 +1400,11 @@ server.post('/', bot.listen);
 
 // добавить команду 'call admin' для отправки сигнала мне
 // добавить информационную страницу в браузере приложения
-// добавить базу данных для хранения результатов
-// result: { stress: { score: xx, date: new Date }  }
 // пофиксить ошибку в тесте про депрессию в вопросе №6 для женского пола
 // нужно добавить вопрос про пол в начале и сделать 2 варианта вопроса в 6 вопросе
+// добавить фильтр входящих ответов пользователя (повторение вопроса, в случае
+// выбора числа вне диапазона
+// добавить возможность выхода на любом вопросе из теста, при вводе '0'
 
 server.listen(process.env.PORT || 5000, () => console.log('Server is running ... '));
 setInterval(function () { server.get('https://bot-antidep.herokuapp.com/'); }, 300000);

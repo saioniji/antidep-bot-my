@@ -120,6 +120,31 @@ var recommendations = [
         'Можете не беспокоиться, продолжайте наслаждаться и радоваться жизни!' + '\n' + 
         'Положительное отношение к жизни и внутренняя гармония сохраняет психическое ' +
         'и физическое здоровье.' + '\n' + 'Удачи во всех начинаниях!'] 
+    ],
+    // motivation recs
+    [5,
+        ['--> Низкая мотивация к успеху <--'],
+        ['--> Средний уровень мотивации <--'],
+        ['--> Умеренно высокий уровень мотивации <--'],
+        ['--> Слишком высокий уровень мотивации <--']
+    ],
+    // exhaustion recs
+    [6,
+        ['--> Низкий уровень <--'],
+        ['--> Средний уровень <--'],
+        ['--> Высокий уровень <--']
+    ],
+    // depersonalization recs
+    [7,
+        ['--> Низкий уровень <--'],
+        ['--> Средний уровень <--'],
+        ['--> Высокий уровень <--']
+    ],
+    // reduction of personal achievements
+    [8,
+        ['--> Низкий уровень <--'],
+        ['--> Средний уровень <--'],
+        ['--> Высокий уровень <--']
     ]
 ];
 
@@ -188,6 +213,22 @@ function checkStress(sex, result) {
     }
 };
 
+
+function checkMotiv(result) {
+    if (result > 0 && result < 11) {
+        return 1;
+    }
+    else if (result > 10 && result < 17) {
+        return 2;
+    }
+    else if (result > 16 && result < 21) {
+        return 3;
+    }
+    else if (result > 20) {
+        return 4;
+    }
+};
+
 function checkChoice(typeNumber, choice) {
     switch(typeNumber) {
         case 1:
@@ -228,11 +269,464 @@ function checkChoice(typeNumber, choice) {
                 case 3:
                     return recommendations[3][3];
             }
+        case 5:
+            switch(choice) {
+                case 1:
+                    return recommendations[4][1];
+                case 2:
+                    return recommendations[4][2];
+                case 3:
+                    return recommendations[4][3];
+                case 4:
+                    return recommendations[4][4];
+            }
+        case 6:
+            switch(choice) {
+                case 1:
+                    return recommendations[5][1];
+                case 2:
+                    return recommendations[5][2];
+                case 3:
+                    return recommendations[5][3];
+            }
+        case 7:
+            switch(choice) {
+                case 1:
+                    return recommendations[6][1];
+                case 2:
+                    return recommendations[6][2];
+                case 3:
+                    return recommendations[6][3];
+            }
+        case 8:
+            switch(choice) {
+                case 1:
+                    return recommendations[7][1];
+                case 2:
+                    return recommendations[7][2];
+                case 3:
+                    return recommendations[7][3];
+            }
     }
-}
+};
+
+function determineSanity(testType, scoreType) {
+    switch(testType) {
+        case 'depression': 
+            if (scoreType == 1) {
+                return true;
+            }
+            if (scoreType == 2) {
+                return false;
+            }
+            if (scoreType == 3) {
+                return false;
+            }
+            if (scoreType == 4) {
+                return false;
+            }
+        case 'stress':
+            if (scoreType == 1) {
+                return false;
+            }
+            if (scoreType == 2) {
+                return false;
+            }
+            if (scoreType == 3) {
+                return true;
+            }
+        case 'anxiety1': 
+            if (scoreType == 1) {
+                return true;
+            }
+            if (scoreType == 2) {
+                return false;
+            }
+            if (scoreType == 3) {
+                return false;
+            }
+        case 'anxiety2':
+            if (scoreType == 1) {
+                return true;
+            }
+            if (scoreType == 2) {
+                return false;
+            }
+            if (scoreType == 3) {
+                return false;
+            }
+        case 'motivation':
+            if (scoreType == 1) {
+                return false;
+            }
+            if (scoreType == 2) {
+                return true;
+            }
+            if (scoreType == 3) {
+                return true;
+            }
+            if (scoreType == 4) {
+                return false;
+            }
+    }
+};
+
+function checkExhaustion(score) {
+    if (score < 16) {
+        return 1;
+    }
+    else if (score > 15 && score < 25) {
+        return 2;
+    }
+    else if (score > 24) {
+        return 3;
+    }
+};
+
+function checkDepersonalization(score) {
+    if (score < 6) {
+        return 1;
+    }
+    else if (score > 5 && score < 11) {
+        return 2;
+    }
+    else if (score > 10) {
+        return 3;
+    }
+};
+
+function checkReduction(score) {
+    if (score > 36) {
+        return 1;
+    }
+    else if (score > 30 && score < 37) {
+        return 2;
+    }
+    else if (score < 31) {
+        return 3;
+    }
+};
+
+function checkInclination(...arr) {
+    var wT1 = 0, wT2 = 0, wT3 = 0, wT4 = 0, wT5 = 0, wT6 = 0;
+    var i;
+    for (i = 0; i < arr.length; i++) {
+        if (i = 0) {
+            if (arr[i] == 1) {
+                wT1 += 1;
+            }
+            else if (arr[i] == 2) {
+                wT4 += 1;
+            }
+            else if (arr[i] == 3) {
+                wT6 += 1;
+            }
+        }
+        if (i = 1) {
+            if (arr[i] == 1) {
+                wT2 += 1;
+            }
+            else if (arr[i] == 2) {
+                wT4 += 1;
+            }
+            else if (arr[i] == 3) {
+                wT5 += 1;
+            }
+        }
+        if (i = 2) {
+            if (arr[i] == 1) {
+                wT1 += 1;
+            }
+            else if (arr[i] == 2) {
+                wT2 += 1;
+            }
+            else if (arr[i] == 3) {
+                wT4 += 1;
+            }
+        }
+        if (i = 3) {
+            if (arr[i] == 1) {
+                wT3 += 1;
+            }
+            else if (arr[i] == 2) {
+                wT5 += 1;
+            }
+            else if (arr[i] == 3) {
+                wT6 += 1;
+            }
+        }
+        if (i = 4) {
+            if (arr[i] == 1) {
+                wT1 += 1;
+            }
+            else if (arr[i] == 2) {
+                wT2 += 1;
+            }
+            else if (arr[i] == 3) {
+                wT3 += 1;
+            }
+        }
+        if (i = 5) {
+            if (arr[i] == 1) {
+                wT1 += 1;
+            }
+            else if (arr[i] == 2) {
+                wT2 += 1;
+            }
+            else if (arr[i] == 3) {
+                wT6 += 1;
+            }
+        }
+        if (i = 6) {
+            if (arr[i] == 1) {
+                wT2 += 1;
+            }
+            else if (arr[i] == 2) {
+                wT3 += 1;
+            }
+            else if (arr[i] == 3) {
+                wT4 += 1;
+            }
+        }
+        if (i = 7) {
+            if (arr[i] == 1) {
+                wT1 += 1;
+            }
+            else if (arr[i] == 2) {
+                wT5 += 1;
+            }
+            else if (arr[i] == 3) {
+                wT6 += 1;
+            }
+        }
+        if (i = 8) {
+            if (arr[i] == 1) {
+                wT2 += 1;
+            }
+            else if (arr[i] == 2) {
+                wT4 += 1;
+            }
+            else if (arr[i] == 3) {
+                wT5 += 1;
+            }
+        }
+        if (i = 9) {
+            if (arr[i] == 1) {
+                wT4 += 1;
+            }
+            else if (arr[i] == 2) {
+                wT5 += 1;
+            }
+            else if (arr[i] == 3) {
+                wT6 += 1;
+            }
+        }
+        if (i = 10) {
+            if (arr[i] == 1) {
+                wT1 += 1;
+            }
+            else if (arr[i] == 2) {
+                wT2 += 1;
+            }
+            else if (arr[i] == 3) {
+                wT3 += 1;
+            }
+        }
+        if (i = 11) {
+            if (arr[i] == 1) {
+                wT3 += 1;
+            }
+            else if (arr[i] == 2) {
+                wT4 += 1;
+            }
+            else if (arr[i] == 3) {
+                wT5 += 1;
+            }
+        }
+        if (i = 12) {
+            if (arr[i] == 1) {
+                wT1 += 1;
+            }
+            else if (arr[i] == 2) {
+                wT5 += 1;
+            }
+            else if (arr[i] == 3) {
+                wT6 += 1;
+            }
+        }
+        if (i = 13) {
+            if (arr[i] == 1) {
+                wT2 += 1;
+            }
+            else if (arr[i] == 2) {
+                wT4 += 1;
+            }
+            else if (arr[i] == 3) {
+                wT5 += 1;
+            }
+        }
+        if (i = 14) {
+            if (arr[i] == 1) {
+                wT1 += 1;
+            }
+            else if (arr[i] == 2) {
+                wT3 += 1;
+            }
+            else if (arr[i] == 3) {
+                wT5 += 1;
+            }
+        }
+        if (i = 15) {
+            if (arr[i] == 1) {
+                wT1 += 1;
+            }
+            else if (arr[i] == 2) {
+                wT3 += 1;
+            }
+            else if (arr[i] == 3) {
+                wT6 += 1;
+            }
+        }
+        if (i = 16) {
+            if (arr[i] == 1) {
+                wT4 += 1;
+            }
+            else if (arr[i] == 2) {
+                wT5 += 1;
+            }
+            else if (arr[i] == 3) {
+                wT6 += 1;
+            }
+        }
+        if (i = 17) {
+            if (arr[i] == 1) {
+                wT1 += 1;
+            }
+            else if (arr[i] == 2) {
+                wT2 += 1;
+            }
+            else if (arr[i] == 3) {
+                wT3 += 1;
+            }
+        }
+        if (i = 18) {
+            if (arr[i] == 1) {
+                wT3 += 1;
+            }
+            else if (arr[i] == 2) {
+                wT5 += 1;
+            }
+            else if (arr[i] == 3) {
+                wT6 += 1;
+            }
+        }
+        if (i = 19) {
+            if (arr[i] == 1) {
+                wT1 += 1;
+            }
+            else if (arr[i] == 2) {
+                wT3 += 1;
+            }
+            else if (arr[i] == 3) {
+                wT6 += 1;
+            }
+        }
+        if (i = 20) {
+            if (arr[i] == 1) {
+                wT2 += 1;
+            }
+            else if (arr[i] == 2) {
+                wT3 += 1;
+            }
+            else if (arr[i] == 3) {
+                wT4 += 1;
+            }
+        }
+        if (i = 21) {
+            if (arr[i] == 1) {
+                wT2 += 1;
+            }
+            else if (arr[i] == 2) {
+                wT3 += 1;
+            }
+            else if (arr[i] == 3) {
+                wT4 += 1;
+            }
+        }
+        if (i = 22) {
+            if (arr[i] == 1) {
+                wT2 += 1;
+            }
+            else if (arr[i] == 2) {
+                wT4 += 1;
+            }
+            else if (arr[i] == 3) {
+                wT6 += 1;
+            }
+        }
+        if (i = 23) {
+            if (arr[i] == 1) {
+                wT1 += 1;
+            }
+            else if (arr[i] == 2) {
+                wT5 += 1;
+            }
+            else if (arr[i] == 3) {
+                wT6 += 1;
+            }
+        }
+    }
+    return [wT1, wT2, wT3, wT4, wT5, wT6];
+};
+
+var textInclinations = [
+    'Склонность к работе с людьми',
+    'Склонность к исследовательской (интеллектуальной) работе',
+    'Склонность к практической деятельности',
+    'Склонность к эстетическим видам деятельности',
+    'Склонность к экстремальным видам деятельности',
+    'Склонность к планово-экономическим видам деятельности'
+];
+
+function determineInclination(max, ...arr) {
+    var inclinations = [];
+    var i;
+    for (i = 0; i < arr.length; i++) {
+        if (arr[i] == max) {
+            inclinations.push(textInclinations[i] + ' ');
+        }
+    }
+    return inclinations;
+};
 
 function logStart() {
     console.log("Bot has been launched ... ");
-}
+};
 
-module.exports = { logStart, recommendations, reverseScore, checkDepression, checkAnxiety, checkStress, checkChoice }; 
+function formatDate() {
+    var d = new Date(),
+        month = (d.getMonth() + 1),
+        day = d.getDate(),
+        year = d.getFullYear(),
+        hour = d.getHours(),
+        minute = d.getMinutes();
+    if (month.length < 2) 
+        month = '0' + month;
+    if (day.length < 2) 
+        day = '0' + day;
+    if (hour.length < 2) 
+        hour = '0' + hour;
+    if (minute.length < 2) 
+        minute = '0' + minute;
+    var custom_date = day + '-' + month + '-' + year + ' ' + hour + ':' + minute;
+
+    return custom_date;
+};
+
+module.exports = { 
+    logStart, recommendations, reverseScore, 
+    checkDepression, checkAnxiety, checkStress, 
+    checkChoice, checkMotiv, formatDate,
+    checkExhaustion, checkDepersonalization, checkReduction,
+    checkInclination, determineInclination, determineSanity
+}; 

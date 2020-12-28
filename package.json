@@ -30,6 +30,8 @@
     "express": "^4.17.1",
     "html-to-text": "^6.0.0",
     "isomorphic-fetch": "^3.0.0",
+    "moment": "^2.29.1",
+    "mongoose": "^5.11.8",
     "ngrok": "^3.3.0",
     "node-vk-bot-api": "^3.3.7",
     "redis": "^3.0.2",
