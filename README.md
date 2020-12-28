@@ -1,6 +1,6 @@
 # bot-antidep aka Doctor Calm
 
-### Check our community in social media https://vk.com/bot_antidep
+### Check our community in social media https://vk.com/doctor_calm
 
 <p align="center">
     <img src="./img/logo.jpg" />
