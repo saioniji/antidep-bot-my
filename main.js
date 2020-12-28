@@ -1298,7 +1298,7 @@ bot.addScene('inclination',
     }
 );
 
-bot.addScene('feedback',
+bot.addScene('feed',
     ({ reply, scene: { next } }) => {
         next();
         reply('Оставьте свое сообщение с пожеланием об исправлении ошибки или ' +
@@ -1318,7 +1318,7 @@ bot.command('Стресс', ({ scene: { join } }) => join('stress'));
 bot.command('Мотивация', ({ scene: { join } }) => join('motivation'));
 bot.command('Выгорание', ({ scene: { join } }) => join('burnout'));
 bot.command('Склонность', ({ scene: { join } }) => join('inclination'));
-bot.command('feedback', ({ scene: { join } }) => join('feedback'));
+bot.command('feedback', ({ scene: { join } }) => join('feed'));
 
 bot.event('group_join', (msg) => {
     msg.reply('Спасибо, что стали пользователем нашего бота. Мы постараемся вам помочь!');
