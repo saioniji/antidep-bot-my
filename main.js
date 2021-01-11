@@ -12,7 +12,6 @@ if (process.env.VK_TOKEN) {
     bot = new Botact({
         token: process.env.VK_TOKEN,
         confirmation: process.env.CONFIRM_KEY,
-        flowTimeout: 40,
         redis: true,
         redisConfig: {
             host: redis.hostname,
@@ -31,7 +30,6 @@ else {
     bot = new Botact({
         token: config.VK_TOKEN,
         confirmation: config.CONFIRM_KEY,
-        flowTimeout: 40,
         redis: true,
         redisConfig: {
             host: '127.0.0.1',
@@ -1435,7 +1433,6 @@ bot.addScene('inclination',
         var max = Math.max(...arr_res);
         var inclinations = determineInclination(max, ...arr_res);
         var type = detInclination(...arr_res);
-        console.log(type);
         updateTemper(userId, 'inclination', type, max);
         reply('Ваш результат:');
         reply(inclinations);
@@ -2374,7 +2371,7 @@ bot.command('Пожелания', (msg) => {
         msg.reply('Список пожеланий пуст ...');
     }
     else msg.reply(feedback_records);
-    // тут нужно будет вытащить все содержимое коллекции feedback в mongodb 
+    // тут нужно будет вытащить все содержимое коллекции feedback из mongodb 
 });
 
 bot.command('Татьяна Чапала', (msg) => {
