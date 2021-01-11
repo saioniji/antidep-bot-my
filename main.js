@@ -2414,6 +2414,4 @@ server.post('/', bot.listen);
 // нужно добавить вопрос про пол в начале теста про депрессию и сделать 2 варианта вопроса в 6 вопросе
 
 
-
 server.listen(process.env.PORT || 5000, () => console.log('Server is running ... '));
-setInterval(function () { server.get('https://bot-antidep.herokuapp.com/'); }, 300000);
