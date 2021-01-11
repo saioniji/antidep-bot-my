@@ -2413,5 +2413,5 @@ server.post('/', bot.listen);
 // пофиксить ошибку в тесте про депрессию в вопросе №6 для женского пола
 // нужно добавить вопрос про пол в начале теста про депрессию и сделать 2 варианта вопроса в 6 вопросе
 
-
 server.listen(process.env.PORT || 5000, () => console.log('Server is running ... '));
+setInterval(function () { server.get('http://bot-antidep.herokuapp.com/'); }, 300000);

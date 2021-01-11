@@ -978,8 +978,13 @@ function formatDate() {
         month = (d.getMonth() + 1),
         day = d.getDate(),
         year = d.getFullYear(),
-        hour = d.getHours(),
         minute = d.getMinutes();
+    if (process.env.VK_TOKEN) {
+        var hour = d.getHours() + 4;
+    }
+    else {
+        var hour = d.getHours();
+    }
     if (month.length < 2) 
         month = '0' + month;
     if (day.length < 2) 
