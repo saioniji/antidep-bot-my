@@ -41,12 +41,12 @@ else {
 		useUnifiedTopology: true
 	}).then(() => console.log('MongoDB was connected'))
 	  .catch((err) => console.log(err));
-}
+};
 
 logStart();
 const { createUser } = require('./src/repository/UserRepository');
 const { createResult, updateResult, updateBurnout, updateTemper, updateEysenck } = require('./src/repository/ResultRepository');
-const { addFeedback } = require('./src/repository/FeedbackRepository')
+const { addFeedback } = require('./src/repository/FeedbackRepository');
 
 const keyboard = {
     one_time: true,
@@ -60,7 +60,7 @@ const keyboard = {
                     },
                     label: 'Регистрация'
                 },
-                color: 'primary'
+                color: 'secondary'
             }
         ],
         [
@@ -72,7 +72,7 @@ const keyboard = {
                     },
                     label: 'Пройти тест'
                 },
-                color: 'primary'
+                color: 'negative'
             }
         ],
         [
@@ -84,7 +84,7 @@ const keyboard = {
                     },
                     label: 'Получить помощь'
                 },
-                color: 'primary'
+                color: 'secondary'
             }  
         ]
     ]
@@ -102,7 +102,7 @@ const test_keyboard = {
                     },
                     label: 'Депрессия'
                 },
-                color: 'primary'
+                color: 'positive'
             },
             {
                 action: {
@@ -112,7 +112,7 @@ const test_keyboard = {
                     },
                     label: 'Тревожность'
                 },
-                color: 'primary'
+                color: 'positive'
             }
         ],
         [
@@ -124,7 +124,7 @@ const test_keyboard = {
                     },
                     label: 'Стресс'
                 },
-                color: 'primary'
+                color: 'positive'
             },
             {
                 action: {
@@ -134,7 +134,7 @@ const test_keyboard = {
                     },
                     label: 'Мотивация'
                 },
-                color: 'primary'
+                color: 'positive'
             }
         ],
         [
@@ -146,7 +146,7 @@ const test_keyboard = {
                     },
                     label: 'Выгорание'
                 },
-                color: 'primary'
+                color: 'positive'
             },
             {
                 action: {
@@ -156,7 +156,7 @@ const test_keyboard = {
                     },
                     label: 'Склонность'
                 },
-                color: 'primary'
+                color: 'positive'
             }
         ],
         [
@@ -168,7 +168,7 @@ const test_keyboard = {
                     },
                     label: 'Агрессия'
                 },
-                color: 'primary'
+                color: 'positive'
             },
             {
                 action: {
@@ -178,7 +178,7 @@ const test_keyboard = {
                     },
                     label: 'Образ жизни'
                 },
-                color: 'primary'
+                color: 'positive'
             }
         ],
         [
@@ -190,7 +190,7 @@ const test_keyboard = {
                     },
                     label: 'Темперамент'
                 },
-                color: 'primary'
+                color: 'positive'
             },
             {
                 action: {
@@ -200,7 +200,7 @@ const test_keyboard = {
                     },
                     label: 'Тест Айзека'
                 },
-                color: 'primary'
+                color: 'positive'
             }
         ]
     ]
@@ -218,7 +218,7 @@ const anxiety_keyboard = {
                     },
                     label: 'Реактивная'
                 },
-                color: 'primary'
+                color: 'positive'
             },
             {
                 action: {
@@ -228,7 +228,7 @@ const anxiety_keyboard = {
                     },
                     label: 'Личностная'
                 },
-                color: 'primary'
+                color: 'positive'
             },
         ]
     ]
@@ -274,7 +274,7 @@ const staff_keyboard = {
                     },
                     label: 'Психологи'
                 },
-                color: 'primary'
+                color: 'positive'
             },
             {
                 action: {
@@ -284,7 +284,7 @@ const staff_keyboard = {
                     },
                     label: 'Дефектологи'
                 },
-                color: 'primary'
+                color: 'positive'
             }  
         ]
     ]
@@ -302,7 +302,7 @@ const shrinks_keyboard = {
                     },
                     label: 'Татьяна Чапала'
                 },
-                color: 'primary'
+                color: 'positive'
             },
             {
                 action: {
@@ -312,7 +312,7 @@ const shrinks_keyboard = {
                     },
                     label: 'Мария Илич'
                 },
-                color: 'primary'
+                color: 'positive'
             }  
         ],
         [
@@ -324,7 +324,7 @@ const shrinks_keyboard = {
                     },
                     label: 'Юлия Петрова'
                 },
-                color: 'primary'
+                color: 'positive'
             },
             {
                 action: {
@@ -334,7 +334,7 @@ const shrinks_keyboard = {
                     },
                     label: 'Оксана Зотова'
                 },
-                color: 'primary'
+                color: 'positive'
             }  
         ]
     ]
@@ -352,7 +352,7 @@ const defects_keyboard = {
                     },
                     label: 'Алина Гельметдинова'
                 },
-                color: 'primary'
+                color: 'positive'
             }
         ]
     ]
