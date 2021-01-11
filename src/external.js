@@ -56,8 +56,8 @@ var recommendations = [
         'Успехов во всех начинаниях!'],
         ['--> Умеренная тревожность <--' + '\n' + 
         'У Вас наблюдаются признаки средне выраженной личностной тревожности!' + '\n' +
-        'Рекомендуем Вам пройти тесть для оценки стресса и депрессии, при выраженных значениях немедленно обратитесь к психологу.' + '\n' +
-        'Возможно, вы на протяжении длительного периода жизни подверглись негативным и стрессовым ситуациям, ' +
+        'Рекомендуем Вам пройти тест для оценки стресса и депрессии, при выраженных значениях немедленно обратитесь к психологу.' + '\n' +
+        'Возможно, Вы на протяжении длительного периода жизни подверглись негативным и стрессовым ситуациям, ' +
         'которые отрицательно повлияли на Ваше психологическое состояние.' + '\n' +
         'Постоянная тревожность вызывает такие состояния как: повышенную нервозность, раздражительность и вспыльчивость, конфликтность, ' + '\n' + 
         'высокую аффективную реактивность. ' + 'Так же может негативно повлиять на соматическое здоровье. ' + 
@@ -205,9 +205,9 @@ var recommendations = [
     ],
     // temper recs
     [11,
-        ['интроверсия'],
-        ['амбиверсия'],
-        ['экстраверсия']
+        ['Ваш тип темперамента – интроверт'],
+        ['Ваш тип темперамента – амбиверт'],
+        ['Ваш тип темперамента – экстраверт']
     ],
     // eysenck test recs
     [12,
@@ -506,6 +506,26 @@ function determineSanity(testType, scoreType) {
                 return true;
             }
             if (scoreType == 4) {
+                return false;
+            }
+        case 'aggression':
+            if (scoreType == 1) {
+                return false;
+            }
+            if (scoreType == 2) {
+                return false;
+            }
+            if (scoreType == 3) {
+                return true;
+            }
+        case 'lifestyle':
+            if (scoreType == 1) {
+                return true;
+            }
+            if (scoreType == 2) {
+                return false;
+            }
+            if (scoreType == 3) {
                 return false;
             }
     }
@@ -819,6 +839,17 @@ function checkInclination(...arr) {
     return [wT1, wT2, wT3, wT4, wT5, wT6];
 };
 
+function detInclination(...arr) {
+    var max = Math.max(...arr);
+    var checkNum;
+    for (var i = 0; i < arr.length; i++) {
+        if (arr[i] == max) {
+            checkNum = i;
+        }
+    }
+    return displayInclinations[checkNum];
+};
+
 var textInclinations = [
     'Склонность к работе с людьми',
     'Склонность к исследовательской (интеллектуальной) работе',
@@ -826,6 +857,15 @@ var textInclinations = [
     'Склонность к эстетическим видам деятельности',
     'Склонность к экстремальным видам деятельности',
     'Склонность к планово-экономическим видам деятельности'
+];
+
+var displayInclinations = [
+    'communicative approach',
+    'intellectual labor',
+    'practical experience',
+    'esthetic field',
+    'extremal activity',
+    'economic planning'
 ];
 
 function determineInclination(max, ...arr) {
@@ -848,6 +888,21 @@ function determineTemper(result) {
     }
     else {
         return 3;
+    }
+};
+
+function checkTemper(choice) {
+    if (choice == 1) {
+        return 'introvert';
+    }
+    else if (choice == 2) {
+        return 'ambivert';
+    }
+    else if (choice == 3) {
+        return 'extrovert';
+    }
+    else {
+        return 'error';
     }
 };
 
@@ -896,6 +951,24 @@ function checkEyseckCircle(introversion, neuroticism) {
     }
 };
 
+function checkTemperType(choice) {
+    if (choice == 1) {
+        return 'sanguine';
+    }
+    else if (choice == 2) {
+        return 'choleric';
+    }
+    else if (choice == 3) {
+        return 'phlegmatic';
+    }
+    else if (choice == 4) {
+        return 'melancholic';
+    }
+    else {
+        return 'error'
+    }
+};
+
 function logStart() {
     console.log("Bot has been launched ... ");
 };
@@ -926,5 +999,6 @@ module.exports = {
     checkChoice, checkMotiv, formatDate,
     checkExhaustion, checkDepersonalization, checkReduction,
     checkInclination, determineInclination, determineSanity,
-    determineTemper, checkAggression, checkLifeStyle, checkEyseckCircle
+    determineTemper, checkAggression, checkLifeStyle, checkEyseckCircle,
+    checkTemperType, checkTemper, detInclination
 }; 

@@ -1,7 +1,16 @@
 const User = require('../models/User');
 
-function addUser(userId) {
-    var user = new User({vk_id: userId});
+function createUser(userId, sex, age, eduLevel, maritalStatus, socialStatus, approval) {
+    var user = new User(
+        {
+            vk_id: userId, 
+            sex: sex, 
+            age: age, 
+            eduLevel: eduLevel,
+            maritalStatus: maritalStatus,
+            socialStatus: socialStatus,
+            approval: approval
+        });
     User.exists({vk_id: userId}, function (err, data) {
         if (err) { console.log(err); }
         else {
@@ -17,5 +26,5 @@ function addUser(userId) {
 };
 
 module.exports = {
-    addUser
+    createUser
 };

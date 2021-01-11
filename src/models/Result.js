@@ -27,21 +27,40 @@ var ResultSchema = new Schema({
         motivation: {
             date: String,
             score: Number,
+            sane: Boolean
         },
         burnout: {
             date: String,
-            /*
-            tests: {
-                exhaustion: Number,
-                reduction: Number,
-                depersonalization: Number
-            },
-            */
+            exhaustion: Number,
+            reduction: Number,
+            depersonalization: Number,
             total: Number
         },
         inclination: {
             date: String,
-            score: Number
+            score: Number,
+            kind: String
+        },
+        aggression: {
+            date: String,
+            score: Number,
+            sane: Boolean
+        },
+        lifestyle: {
+            date: String,
+            score: Number,
+            sane: Boolean
+        },
+        temper: {
+            date: String,
+            score: Number,
+            kind: String
+        },
+        eysenck: {
+            date: String,
+            kind: String,
+            neuroticism: String,
+            lie: String
         }
     }
 },

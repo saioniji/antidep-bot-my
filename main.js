@@ -46,8 +46,8 @@ else {
 }
 
 logStart();
-const { addUser } = require('./src/repository/UserRepository');
-const { createResult, updateResult } = require('./src/repository/ResultRepository');
+const { createUser } = require('./src/repository/UserRepository');
+const { createResult, updateResult, updateBurnout, updateTemper, updateEysenck } = require('./src/repository/ResultRepository');
 const { addFeedback } = require('./src/repository/FeedbackRepository')
 
 const keyboard = {
@@ -190,7 +190,7 @@ const test_keyboard = {
                     payload: {
                         button: 'button12'
                     },
-                    label: 'Характер'
+                    label: 'Темперамент'
                 },
                 color: 'primary'
             },
@@ -264,7 +264,7 @@ const admin_keyboard = {
     ]
 };
 
-const contacts_keyboard = {
+const staff_keyboard = {
     one_time: true,
     buttons: [
         [
@@ -274,7 +274,7 @@ const contacts_keyboard = {
                     payload: { 
                         button: 'button18' 
                     },
-                    label: 'Татьяна Чапала'
+                    label: 'Психологи'
                 },
                 color: 'primary'
             },
@@ -283,6 +283,34 @@ const contacts_keyboard = {
                     type: 'text',
                     payload: {
                         button: 'button19'
+                    },
+                    label: 'Дефектологи'
+                },
+                color: 'primary'
+            }  
+        ]
+    ]
+};
+
+const shrinks_keyboard = {
+    one_time: true,
+    buttons: [
+        [
+            {
+                action: {
+                    type: 'text',
+                    payload: { 
+                        button: 'button20' 
+                    },
+                    label: 'Татьяна Чапала'
+                },
+                color: 'primary'
+            },
+            {
+                action: {
+                    type: 'text',
+                    payload: {
+                        button: 'button21'
                     },
                     label: 'Мария Илич'
                 },
@@ -294,7 +322,7 @@ const contacts_keyboard = {
                 action: {
                     type: 'text',
                     payload: { 
-                        button: 'button20' 
+                        button: 'button22' 
                     },
                     label: 'Юлия Петрова'
                 },
@@ -304,19 +332,25 @@ const contacts_keyboard = {
                 action: {
                     type: 'text',
                     payload: {
-                        button: 'button21'
+                        button: 'button23'
                     },
                     label: 'Оксана Зотова'
                 },
                 color: 'primary'
             }  
-        ],
+        ]
+    ]
+};
+
+const defects_keyboard = {
+    one_time: true,
+    buttons: [
         [
             {
                 action: {
                     type: 'text',
                     payload: { 
-                        button: 'button22' 
+                        button: 'button24' 
                     },
                     label: 'Алина Гельметдинова'
                 },
@@ -333,7 +367,7 @@ var arr = [], feedback_records =[];
 const { reverseScore, checkDepression, checkAnxiety, checkStress, checkChoice, checkMotiv } = require("./src/external");
 const { checkExhaustion, checkDepersonalization, checkReduction, checkInclination } = require("./src/external");
 const { determineInclination, determineSanity, determineTemper, checkAggression } = require('./src/external');
-const { checkEyseckCircle } = require('./src/external');
+const { checkEyseckCircle, detInclination, checkTemper, checkTemperType } = require('./src/external');
 
 const contacts = [
     ['Татьяна Владимировна Чапала' + '\n' + '89371837900'],
@@ -357,7 +391,8 @@ bot.addScene('registration',
     ({ reply, body, scene: { next } }) => {
         next();
         reply('Укажите свой возраст: ');
-        sex = body;
+        if (body == 'M' || body == 'М') { sex = 'male'; }
+        if (body == 'Ж') { sex = 'female'; }
     },
     ({ reply, body, scene: { next } }) => {
         next();
@@ -628,9 +663,9 @@ bot.addScene('anxiety1',
         var result = counter_direct - counter_reverse + 50;
         var choice = checkAnxiety(result);
         var sanity = determineSanity('anxiety1', choice);
+        updateResult(userId, 'anxiety1', result, sanity);
         reply('Вы набрали: ' + result);
         reply(checkChoice(2, choice));
-        updateResult(userId, 'anxiety1', result, sanity);
         counter = 0;
     }
 );
@@ -754,9 +789,9 @@ bot.addScene('anxiety2',
         var result = counter_direct - counter_reverse + 35;
         var choice = checkAnxiety(result);
         var sanity = determineSanity('anxiety2', choice);
+        updateResult(userId, 'anxiety2', result, sanity);
         reply('Вы набрали: ' + result);
         reply(checkChoice(3, choice));
-        updateResult(userId, 'anxiety2', result, sanity);
         counter = 0;
     }
 );
@@ -817,10 +852,10 @@ bot.addScene('stress',
         var result = (counter/7).toFixed(2);
         var choice = checkStress(sex, result);
         var sanity = determineSanity('stress', choice);
+        updateResult(userId, 'stress', result, sanity);
         reply('Вы набрали: ' + result);
         reply(checkChoice(4, choice));
         counter = 0;
-        updateResult(userId, 'stress', result, sanity);
     }
 );
 
@@ -1044,9 +1079,9 @@ bot.addScene('motivation',
         if (body == '1') { counter += parseInt(body); };
         var choice = checkMotiv(counter);
         var sanity = determineSanity('motivation', choice);
+        updateResult(userId, 'motivation', counter, sanity);
         reply('Вы набрали: ' + counter);
         reply(checkChoice(5, choice));
-        updateResult(userId, 'motivation', counter, sanity);
         counter = 0;
     }
 );
@@ -1189,7 +1224,7 @@ bot.addScene('burnout',
         reply('Деперсонализация:' + '\n' + checkChoice(7, checkDepersonalization(depersonalization)));
         reply('Редукция личных достижений:' + '\n' + checkChoice(8, checkReduction(reduction)));
         reply('Общая тяжесть выгорания: ' + total_burnout);
-        updateResult(userId, 'burnout', total_burnout, null);
+        updateBurnout(userId, exhaustion, reduction, depersonalization, total_burnout);
         exhaustion = 0;
         depersonalization = 0;
         reduction = 0;
@@ -1399,7 +1434,9 @@ bot.addScene('inclination',
         var arr_res = checkInclination(...arr);
         var max = Math.max(...arr_res);
         var inclinations = determineInclination(max, ...arr_res);
-        updateResult(userId, 'inclination', max, null);
+        var type = detInclination(...arr_res);
+        console.log(type);
+        updateTemper(userId, 'inclination', type, max);
         reply('Ваш результат:');
         reply(inclinations);
         arr = [];
@@ -1631,6 +1668,8 @@ bot.addScene('aggression',
         if (body == '1') { selfAgg += parseInt(body); };
         var total = verbalAgg + physicalAgg + objectiveAgg + emotionalAgg + selfAgg;
         var choice = checkAggression(total);
+        var sanity = determineSanity('aggression', choice);
+        updateResult(userId, 'aggression', total, sanity);
         reply('Общий уровень агрессии: ' + total);
         reply(checkChoice(9, choice));
         verbalAgg = 0, physicalAgg = 0, objectiveAgg = 0, emotionalAgg = 0, selfAgg = 0;
@@ -1784,6 +1823,8 @@ bot.addScene('lifestyle',
         leave();
         if (body == '2') { counter += 5; };
         var choice = checkLifeStyle(counter);
+        var sanity = determineSanity('lifestyle', choice);
+        updateResult(userId, 'lifestyle', counter, sanity);
         reply('Вы набрали: ' + counter);
         reply(checkChoice(10, choice));
         counter = 0;
@@ -1845,7 +1886,7 @@ bot.addScene('temper',
     },
     ({ reply, body, scene: { next } }) => {
         next();
-        reply('Вопрос №8:' + '\n' + 'Считаете ли Вы себя:' + '\n' +
+        reply('Вопрос №8:' + '\n' + 'Вы считаете себя:' + '\n' +
                 '1) Молчаливым' + '\n' +
                 '2) Разговорчивым');
         if (body == '1') { counter += parseInt(body); };
@@ -1939,6 +1980,8 @@ bot.addScene('temper',
         if (body == '1') { counter += parseInt(body); };
         var result = counter * 5;
         var choice = determineTemper(result);
+        var type = checkTemper(choice);
+        updateTemper(userId, 'temper', type, result)
         reply('Вы набрали: ' + result);
         reply(checkChoice(11, choice));
         counter = 0;
@@ -1953,7 +1996,9 @@ bot.addScene('eysenck',
         reply('Вы выбрали тест Айзенка')
         reply('В тесте 57 вопросов. Не торопитесь отвечать на вопросы и не забывайте, ' +
             'что в тесте нет правильных ответов')
-        reply('Если вы согласны с утверждением введите \'1\', если нет – введите \'2\'');
+        reply('Отвечайте на вопросы по следующей форме:' + '\n' +
+              '1 - Согласен' + '\n' +
+              '2 - Не согласен');
         reply('Вопрос №1:' + '\n' + 'Тебе нравится находиться в шумной и веселой компании?');
     },
     ({ reply, body, scene: { next } }) => {
@@ -2244,10 +2289,11 @@ bot.addScene('eysenck',
         leave();
         if (body == '1') { neuroticism += 1; };
         var choice = checkEyseckCircle(introversion, neuroticism);
-        //updateResult(userId, 'eyseck', '?', null);
+        var type = checkTemperType(choice);
+        updateEysenck(userId, type, neuroticism, lie);
         reply('Ваш результат:' + '\n' + 
               'Интроверсия: ' + introversion + '\n' +
-              'Невротизм: ' + neuroticism + '\n' + 
+              'Стабильность: ' + neuroticism + '\n' + 
               'Достоверность: ' + lie);
         reply(checkChoice(12, choice));
         introversion = 0, neuroticism = 0, lie = 0;
@@ -2277,8 +2323,8 @@ bot.command('Выгорание', ({ scene: { join } }) => join('burnout'));
 bot.command('Склонность', ({ scene: { join } }) => join('inclination'));
 bot.command('Агрессия', ({ scene: { join } }) => join('aggression'));
 bot.command('Образ жизни', ({ scene: { join } }) => join('lifestyle'));
-bot.command('Характер', ({ scene: { join } }) => join('temper'));
-bot.command('Тест Айзека', ({ scene: { join } }) => join('eyseck'));
+bot.command('Темперамент', ({ scene: { join } }) => join('temper'));
+bot.command('Тест Айзека', ({ scene: { join } }) => join('eysenck'));
 bot.command('feedback', ({ scene: { join } }) => join('feedback'));
 
 bot.event('group_join', (msg) => {
@@ -2288,14 +2334,12 @@ bot.event('group_join', (msg) => {
 bot.command('help', (msg) => {
     msg.sendMessage(msg.user_id, 'Список доступных команд: ' + '\n' +
     'start – начать взаимодействие с ботом' + '\n' +
-    'feedback – оставить пожелание для модификации' + '\n' +
-    'contacts – список контактов специалистов');
+    'feedback – оставить пожелание для модификации');
 });
 
 bot.command('start', (msg) => {
     msg.reply('Здравствуйте, вы бы хотели пройти тестирование или связаться со специалистом?', null, keyboard);
     userId = msg.user_id;
-    addUser(userId);
     createResult(userId);
 });
 
@@ -2303,8 +2347,12 @@ bot.command('admin', (msg) => {
     msg.reply('Приветствуем вас в админ панеле:', null, admin_keyboard);
 });
 
-bot.command('contacts', (msg) => {
-    msg.reply('Список контактов доступных специалистов:', null, contacts_keyboard);
+bot.command('Психологи', (msg) => {
+    msg.reply('Список контактов доступных специалистов:', null, shrinks_keyboard);
+});
+
+bot.command('Дефектологи', (msg) => {
+    msg.reply('Список контактов доступных специалистов:', null, defects_keyboard);
 });
 
 bot.command('Пройти тест', (msg) => {
@@ -2312,7 +2360,7 @@ bot.command('Пройти тест', (msg) => {
 });
 
 bot.command('Получить помощь', (msg) => {
-    msg.reply('Список контактов доступных специалистов:', null, contacts_keyboard);
+    msg.reply('Список контактов доступных специалистов:', null, staff_keyboard);
 });
 
 bot.command('Тревожность', (msg) => {
@@ -2359,13 +2407,16 @@ server.use(bodyParser.json());
 
 server.post('/', bot.listen);
 
-// добавить команду 'call admin' для отправки сигнала мне
-// добавить информационную страницу в браузере приложения
-// пофиксить ошибку в тесте про депрессию в вопросе №6 для женского пола
-// нужно добавить вопрос про пол в начале и сделать 2 варианта вопроса в 6 вопросе
-// добавить фильтр входящих ответов пользователя (повторение вопроса, в случае
-// выбора числа вне диапазона
+// !!
 // добавить возможность выхода на любом вопросе из теста, при вводе '0'
+// добавить фильтр входящих ответов пользователя (повторение вопроса, в случае выбора числа вне диапазона)
+
+// добавить информационную страницу в браузере приложения
+// добавить команду 'call admin' для отправки сигнала мне
+// пофиксить ошибку в тесте про депрессию в вопросе №6 для женского пола
+// нужно добавить вопрос про пол в начале теста про депрессию и сделать 2 варианта вопроса в 6 вопросе
+
+
 
 server.listen(process.env.PORT || 5000, () => console.log('Server is running ... '));
 setInterval(function () { server.get('https://bot-antidep.herokuapp.com/'); }, 300000);

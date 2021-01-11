@@ -27,20 +27,40 @@ function createResult(userId) {
                 },
                 motivation: {
                     date: null,
-                    score: null
+                    score: null,
+                    sane: null
                 },
                 burnout: {
                     date: null,
-                    tests: {
-                        exhaustion: null,
-                        reduction: null,
-                        depersonalization: null
-                    },
+                    exhaustion: null,
+                    reduction: null,
+                    depersonalization: null,
                     total: null
                 },
                 inclination: {
                     date: null,
                     score: null
+                },
+                aggression: {
+                    date: null,
+                    score: null,
+                    sane: null
+                },
+                lifestyle: {
+                    date: null,
+                    score: null,
+                    sane: null
+                },
+                temper: {
+                    date: null,
+                    score: null,
+                    kind: null
+                },
+                eysenck: {
+                    date: null,
+                    kind: null,
+                    neuroticism: null,
+                    lie: null
                 }
             }
     });
@@ -77,11 +97,54 @@ function updateResult(vk_id, testType, score, sanity) {
             case 'motivation':
                 res.results.motivation = { date: formatDate(), score: score, sane: sanity };
                 break;
-            case 'burnout':
-                res.results.burnout = { date: formatDate(), total: score, sane: null };
-                break;
+            case 'aggression':
+                res.results.aggression = { date: formatDate(), score: score, sane: sanity };
+            case 'lifestyle':
+                res.results.lifestyle = { date: formatDate(), score: score, sane: sanity };    
+    }
+        if (err) { console.log(err) }
+        else {
+            result.updateOne(filter, {$set: {results: res.results}}, function(err) {
+                if (err) throw err;
+                else 
+                    console.log('result object was updated');
+                    console.log('added data about ' + testType);
+            });
+        }
+    });
+};
+
+function updateBurnout(vk_id, exhaustion, reduction, deperson, total) {
+    var filter = { vk_id: vk_id };
+    var result = Result.findOne(filter, function(err, res) {
+        res.results.burnout = { 
+            date: formatDate(), 
+            exhaustion: exhaustion,
+            reduction: reduction,
+            depersonalization: deperson,
+            total: total
+        }
+        if (err) { console.log(err) }
+        else {
+            result.updateOne(filter, {$set: {results: res.results}}, function(err) {
+                if (err) throw err;
+                else 
+                    console.log('result object was updated');
+                    console.log('added data about burnout');
+            });
+        }
+    });
+};
+
+function updateTemper(vk_id, testType, kind, score) {
+    var filter = { vk_id: vk_id };
+    var result = Result.findOne(filter, function(err, res) {
+        switch(testType) {
             case 'inclination':
-                res.results.inclination = { date: formatDate(), score: score, sane: null };
+                res.results.inclination = { date: formatDate(), score: score, kind: kind };
+                break;
+            case 'temper':
+                res.results.temper = { date: formatDate(), score: score, kind: kind };
                 break;
         }
         if (err) { console.log(err) }
@@ -95,18 +158,15 @@ function updateResult(vk_id, testType, score, sanity) {
         }
     });
 };
-/*
-function updateResult(vk_id, testType, exhaustion, reduction, deperson, total) {
+
+function updateEysenck(vk_id, kind, neuroticism, lie) {
     var filter = { vk_id: vk_id };
     var result = Result.findOne(filter, function(err, res) {
-        res.results.burnout = { 
-            date: date_formatted, 
-            tests: {
-                exhaustion: exhaustion,
-                reduction: reduction,
-                depersonalization: deperson
-            },
-            total: total
+        res.results.eysenck = { 
+            date: formatDate(), 
+            kind: kind,
+            neuroticism: neuroticism,
+            lie: lie
         }
         if (err) { console.log(err) }
         else {
@@ -114,12 +174,12 @@ function updateResult(vk_id, testType, exhaustion, reduction, deperson, total) {
                 if (err) throw err;
                 else 
                     console.log('result object was updated');
-                    console.log('added data about ' + testType);
+                    console.log('added data about eysenck test');
             });
         }
-    })
+    });
 };
-*/
+
 module.exports = {
-    createResult, updateResult
+    createResult, updateResult, updateBurnout, updateTemper, updateEysenck
 }
