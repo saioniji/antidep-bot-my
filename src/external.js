@@ -981,6 +981,9 @@ function formatDate() {
         minute = d.getMinutes();
     if (process.env.VK_TOKEN) {
         var hour = d.getHours() + 4;
+        if (hour > 23) {
+            hour -= 24;
+        }
     }
     else {
         var hour = d.getHours();

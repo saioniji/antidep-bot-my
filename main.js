@@ -13,6 +13,7 @@ if (process.env.VK_TOKEN) {
         token: process.env.VK_TOKEN,
         confirmation: process.env.CONFIRM_KEY,
         redis: true,
+        flowTimeout: 120,
         redisConfig: {
             host: redis.hostname,
             port: redis.port,
@@ -31,6 +32,7 @@ else {
         token: config.VK_TOKEN,
         confirmation: config.CONFIRM_KEY,
         redis: true,
+        flowTimeout: 120,
         redisConfig: {
             host: '127.0.0.1',
             port: 6379
@@ -366,6 +368,7 @@ const { reverseScore, checkDepression, checkAnxiety, checkStress, checkChoice, c
 const { checkExhaustion, checkDepersonalization, checkReduction, checkInclination } = require("./src/external");
 const { determineInclination, determineSanity, determineTemper, checkAggression } = require('./src/external');
 const { checkEyseckCircle, detInclination, checkTemper, checkTemperType } = require('./src/external');
+const { RedisClient } = require('redis');
 
 const contacts = [
     ['Татьяна Владимировна Чапала' + '\n' + '89371837900'],
