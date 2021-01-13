@@ -368,7 +368,6 @@ const { reverseScore, checkDepression, checkAnxiety, checkStress, checkChoice, c
 const { checkExhaustion, checkDepersonalization, checkReduction, checkInclination } = require("./src/external");
 const { determineInclination, determineSanity, determineTemper, checkAggression } = require('./src/external');
 const { checkEyseckCircle, detInclination, checkTemper, checkTemperType } = require('./src/external');
-const { RedisClient } = require('redis');
 
 const contacts = [
     ['Татьяна Владимировна Чапала' + '\n' + '89371837900'],
