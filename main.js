@@ -9,7 +9,6 @@ const server = express();
 var bot;
 if (process.env.VK_TOKEN) {
     var redis = require('url').parse(process.env.REDIS_URL);
-    var redisClient = require('redis').createClient(redis.port, redis.hostname);
     bot = new Botact({
         token: process.env.VK_TOKEN,
         confirmation: process.env.CONFIRM_KEY,
@@ -860,7 +859,6 @@ bot.addScene('stress',
         updateResult(userId, 'stress', result, sanity);
         reply('Вы набрали: ' + result);
         reply(checkChoice(4, choice));
-        redisClient.flushall();
         counter = 0;
     }
 );
