@@ -667,6 +667,8 @@ bot.addScene('anxiety1',
         updateResult(userId, 'anxiety1', result, sanity);
         reply('Вы набрали: ' + result);
         reply(checkChoice(2, choice));
+        counter_direct = 0;
+        counter_reverse = 0;
         counter = 0;
     }
 );
@@ -793,6 +795,8 @@ bot.addScene('anxiety2',
         updateResult(userId, 'anxiety2', result, sanity);
         reply('Вы набрали: ' + result);
         reply(checkChoice(3, choice));
+        counter_direct = 0;
+        counter_reverse = 0;
         counter = 0;
     }
 );
