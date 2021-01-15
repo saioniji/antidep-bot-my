@@ -565,12 +565,12 @@ bot.addScene('anxiety1',
     ({ reply, body, scene: { next } }) => {
         next();
         reply('Вопрос №2:' + '\n' + 'Мне ничто не угрожает');
-        counter_reverse += reverseScore(parseInt(body));
+        counter_reverse += parseInt(body);
     },
     ({ reply, body, scene: { next } }) => {
         next();
         reply('Вопрос №3:' + '\n' + 'Я нахожусь в напряжении');
-        counter_reverse += reverseScore(parseInt(body));
+        counter_reverse += parseInt(body);
     },
     ({ reply, body, scene: { next } }) => {
         next();
@@ -585,7 +585,7 @@ bot.addScene('anxiety1',
     ({ reply, body, scene: { next } }) => {
         next();
         reply('Вопрос №6:' + '\n' + 'Я расстроен');
-        counter_reverse += reverseScore(parseInt(body));
+        counter_reverse += parseInt(body);
     },
     ({ reply, body, scene: { next } }) => {
         next();
@@ -600,7 +600,7 @@ bot.addScene('anxiety1',
     ({ reply, body, scene: { next } }) => {
         next();
         reply('Вопрос №9:' + '\n' + 'Я встревожен');
-        counter_reverse += reverseScore(parseInt(body));
+        counter_reverse += parseInt(body);
     },
     ({ reply, body, scene: { next } }) => {
         next();
@@ -610,12 +610,12 @@ bot.addScene('anxiety1',
     ({ reply, body, scene: { next } }) => {
         next();
         reply('Вопрос №11:' + '\n' + 'Я уверен в себе');
-        counter_reverse += reverseScore(parseInt(body));
+        counter_reverse += parseInt(body);
     },
     ({ reply, body, scene: { next } }) => {
         next();
         reply('Вопрос №12:' + '\n' + 'Я нервничаю');
-        counter_reverse += reverseScore(parseInt(body));
+        counter_reverse += parseInt(body);
     },
     ({ reply, body, scene: { next } }) => {
         next();
@@ -635,12 +635,12 @@ bot.addScene('anxiety1',
     ({ reply, body, scene: { next } }) => {
         next();
         reply('Вопрос №16:' + '\n' + 'Я доволен');
-        counter_reverse += reverseScore(parseInt(body));
+        counter_reverse += parseInt(body);
     },
     ({ reply, body, scene: { next } }) => {
         next();
         reply('Вопрос №17:' + '\n' + 'Я озабочен');
-        counter_reverse += reverseScore(parseInt(body));
+        counter_reverse += parseInt(body);
     },
     ({ reply, body, scene: { next } }) => {
         next();
@@ -655,11 +655,11 @@ bot.addScene('anxiety1',
     ({ reply, body, scene: { next } }) => {
         next();
         reply('Вопрос №20:' + '\n' + 'Мне приятно');
-        counter_reverse += reverseScore(parseInt(body));
+        counter_reverse += parseInt(body);
     },
     ({ reply, body, scene: { leave } }) => {
         leave();
-        counter_reverse += reverseScore(parseInt(body));
+        counter_reverse += parseInt(body);
         var result = counter_direct - counter_reverse + 50;
         var choice = checkAnxiety(result);
         var sanity = determineSanity('anxiety1', choice);
@@ -689,7 +689,7 @@ bot.addScene('anxiety2',
     ({ reply, body, scene: { next } }) => {
         next();
         reply('Вопрос №2:' + '\n' + 'Я обычно быстро устаю');
-        counter_reverse += reverseScore(parseInt(body));
+        counter_reverse += parseInt(body);
     },
     ({ reply, body, scene: { next } }) => {
         next();
@@ -715,12 +715,12 @@ bot.addScene('anxiety2',
     ({ reply, body, scene: { next } }) => {
         next();
         reply('Вопрос №7:' + '\n' + 'Я спокоен, хладнокровен и собран');
-        counter_reverse += reverseScore(parseInt(body));
+        counter_reverse += parseInt(body);
     },
     ({ reply, body, scene: { next } }) => {
         next();
         reply('Вопрос №8:' + '\n' + 'Ожидаемые трудности обычно очень тревожат меня');
-        counter_reverse += reverseScore(parseInt(body));
+        counter_reverse += parseInt(body);
     },
     ({ reply, body, scene: { next } }) => {
         next();
@@ -735,7 +735,7 @@ bot.addScene('anxiety2',
     ({ reply, body, scene: { next } }) => {
         next();
         reply('Вопрос №11:' + '\n' + 'Я принимаю все слишком близко к сердцу');
-        counter_reverse += reverseScore(parseInt(body));
+        counter_reverse += parseInt(body);
     },
     ({ reply, body, scene: { next } }) => {
         next();
@@ -751,7 +751,7 @@ bot.addScene('anxiety2',
         next();
         reply('Вопрос №14:' + '\n' + 'Я стараюсь избегать критических ситуаций ' +
             'и трудностей');
-        counter_reverse += reverseScore(parseInt(body));
+        counter_reverse += parseInt(body);
     },
     ({ reply, body, scene: { next } }) => {
         next();
@@ -772,7 +772,7 @@ bot.addScene('anxiety2',
         next();
         reply('Вопрос №18:' + '\n' + 'Я так сильно переживаю свои разочарования, ' +
             'что потом долго не могу о них забыть');
-        counter_reverse += reverseScore(parseInt(body));
+        counter_reverse += parseInt(body);
     },
     ({ reply, body, scene: { next } }) => {
         next();
@@ -783,7 +783,7 @@ bot.addScene('anxiety2',
         next();
         reply('Вопрос №20:' + '\n' + 'Меня охватывает беспокойство, когда я ' + 
             'думаю о своих делах и заботах');
-        counter_reverse += reverseScore(parseInt(body));
+        counter_reverse += parseInt(body);
     },
     ({ reply, body, scene: { leave } }) => {
         leave();
