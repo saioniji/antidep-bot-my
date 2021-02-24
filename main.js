@@ -370,7 +370,7 @@ const { determineInclination, determineSanity, determineTemper, checkAggression 
 const { checkEyseckCircle, detInclination, checkTemper, checkTemperType } = require('./src/external');
 
 const contacts = [
-    ['Татьяна Владимировна Чапала' + '\n' + '89371837900'],
+    ['Татьяна Владимировна Чапала' + '\n' + 'https://vk.com/id625482513' + '\n' + '89371837900'],
     ['Мария Илич' + '\n' + 'https://vk.com/mariailich'],
     ['Юлия Петрова' + '\n' + 'https://vk.com/id6037251'],
     ['Оксана Зотова' + '\n' + 'https://vk.com/id128316097'],
