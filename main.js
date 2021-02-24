@@ -200,7 +200,7 @@ const test_keyboard = {
                     payload: {
                         button: 'button13'
                     },
-                    label: 'Тест Айзека'
+                    label: 'Тест Айзенка'
                 },
                 color: 'positive'
             }
@@ -2327,7 +2327,7 @@ bot.command('Склонность', ({ scene: { join } }) => join('inclination')
 bot.command('Агрессия', ({ scene: { join } }) => join('aggression'));
 bot.command('Образ жизни', ({ scene: { join } }) => join('lifestyle'));
 bot.command('Темперамент', ({ scene: { join } }) => join('temper'));
-bot.command('Тест Айзека', ({ scene: { join } }) => join('eysenck'));
+bot.command('Тест Айзенка', ({ scene: { join } }) => join('eysenck'));
 bot.command('feedback', ({ scene: { join } }) => join('feedback'));
 
 bot.event('group_join', (msg) => {
@@ -2335,6 +2335,24 @@ bot.event('group_join', (msg) => {
 });
 
 bot.command('help', (msg) => {
+    msg.sendMessage(msg.user_id, 'Список доступных команд: ' + '\n' +
+    'start – начать взаимодействие с ботом' + '\n' +
+    'feedback – оставить пожелание для модификации');
+});
+
+bot.command('Help', (msg) => {
+    msg.sendMessage(msg.user_id, 'Список доступных команд: ' + '\n' +
+    'start – начать взаимодействие с ботом' + '\n' +
+    'feedback – оставить пожелание для модификации');
+});
+
+bot.command('помощь', (msg) => {
+    msg.sendMessage(msg.user_id, 'Список доступных команд: ' + '\n' +
+    'start – начать взаимодействие с ботом' + '\n' +
+    'feedback – оставить пожелание для модификации');
+});
+
+bot.command('Помощь', (msg) => {
     msg.sendMessage(msg.user_id, 'Список доступных команд: ' + '\n' +
     'start – начать взаимодействие с ботом' + '\n' +
     'feedback – оставить пожелание для модификации');
@@ -2428,14 +2446,6 @@ server.use(bodyParser.json());
 
 server.post('/', bot.listen);
 
-// !!
-// добавить возможность выхода на любом вопросе из теста, при вводе '0'
-// добавить фильтр входящих ответов пользователя (повторение вопроса, в случае выбора числа вне диапазона)
-
-// добавить информационную страницу в браузере приложения
-// добавить команду 'call admin' для отправки сигнала мне
-// пофиксить ошибку в тесте про депрессию в вопросе №6 для женского пола
-// нужно добавить вопрос про пол в начале теста про депрессию и сделать 2 варианта вопроса в 6 вопросе
 
 server.listen(process.env.PORT || 5000, () => console.log('Server is running ... '));
 setInterval(function () { server.get('http://bot-antidep.herokuapp.com/'); }, 300000);
