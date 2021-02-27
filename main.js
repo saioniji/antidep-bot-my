@@ -371,7 +371,7 @@ const { checkEyseckCircle, detInclination, checkTemper, checkTemperType } = requ
 
 const contacts = [
     ['Татьяна Владимировна Чапала' + '\n' + 'https://vk.com/id625482513' + '\n' + '89371837900'],
-    ['Мария Илич' + '\n' + 'https://vk.com/mariailich'],
+    ['Мария Илич' + '\n' + 'https://vk.com/ilich.mariyah'],
     ['Юлия Петрова' + '\n' + 'https://vk.com/id6037251'],
     ['Оксана Зотова' + '\n' + 'https://vk.com/id128316097'],
     ['Алина Гельметдинова' + '\n' + 'https://vk.com/id73431394']
@@ -2340,6 +2340,7 @@ bot.command('Образ жизни', ({ scene: { join } }) => join('lifestyle'))
 bot.command('Темперамент', ({ scene: { join } }) => join('temper'));
 bot.command('Тест Айзенка', ({ scene: { join } }) => join('eysenck'));
 bot.command('feedback', ({ scene: { join } }) => join('feedback'));
+bot.command('Feedback', ({ scene: { join } }) => join('feedback'));
 
 bot.event('group_join', (msg) => {
     msg.reply('Спасибо, что стали пользователем нашего бота. Мы постараемся вам помочь!');
