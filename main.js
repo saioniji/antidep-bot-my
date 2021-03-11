@@ -2406,6 +2406,22 @@ bot.command('Дефектологи', (msg) => {
     msg.reply('Список контактов доступных специалистов:', null, defects_keyboard);
 });
 
+bot.command('test', (msg) => {
+    msg.reply('Выберите тест: ', null, test_keyboard);
+});
+
+bot.command('Test', (msg) => {
+    msg.reply('Выберите тест: ', null, test_keyboard);
+});
+
+bot.command('тестирование', (msg) => {
+    msg.reply('Выберите тест: ', null, test_keyboard);
+});
+
+bot.command('Тестирование', (msg) => {
+    msg.reply('Выберите тест: ', null, test_keyboard);
+});
+
 bot.command('Пройти тест', (msg) => {
     msg.reply('Выберите тест: ', null, test_keyboard);
 });
