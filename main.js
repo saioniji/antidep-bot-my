@@ -204,6 +204,18 @@ const test_keyboard = {
                 },
                 color: 'positive'
             }
+        ],
+        [
+            {
+                action: {
+                    type: 'text',
+                    payload: {
+                        button: 'button14'
+                    },
+                    label: 'Отмена'
+                },
+                color: 'negative'
+            }
         ]
     ]
 };
@@ -216,7 +228,7 @@ const anxiety_keyboard = {
                 action: {
                     type: 'text',
                     payload: { 
-                        button: 'button14' 
+                        button: 'button15' 
                     },
                     label: 'Реактивная'
                 },
@@ -226,12 +238,24 @@ const anxiety_keyboard = {
                 action: {
                     type: 'text',
                     payload: {
-                        button: 'button15'
+                        button: 'button16'
                     },
                     label: 'Личностная'
                 },
                 color: 'positive'
             },
+        ],
+        [
+            {
+                action: {
+                    type: 'text',
+                    payload: {
+                        button: 'button17'
+                    },
+                    label: 'Отмена'
+                },
+                color: 'negative'
+            }
         ]
     ]
 };
@@ -244,7 +268,7 @@ const admin_keyboard = {
                 action: {
                     type: 'text',
                     payload: { 
-                        button: 'button16' 
+                        button: 'button18' 
                     },
                     label: 'Пожелания'
                 },
@@ -254,7 +278,7 @@ const admin_keyboard = {
                 action: {
                     type: 'text',
                     payload: {
-                        button: 'button17'
+                        button: 'button19'
                     },
                     label: 'Пользователи'
                 },
@@ -272,7 +296,7 @@ const staff_keyboard = {
                 action: {
                     type: 'text',
                     payload: { 
-                        button: 'button18' 
+                        button: 'button20' 
                     },
                     label: 'Психологи'
                 },
@@ -282,12 +306,24 @@ const staff_keyboard = {
                 action: {
                     type: 'text',
                     payload: {
-                        button: 'button19'
+                        button: 'button21'
                     },
                     label: 'Дефектологи'
                 },
                 color: 'positive'
             }  
+        ],
+        [
+            {
+                action: {
+                    type: 'text',
+                    payload: {
+                        button: 'button22'
+                    },
+                    label: 'Отмена'
+                },
+                color: 'negative'
+            }
         ]
     ]
 };
@@ -300,7 +336,7 @@ const shrinks_keyboard = {
                 action: {
                     type: 'text',
                     payload: { 
-                        button: 'button20' 
+                        button: 'button23' 
                     },
                     label: 'Татьяна Чапала'
                 },
@@ -310,7 +346,7 @@ const shrinks_keyboard = {
                 action: {
                     type: 'text',
                     payload: {
-                        button: 'button21'
+                        button: 'button24'
                     },
                     label: 'Мария Илич'
                 },
@@ -322,7 +358,7 @@ const shrinks_keyboard = {
                 action: {
                     type: 'text',
                     payload: { 
-                        button: 'button22' 
+                        button: 'button25' 
                     },
                     label: 'Юлия Петрова'
                 },
@@ -332,12 +368,24 @@ const shrinks_keyboard = {
                 action: {
                     type: 'text',
                     payload: {
-                        button: 'button23'
+                        button: 'button26'
                     },
                     label: 'Оксана Зотова'
                 },
                 color: 'positive'
             }  
+        ],
+        [
+            {
+                action: {
+                    type: 'text',
+                    payload: {
+                        button: 'button27'
+                    },
+                    label: 'Отмена'
+                },
+                color: 'negative'
+            }
         ]
     ]
 };
@@ -350,11 +398,21 @@ const defects_keyboard = {
                 action: {
                     type: 'text',
                     payload: { 
-                        button: 'button24' 
+                        button: 'button28' 
                     },
                     label: 'Алина Гельметдинова'
                 },
                 color: 'positive'
+            },
+            {
+                action: {
+                    type: 'text',
+                    payload: {
+                        button: 'button29'
+                    },
+                    label: 'Отмена'
+                },
+                color: 'negative'
             }
         ]
     ]
@@ -2368,6 +2426,10 @@ bot.command('Помощь', (msg) => {
     msg.sendMessage(msg.user_id, 'Список доступных команд: ' + '\n' +
     'start – начать взаимодействие с ботом' + '\n' +
     'feedback – оставить пожелание для модификации');
+});
+
+bot.command('Отмена', (msg) => {
+    msg.reply('Здравствуйте, вы бы хотели пройти тестирование или связаться со специалистом?', null, keyboard);
 });
 
 bot.command('start', (msg) => {
