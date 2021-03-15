@@ -1050,6 +1050,19 @@ function determineDepressionResponse(response) {
     }
 };
 
+function determineAnxietyResponse(response) {
+    switch(response) {
+        case "Нет, это не так":
+            return 1;
+        case "Пожалуй так":
+            return 2;
+        case "Верно":
+            return 3;
+        case "Совершенно верно":
+            return 4;
+    }
+};
+
 module.exports = { 
     logStart, recommendations, reverseScore, 
     checkDepression, checkAnxiety, checkStress, 
@@ -1057,5 +1070,6 @@ module.exports = {
     checkExhaustion, checkDepersonalization, checkReduction,
     checkInclination, determineInclination, determineSanity,
     determineTemper, checkAggression, checkLifeStyle, checkEyseckCircle,
-    checkTemperType, checkTemper, detInclination, determineDepressionResponse
+    checkTemperType, checkTemper, detInclination, 
+    determineDepressionResponse, determineAnxietyResponse
 }; 

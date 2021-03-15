@@ -524,6 +524,84 @@ const depression_keyboard = {
     ]
 };
 
+const anxiety_keyboard = {
+    one_time: true,
+    buttons: [
+        [
+            {
+                action: {
+                    type: 'text',
+                    payload: { 
+                        button: 'button38' 
+                    },
+                    label: 'Нет, это не так'
+                },
+                color: 'positive'
+            },
+            {
+                action: {
+                    type: 'text',
+                    payload: {
+                        button: 'button39'
+                    },
+                    label: 'Пожалуй так'
+                },
+                color: 'positive'
+            }
+        ],
+        [
+            {
+                action: {
+                    type: 'text',
+                    payload: { 
+                        button: 'button40' 
+                    },
+                    label: 'Верно'
+                },
+                color: 'positive'
+            },
+            {
+                action: {
+                    type: 'text',
+                    payload: {
+                        button: 'button41'
+                    },
+                    label: 'Совершенно верно'
+                },
+                color: 'positive'
+            }
+        ]
+    ]
+};
+
+const temper_keyboard = {
+    one_time: true,
+    buttons: [
+        [
+            {
+                action: {
+                    type: 'text',
+                    payload: { 
+                        button: 'button42' 
+                    },
+                    label: '1'
+                },
+                color: 'positive'
+            },
+            {
+                action: {
+                    type: 'text',
+                    payload: {
+                        button: 'button43'
+                    },
+                    label: '2'
+                },
+                color: 'positive'
+            }
+        ]
+    ]
+};
+
 var counter = 0, counter_direct = 0, counter_reverse = 0;
 var sex, userId, exhaustion = 0, depersonalization = 0, reduction = 0;
 var arr = [], feedback_records =[];
@@ -532,7 +610,7 @@ const { reverseScore, checkDepression, checkAnxiety, checkStress, checkChoice, c
 const { checkExhaustion, checkDepersonalization, checkReduction, checkInclination } = require("./src/external");
 const { determineInclination, determineSanity, determineTemper, checkAggression } = require('./src/external');
 const { checkEyseckCircle, detInclination, checkTemper, checkTemperType } = require('./src/external');
-const { determineDepressionResponse } = require('./src/external');
+const { determineDepressionResponse, determineAnxietyResponse } = require('./src/external');
 
 const contacts = [
     ['Татьяна Владимировна Чапала' + '\n' + 'https://vk.com/id625482513' + '\n' + '89371837900'],
@@ -726,106 +804,106 @@ bot.addScene('anxiety1',
               '3 – Верно' + '\n' + 
               '4 - Совершенно верно');
         reply('КАК ВЫ ЧУВСТВУЕТЕ СЕБЯ В ДАННЫЙ МОМЕНТ?');
-        reply('Вопрос №1:' + '\n' + 'Я спокоен');
+        reply('Вопрос №1:' + '\n' + 'Я спокоен', null, anxiety_keyboard);
     },
     ({ reply, body, scene: { next } }) => {
         next();
-        reply('Вопрос №2:' + '\n' + 'Мне ничто не угрожает');
-        counter_reverse += parseInt(body);
+        reply('Вопрос №2:' + '\n' + 'Мне ничто не угрожает', null, anxiety_keyboard);
+        counter_reverse += determineAnxietyResponse(body);
     },
     ({ reply, body, scene: { next } }) => {
         next();
-        reply('Вопрос №3:' + '\n' + 'Я нахожусь в напряжении');
-        counter_reverse += parseInt(body);
+        reply('Вопрос №3:' + '\n' + 'Я нахожусь в напряжении', null, anxiety_keyboard);
+        counter_reverse += determineAnxietyResponse(body);
     },
     ({ reply, body, scene: { next } }) => {
         next();
-        reply('Вопрос №4:' + '\n' + 'Я испытываю сожаление');
-        counter_direct += parseInt(body);
+        reply('Вопрос №4:' + '\n' + 'Я испытываю сожаление', null, anxiety_keyboard);
+        counter_direct += determineAnxietyResponse(body);
     },
     ({ reply, body, scene: { next } }) => {
         next();
-        reply('Вопрос №5:' + '\n' + 'Я чувствую себя свободно');
-        counter_direct += parseInt(body);
+        reply('Вопрос №5:' + '\n' + 'Я чувствую себя свободно', null, anxiety_keyboard);
+        counter_direct += determineAnxietyResponse(body);
     },
     ({ reply, body, scene: { next } }) => {
         next();
-        reply('Вопрос №6:' + '\n' + 'Я расстроен');
-        counter_reverse += parseInt(body);
+        reply('Вопрос №6:' + '\n' + 'Я расстроен', null, anxiety_keyboard);
+        counter_reverse += determineAnxietyResponse(body);
     },
     ({ reply, body, scene: { next } }) => {
         next();
-        reply('Вопрос №7:' + '\n' + 'Меня волнуют возможные неудачи');
-        counter_direct += parseInt(body);
+        reply('Вопрос №7:' + '\n' + 'Меня волнуют возможные неудачи', null, anxiety_keyboard);
+        counter_direct += determineAnxietyResponse(body);
     },
     ({ reply, body, scene: { next } }) => {
         next();
-        reply('Вопрос №8:' + '\n' + 'Я чувствую себя отдохнувшим');
-        counter_direct += parseInt(body);
+        reply('Вопрос №8:' + '\n' + 'Я чувствую себя отдохнувшим', null, anxiety_keyboard);
+        counter_direct += determineAnxietyResponse(body);
     },
     ({ reply, body, scene: { next } }) => {
         next();
-        reply('Вопрос №9:' + '\n' + 'Я встревожен');
-        counter_reverse += parseInt(body);
+        reply('Вопрос №9:' + '\n' + 'Я встревожен', null, anxiety_keyboard);
+        counter_reverse += determineAnxietyResponse(body);
     },
     ({ reply, body, scene: { next } }) => {
         next();
-        reply('Вопрос №10:' + '\n' + 'Я испытываю чувство внутреннего удовлетворения');
-        counter_direct += parseInt(body);
+        reply('Вопрос №10:' + '\n' + 'Я испытываю чувство внутреннего удовлетворения', null, anxiety_keyboard);
+        counter_direct += determineAnxietyResponse(body);
     },
     ({ reply, body, scene: { next } }) => {
         next();
-        reply('Вопрос №11:' + '\n' + 'Я уверен в себе');
-        counter_reverse += parseInt(body);
+        reply('Вопрос №11:' + '\n' + 'Я уверен в себе', null, anxiety_keyboard);
+        counter_reverse += determineAnxietyResponse(body);
     },
     ({ reply, body, scene: { next } }) => {
         next();
-        reply('Вопрос №12:' + '\n' + 'Я нервничаю');
-        counter_reverse += parseInt(body);
+        reply('Вопрос №12:' + '\n' + 'Я нервничаю', null, anxiety_keyboard);
+        counter_reverse += determineAnxietyResponse(body);
     },
     ({ reply, body, scene: { next } }) => {
         next();
-        reply('Вопрос №13:' + '\n' + 'Я не нахожу себе места');
-        counter_direct += parseInt(body);
+        reply('Вопрос №13:' + '\n' + 'Я не нахожу себе места', null, anxiety_keyboard);
+        counter_direct += determineAnxietyResponse(body);
     },
     ({ reply, body, scene: { next } }) => {
         next();
-        reply('Вопрос №14:' + '\n' + 'Я взвинчен');
-        counter_direct += parseInt(body);
+        reply('Вопрос №14:' + '\n' + 'Я взвинчен', null, anxiety_keyboard);
+        counter_direct += determineAnxietyResponse(body);
     },
     ({ reply, body, scene: { next } }) => {
         next();
-        reply('Вопрос №15:' + '\n' + 'Я не чувствую скованности');
-        counter_direct += parseInt(body);
+        reply('Вопрос №15:' + '\n' + 'Я не чувствую скованности', null, anxiety_keyboard);
+        counter_direct += determineAnxietyResponse(body);
     },
     ({ reply, body, scene: { next } }) => {
         next();
-        reply('Вопрос №16:' + '\n' + 'Я доволен');
-        counter_reverse += parseInt(body);
+        reply('Вопрос №16:' + '\n' + 'Я доволен', null, anxiety_keyboard);
+        counter_reverse += determineAnxietyResponse(body);
     },
     ({ reply, body, scene: { next } }) => {
         next();
-        reply('Вопрос №17:' + '\n' + 'Я озабочен');
-        counter_reverse += parseInt(body);
+        reply('Вопрос №17:' + '\n' + 'Я озабочен', null, anxiety_keyboard);
+        counter_reverse += determineAnxietyResponse(body);
     },
     ({ reply, body, scene: { next } }) => {
         next();
-        reply('Вопрос №18:' + '\n' + 'Я слишком возбужден и мне не по себе');
-        counter_direct += parseInt(body);
+        reply('Вопрос №18:' + '\n' + 'Я слишком возбужден и мне не по себе', null, anxiety_keyboard);
+        counter_direct += determineAnxietyResponse(body);
     },
     ({ reply, body, scene: { next } }) => {
         next();
-        reply('Вопрос №19:' + '\n' + 'Мне радостно');
-        counter_direct += parseInt(body);
+        reply('Вопрос №19:' + '\n' + 'Мне радостно', null, anxiety_keyboard);
+        counter_direct += determineAnxietyResponse(body);
     },
     ({ reply, body, scene: { next } }) => {
         next();
-        reply('Вопрос №20:' + '\n' + 'Мне приятно');
-        counter_reverse += parseInt(body);
+        reply('Вопрос №20:' + '\n' + 'Мне приятно', null, anxiety_keyboard);
+        counter_reverse += determineAnxietyResponse(body);
     },
     ({ reply, body, scene: { leave } }) => {
         leave();
-        counter_reverse += parseInt(body);
+        counter_reverse += determineAnxietyResponse(body);
         var result = counter_direct - counter_reverse + 50;
         var choice = checkAnxiety(result);
         var sanity = determineSanity('anxiety1', choice);
@@ -851,110 +929,110 @@ bot.addScene('anxiety2',
               '3 – Верно' + '\n' + 
               '4 - Совершенно верно');
         reply('КАК ВЫ СЕБЯ ОБЫЧНО ЧУВСТВУЕТЕ?');
-        reply('Вопрос №1:' + '\n' + 'Я испытываю удовольствие');
+        reply('Вопрос №1:' + '\n' + 'Я испытываю удовольствие', null, anxiety_keyboard);
     },
     ({ reply, body, scene: { next } }) => {
         next();
-        reply('Вопрос №2:' + '\n' + 'Я обычно быстро устаю');
-        counter_reverse += parseInt(body);
+        reply('Вопрос №2:' + '\n' + 'Я обычно быстро устаю', null, anxiety_keyboard);
+        counter_reverse += determineAnxietyResponse(body);
     },
     ({ reply, body, scene: { next } }) => {
         next();
-        reply('Вопрос №3:' + '\n' + 'Я легко могу заплакать');
-        counter_direct += parseInt(body);
+        reply('Вопрос №3:' + '\n' + 'Я легко могу заплакать', null, anxiety_keyboard);
+        counter_direct += determineAnxietyResponse(body);
     },
     ({ reply, body, scene: { next } }) => {
         next();
-        reply('Вопрос №4:' + '\n' + 'Я хотел бы быть таким же счастливым, как и другие');
-        counter_direct += parseInt(body);
+        reply('Вопрос №4:' + '\n' + 'Я хотел бы быть таким же счастливым, как и другие', null, anxiety_keyboard);
+        counter_direct += determineAnxietyResponse(body);
     },
     ({ reply, body, scene: { next } }) => {
         next();
         reply('Вопрос №5:' + '\n' + 'Нередко я проигрываю из-за того, ' +
-              'что недостаточно быстро принимаю решения');
-        counter_direct += parseInt(body);
+              'что недостаточно быстро принимаю решения', null, anxiety_keyboard);
+        counter_direct += determineAnxietyResponse(body);
     },
     ({ reply, body, scene: { next } }) => {
         next();
-        reply('Вопрос №6:' + '\n' + 'Обычно я чувствую себя бодрым');
-        counter_direct += parseInt(body);
+        reply('Вопрос №6:' + '\n' + 'Обычно я чувствую себя бодрым', null, anxiety_keyboard);
+        counter_direct += determineAnxietyResponse(body);
     },
     ({ reply, body, scene: { next } }) => {
         next();
-        reply('Вопрос №7:' + '\n' + 'Я спокоен, хладнокровен и собран');
-        counter_reverse += parseInt(body);
+        reply('Вопрос №7:' + '\n' + 'Я спокоен, хладнокровен и собран', null, anxiety_keyboard);
+        counter_reverse += determineAnxietyResponse(body);
     },
     ({ reply, body, scene: { next } }) => {
         next();
-        reply('Вопрос №8:' + '\n' + 'Ожидаемые трудности обычно очень тревожат меня');
-        counter_reverse += parseInt(body);
+        reply('Вопрос №8:' + '\n' + 'Ожидаемые трудности обычно очень тревожат меня', null, anxiety_keyboard);
+        counter_reverse += determineAnxietyResponse(body);
     },
     ({ reply, body, scene: { next } }) => {
         next();
-        reply('Вопрос №9:' + '\n' + 'Я слишком переживаю из-за пустяков');
-        counter_direct += parseInt(body);
+        reply('Вопрос №9:' + '\n' + 'Я слишком переживаю из-за пустяков', null, anxiety_keyboard);
+        counter_direct += determineAnxietyResponse(body);
     },
     ({ reply, body, scene: { next } }) => {
         next();
-        reply('Вопрос №10:' + '\n' + 'Я вполне счастлив');
-        counter_direct += parseInt(body);
+        reply('Вопрос №10:' + '\n' + 'Я вполне счастлив', null, anxiety_keyboard);
+        counter_direct += determineAnxietyResponse(body);
     },
     ({ reply, body, scene: { next } }) => {
         next();
-        reply('Вопрос №11:' + '\n' + 'Я принимаю все слишком близко к сердцу');
-        counter_reverse += parseInt(body);
+        reply('Вопрос №11:' + '\n' + 'Я принимаю все слишком близко к сердцу', null, anxiety_keyboard);
+        counter_reverse += determineAnxietyResponse(body);
     },
     ({ reply, body, scene: { next } }) => {
         next();
-        reply('Вопрос №12:' + '\n' + 'Мне не хватает уверенности в себе');
-        counter_direct += parseInt(body);
+        reply('Вопрос №12:' + '\n' + 'Мне не хватает уверенности в себе', null, anxiety_keyboard);
+        counter_direct += determineAnxietyResponse(body);
     },
     ({ reply, body, scene: { next } }) => {
         next();
-        reply('Вопрос №13:' + '\n' + 'Обычно я чувствую себя в безопасности');
-        counter_direct += parseInt(body);
+        reply('Вопрос №13:' + '\n' + 'Обычно я чувствую себя в безопасности', null, anxiety_keyboard);
+        counter_direct += determineAnxietyResponse(body);
     },
     ({ reply, body, scene: { next } }) => {
         next();
         reply('Вопрос №14:' + '\n' + 'Я стараюсь избегать критических ситуаций ' +
-            'и трудностей');
-        counter_reverse += parseInt(body);
+            'и трудностей', null, anxiety_keyboard);
+        counter_reverse += determineAnxietyResponse(body);
     },
     ({ reply, body, scene: { next } }) => {
         next();
-        reply('Вопрос №15:' + '\n' + 'У меня бывает хандра');
-        counter_direct += parseInt(body);
+        reply('Вопрос №15:' + '\n' + 'У меня бывает хандра', null, anxiety_keyboard);
+        counter_direct += determineAnxietyResponse(body);
     },
     ({ reply, body, scene: { next } }) => {
         next();
-        reply('Вопрос №16:' + '\n' + 'Я доволен');
-        counter_direct += parseInt(body);
+        reply('Вопрос №16:' + '\n' + 'Я доволен', null, anxiety_keyboard);
+        counter_direct += determineAnxietyResponse(body);
     },
     ({ reply, body, scene: { next } }) => {
         next();
-        reply('Вопрос №17:' + '\n' + 'Всякие пустяки отвлекают и волнуют меня');
-        counter_direct += parseInt(body);
+        reply('Вопрос №17:' + '\n' + 'Всякие пустяки отвлекают и волнуют меня', null, anxiety_keyboard);
+        counter_direct += determineAnxietyResponse(body);
     },
     ({ reply, body, scene: { next } }) => {
         next();
         reply('Вопрос №18:' + '\n' + 'Я так сильно переживаю свои разочарования, ' +
-            'что потом долго не могу о них забыть');
-        counter_reverse += parseInt(body);
+            'что потом долго не могу о них забыть', null, anxiety_keyboard);
+        counter_reverse += determineAnxietyResponse(body);
     },
     ({ reply, body, scene: { next } }) => {
         next();
-        reply('Вопрос №19:' + '\n' + 'Я уравновешенный человек');
-        counter_direct += parseInt(body);
+        reply('Вопрос №19:' + '\n' + 'Я уравновешенный человек', null, anxiety_keyboard);
+        counter_direct += determineAnxietyResponse(body);
     },
     ({ reply, body, scene: { next } }) => {
         next();
         reply('Вопрос №20:' + '\n' + 'Меня охватывает беспокойство, когда я ' + 
-            'думаю о своих делах и заботах');
-        counter_reverse += parseInt(body);
+            'думаю о своих делах и заботах', null, anxiety_keyboard);
+        counter_reverse += determineAnxietyResponse(body);
     },
     ({ reply, body, scene: { leave } }) => {
         leave();
-        counter_direct += parseInt(body);
+        counter_direct += determineAnxietyResponse(body);
         var result = counter_direct - counter_reverse + 35;
         var choice = checkAnxiety(result);
         var sanity = determineSanity('anxiety2', choice);
@@ -2018,138 +2096,138 @@ bot.addScene('temper',
             'В каждом вопросе по 2 варианта ответа. Вводите 1 или 2.');
         reply('Вопрос №1:' + '\n' + 'Что Вы предпочитаете?' + '\n' +
               '1) Немного близких друзей' + '\n' +
-              '2) Большую товарищескую компанию');
+              '2) Большую товарищескую компанию', null, temper_keyboard);
     },
     ({ reply, body, scene: { next } }) => {
         next();
         reply('Вопрос №2:' + '\n' + 'Какие книги Вы предпочитаете читать?' + '\n' +
               '1) С занимательным сюжетом' + '\n' +
-              '2) С раскрытием переживаний другого');
+              '2) С раскрытием переживаний другого', null, temper_keyboard);
         if (body == '2') { counter += parseInt(body); };      
     },
     ({ reply, body, scene: { next } }) => {
         next();
         reply('Вопрос №3:' + '\n' + 'Что вы скорее можете допустить в работе?' + '\n' +
               '1) Опоздание' + '\n' +
-              '2) Ошибки');
+              '2) Ошибки', null, temper_keyboard);
         if (body == '1') { counter += parseInt(body); };
     },
     ({ reply, body, scene: { next } }) => {
         next();
         reply('Вопрос №4:' + '\n' + 'Если Вы совершаете дурной поступок, то:' + '\n' +
               '1) Остро переживаете' + '\n' +
-              '2) Острых переживаний нет');
+              '2) Острых переживаний нет', null, temper_keyboard);
         if (body == '2') { counter += parseInt(body); };
     },
     ({ reply, body, scene: { next } }) => {
         next();
         reply('Вопрос №5:' + '\n' + 'Как Вы сходитесь с людьми?' + '\n' +
                 '1) Быстро, легко' + '\n' +
-                '2) Медленно, осторожно');
+                '2) Медленно, осторожно', null, temper_keyboard);
     },
     ({ reply, body, scene: { next } }) => {
         next();
         reply('Вопрос №6:' + '\n' + 'Считаете ли Вы себя обидчивым?' + '\n' +
                 '1) Да' + '\n' +
-                '2) Нет');
+                '2) Нет', null, temper_keyboard);
         if (body == '1') { counter += parseInt(body); };
     },
     ({ reply, body, scene: { next } }) => {
         next();
         reply('Вопрос №7:' + '\n' + 'Склонны ли Вы смеяться от души?' + '\n' +
                 '1) Да' + '\n' +
-                '2) Нет');
+                '2) Нет', null, temper_keyboard);
         if (body == '2') { counter += parseInt(body); };
     },
     ({ reply, body, scene: { next } }) => {
         next();
         reply('Вопрос №8:' + '\n' + 'Вы считаете себя:' + '\n' +
                 '1) Молчаливым' + '\n' +
-                '2) Разговорчивым');
+                '2) Разговорчивым', null, temper_keyboard);
         if (body == '1') { counter += parseInt(body); };
     },
     ({ reply, body, scene: { next } }) => {
         next();
         reply('Вопрос №9:' + '\n' + 'Откровенны ли Вы или скрытны?' + '\n' +
                 '1) Откровенен' + '\n' +
-                '2) Скрытен');
+                '2) Скрытен', null, temper_keyboard);
         if (body == '2') { counter += parseInt(body); };
     },
     ({ reply, body, scene: { next } }) => {
         next();
         reply('Вопрос №10:' + '\n' + 'Любите ли Вы заниматься анализом своих переживаний?' + '\n' +
               '1) Да' + '\n' +
-              '2) Нет');
+              '2) Нет', null, temper_keyboard);
         if (body == '1') { counter += parseInt(body); };
     },
     ({ reply, body, scene: { next } }) => {
         next();
         reply('Вопрос №11:' + '\n' + 'Находясь в обществе, Вы предпочитаете:' + '\n' +
               '1) Говорить' + '\n' +
-              '2) Слушать');
+              '2) Слушать', null, temper_keyboard);
         if (body == '2') { counter += parseInt(body); };
     },
     ({ reply, body, scene: { next } }) => {
         next();
         reply('Вопрос №12:' + '\n' + 'Часто ли Вы переживаете недовольство собой?' + '\n' +
               '1) Да' + '\n' +
-              '2) Нет');
+              '2) Нет', null, temper_keyboard);
         if (body == '1') { counter += parseInt(body); };
     },
     ({ reply, body, scene: { next } }) => {
         next();
         reply('Вопрос №13:' + '\n' + 'Любите ли Вы что-нибудь организовывать?' + '\n' +
                 '1) Да' + '\n' +
-                '2) Нет');
+                '2) Нет', null, temper_keyboard);
         if (body == '2') { counter += parseInt(body); };
     },
     ({ reply, body, scene: { next } }) => {
         next();
         reply('Вопрос №14:' + '\n' + 'Хотелось бы Вам вести интимный дневник?' + '\n' +
                 '1) Да' + '\n' +
-                '2) Нет');
+                '2) Нет', null, temper_keyboard);
         if (body == '1') { counter += parseInt(body); };
     },
     ({ reply, body, scene: { next } }) => {
         next();
         reply('Вопрос №15:' + '\n' + 'Быстро ли Вы переходите от решения к выполнению?' + '\n' +
                 '1) Да' + '\n' +
-                '2) Нет');
+                '2) Нет', null, temper_keyboard);
         if (body == '2') { counter += parseInt(body); };
     },
     ({ reply, body, scene: { next } }) => {
         next();
         reply('Вопрос №16:' + '\n' + 'Легко ли меняется Ваше настроение?' + '\n' +
                 '1) Да' + '\n' +
-                '2) Нет');
+                '2) Нет', null, temper_keyboard);
         if (body == '1') { counter += parseInt(body); };
     },
     ({ reply, body, scene: { next } }) => {
         next();
         reply('Вопрос №17:' + '\n' + 'Любите ли Вы убеждать других, навязывать свои взгляды?' + '\n' +
                 '1) Да' + '\n' +
-                '2) Нет');
+                '2) Нет', null, temper_keyboard);
         if (body == '1') { counter += parseInt(body); };
     },
     ({ reply, body, scene: { next } }) => {
         next();
         reply('Вопрос №18:' + '\n' + 'Ваши движения:' + '\n' +
               '1) Быстры' + '\n' +
-              '2) Медленны');
+              '2) Медленны', null, temper_keyboard);
         if (body == '1') { counter += parseInt(body); };
     },
     ({ reply, body, scene: { next } }) => {
         next();
         reply('Вопрос №19:' + '\n' + 'Вы беспокоитесь о возможных неприятностях?' + '\n' +
               '1) Часто' + '\n' +
-              '2) Редко');
+              '2) Редко', null, temper_keyboard);
         if (body == '1') { counter += parseInt(body); };
     },
     ({ reply, body, scene: { next } }) => {
         next();
         reply('Вопрос №20:' + '\n' + 'В затруднительных случаях Вы:' + '\n' +
               '1) Спешите обратиться за помощью' + '\n' +
-              '2) Не обращаетесь');
+              '2) Не обращаетесь', null, temper_keyboard);
         if (body == '2') { counter += parseInt(body); };
     },
     ({ reply, body, scene: { leave } }) => {
