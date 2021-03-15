@@ -524,7 +524,7 @@ const depression_keyboard = {
     ]
 };
 
-const anxiety_keyboard = {
+const inside_anxiety_keyboard = {
     one_time: true,
     buttons: [
         [
@@ -804,101 +804,101 @@ bot.addScene('anxiety1',
               '3 – Верно' + '\n' + 
               '4 - Совершенно верно');
         reply('КАК ВЫ ЧУВСТВУЕТЕ СЕБЯ В ДАННЫЙ МОМЕНТ?');
-        reply('Вопрос №1:' + '\n' + 'Я спокоен', null, anxiety_keyboard);
+        reply('Вопрос №1:' + '\n' + 'Я спокоен', null, inside_anxiety_keyboard);
     },
     ({ reply, body, scene: { next } }) => {
         next();
-        reply('Вопрос №2:' + '\n' + 'Мне ничто не угрожает', null, anxiety_keyboard);
+        reply('Вопрос №2:' + '\n' + 'Мне ничто не угрожает', null, inside_anxiety_keyboard);
         counter_reverse += determineAnxietyResponse(body);
     },
     ({ reply, body, scene: { next } }) => {
         next();
-        reply('Вопрос №3:' + '\n' + 'Я нахожусь в напряжении', null, anxiety_keyboard);
+        reply('Вопрос №3:' + '\n' + 'Я нахожусь в напряжении', null, inside_anxiety_keyboard);
         counter_reverse += determineAnxietyResponse(body);
     },
     ({ reply, body, scene: { next } }) => {
         next();
-        reply('Вопрос №4:' + '\n' + 'Я испытываю сожаление', null, anxiety_keyboard);
+        reply('Вопрос №4:' + '\n' + 'Я испытываю сожаление', null, inside_anxiety_keyboard);
         counter_direct += determineAnxietyResponse(body);
     },
     ({ reply, body, scene: { next } }) => {
         next();
-        reply('Вопрос №5:' + '\n' + 'Я чувствую себя свободно', null, anxiety_keyboard);
+        reply('Вопрос №5:' + '\n' + 'Я чувствую себя свободно', null, inside_anxiety_keyboard);
         counter_direct += determineAnxietyResponse(body);
     },
     ({ reply, body, scene: { next } }) => {
         next();
-        reply('Вопрос №6:' + '\n' + 'Я расстроен', null, anxiety_keyboard);
+        reply('Вопрос №6:' + '\n' + 'Я расстроен', null, inside_anxiety_keyboard);
         counter_reverse += determineAnxietyResponse(body);
     },
     ({ reply, body, scene: { next } }) => {
         next();
-        reply('Вопрос №7:' + '\n' + 'Меня волнуют возможные неудачи', null, anxiety_keyboard);
+        reply('Вопрос №7:' + '\n' + 'Меня волнуют возможные неудачи', null, inside_anxiety_keyboard);
         counter_direct += determineAnxietyResponse(body);
     },
     ({ reply, body, scene: { next } }) => {
         next();
-        reply('Вопрос №8:' + '\n' + 'Я чувствую себя отдохнувшим', null, anxiety_keyboard);
+        reply('Вопрос №8:' + '\n' + 'Я чувствую себя отдохнувшим', null, inside_anxiety_keyboard);
         counter_direct += determineAnxietyResponse(body);
     },
     ({ reply, body, scene: { next } }) => {
         next();
-        reply('Вопрос №9:' + '\n' + 'Я встревожен', null, anxiety_keyboard);
+        reply('Вопрос №9:' + '\n' + 'Я встревожен', null, inside_anxiety_keyboard);
         counter_reverse += determineAnxietyResponse(body);
     },
     ({ reply, body, scene: { next } }) => {
         next();
-        reply('Вопрос №10:' + '\n' + 'Я испытываю чувство внутреннего удовлетворения', null, anxiety_keyboard);
+        reply('Вопрос №10:' + '\n' + 'Я испытываю чувство внутреннего удовлетворения', null, inside_anxiety_keyboard);
         counter_direct += determineAnxietyResponse(body);
     },
     ({ reply, body, scene: { next } }) => {
         next();
-        reply('Вопрос №11:' + '\n' + 'Я уверен в себе', null, anxiety_keyboard);
+        reply('Вопрос №11:' + '\n' + 'Я уверен в себе', null, inside_anxiety_keyboard);
         counter_reverse += determineAnxietyResponse(body);
     },
     ({ reply, body, scene: { next } }) => {
         next();
-        reply('Вопрос №12:' + '\n' + 'Я нервничаю', null, anxiety_keyboard);
+        reply('Вопрос №12:' + '\n' + 'Я нервничаю', null, inside_anxiety_keyboard);
         counter_reverse += determineAnxietyResponse(body);
     },
     ({ reply, body, scene: { next } }) => {
         next();
-        reply('Вопрос №13:' + '\n' + 'Я не нахожу себе места', null, anxiety_keyboard);
+        reply('Вопрос №13:' + '\n' + 'Я не нахожу себе места', null, inside_anxiety_keyboard);
         counter_direct += determineAnxietyResponse(body);
     },
     ({ reply, body, scene: { next } }) => {
         next();
-        reply('Вопрос №14:' + '\n' + 'Я взвинчен', null, anxiety_keyboard);
+        reply('Вопрос №14:' + '\n' + 'Я взвинчен', null, inside_anxiety_keyboard);
         counter_direct += determineAnxietyResponse(body);
     },
     ({ reply, body, scene: { next } }) => {
         next();
-        reply('Вопрос №15:' + '\n' + 'Я не чувствую скованности', null, anxiety_keyboard);
+        reply('Вопрос №15:' + '\n' + 'Я не чувствую скованности', null, inside_anxiety_keyboard);
         counter_direct += determineAnxietyResponse(body);
     },
     ({ reply, body, scene: { next } }) => {
         next();
-        reply('Вопрос №16:' + '\n' + 'Я доволен', null, anxiety_keyboard);
+        reply('Вопрос №16:' + '\n' + 'Я доволен', null, inside_anxiety_keyboard);
         counter_reverse += determineAnxietyResponse(body);
     },
     ({ reply, body, scene: { next } }) => {
         next();
-        reply('Вопрос №17:' + '\n' + 'Я озабочен', null, anxiety_keyboard);
+        reply('Вопрос №17:' + '\n' + 'Я озабочен', null, inside_anxiety_keyboard);
         counter_reverse += determineAnxietyResponse(body);
     },
     ({ reply, body, scene: { next } }) => {
         next();
-        reply('Вопрос №18:' + '\n' + 'Я слишком возбужден и мне не по себе', null, anxiety_keyboard);
+        reply('Вопрос №18:' + '\n' + 'Я слишком возбужден и мне не по себе', null, inside_anxiety_keyboard);
         counter_direct += determineAnxietyResponse(body);
     },
     ({ reply, body, scene: { next } }) => {
         next();
-        reply('Вопрос №19:' + '\n' + 'Мне радостно', null, anxiety_keyboard);
+        reply('Вопрос №19:' + '\n' + 'Мне радостно', null, inside_anxiety_keyboard);
         counter_direct += determineAnxietyResponse(body);
     },
     ({ reply, body, scene: { next } }) => {
         next();
-        reply('Вопрос №20:' + '\n' + 'Мне приятно', null, anxiety_keyboard);
+        reply('Вопрос №20:' + '\n' + 'Мне приятно', null, inside_anxiety_keyboard);
         counter_reverse += determineAnxietyResponse(body);
     },
     ({ reply, body, scene: { leave } }) => {
@@ -929,105 +929,105 @@ bot.addScene('anxiety2',
               '3 – Верно' + '\n' + 
               '4 - Совершенно верно');
         reply('КАК ВЫ СЕБЯ ОБЫЧНО ЧУВСТВУЕТЕ?');
-        reply('Вопрос №1:' + '\n' + 'Я испытываю удовольствие', null, anxiety_keyboard);
+        reply('Вопрос №1:' + '\n' + 'Я испытываю удовольствие', null, inside_anxiety_keyboard);
     },
     ({ reply, body, scene: { next } }) => {
         next();
-        reply('Вопрос №2:' + '\n' + 'Я обычно быстро устаю', null, anxiety_keyboard);
+        reply('Вопрос №2:' + '\n' + 'Я обычно быстро устаю', null, inside_anxiety_keyboard);
         counter_reverse += determineAnxietyResponse(body);
     },
     ({ reply, body, scene: { next } }) => {
         next();
-        reply('Вопрос №3:' + '\n' + 'Я легко могу заплакать', null, anxiety_keyboard);
+        reply('Вопрос №3:' + '\n' + 'Я легко могу заплакать', null, inside_anxiety_keyboard);
         counter_direct += determineAnxietyResponse(body);
     },
     ({ reply, body, scene: { next } }) => {
         next();
-        reply('Вопрос №4:' + '\n' + 'Я хотел бы быть таким же счастливым, как и другие', null, anxiety_keyboard);
+        reply('Вопрос №4:' + '\n' + 'Я хотел бы быть таким же счастливым, как и другие', null, inside_anxiety_keyboard);
         counter_direct += determineAnxietyResponse(body);
     },
     ({ reply, body, scene: { next } }) => {
         next();
         reply('Вопрос №5:' + '\n' + 'Нередко я проигрываю из-за того, ' +
-              'что недостаточно быстро принимаю решения', null, anxiety_keyboard);
+              'что недостаточно быстро принимаю решения', null, inside_anxiety_keyboard);
         counter_direct += determineAnxietyResponse(body);
     },
     ({ reply, body, scene: { next } }) => {
         next();
-        reply('Вопрос №6:' + '\n' + 'Обычно я чувствую себя бодрым', null, anxiety_keyboard);
+        reply('Вопрос №6:' + '\n' + 'Обычно я чувствую себя бодрым', null, inside_anxiety_keyboard);
         counter_direct += determineAnxietyResponse(body);
     },
     ({ reply, body, scene: { next } }) => {
         next();
-        reply('Вопрос №7:' + '\n' + 'Я спокоен, хладнокровен и собран', null, anxiety_keyboard);
+        reply('Вопрос №7:' + '\n' + 'Я спокоен, хладнокровен и собран', null, inside_anxiety_keyboard);
         counter_reverse += determineAnxietyResponse(body);
     },
     ({ reply, body, scene: { next } }) => {
         next();
-        reply('Вопрос №8:' + '\n' + 'Ожидаемые трудности обычно очень тревожат меня', null, anxiety_keyboard);
+        reply('Вопрос №8:' + '\n' + 'Ожидаемые трудности обычно очень тревожат меня', null, inside_anxiety_keyboard);
         counter_reverse += determineAnxietyResponse(body);
     },
     ({ reply, body, scene: { next } }) => {
         next();
-        reply('Вопрос №9:' + '\n' + 'Я слишком переживаю из-за пустяков', null, anxiety_keyboard);
+        reply('Вопрос №9:' + '\n' + 'Я слишком переживаю из-за пустяков', null, inside_anxiety_keyboard);
         counter_direct += determineAnxietyResponse(body);
     },
     ({ reply, body, scene: { next } }) => {
         next();
-        reply('Вопрос №10:' + '\n' + 'Я вполне счастлив', null, anxiety_keyboard);
+        reply('Вопрос №10:' + '\n' + 'Я вполне счастлив', null, inside_anxiety_keyboard);
         counter_direct += determineAnxietyResponse(body);
     },
     ({ reply, body, scene: { next } }) => {
         next();
-        reply('Вопрос №11:' + '\n' + 'Я принимаю все слишком близко к сердцу', null, anxiety_keyboard);
+        reply('Вопрос №11:' + '\n' + 'Я принимаю все слишком близко к сердцу', null, inside_anxiety_keyboard);
         counter_reverse += determineAnxietyResponse(body);
     },
     ({ reply, body, scene: { next } }) => {
         next();
-        reply('Вопрос №12:' + '\n' + 'Мне не хватает уверенности в себе', null, anxiety_keyboard);
+        reply('Вопрос №12:' + '\n' + 'Мне не хватает уверенности в себе', null, inside_anxiety_keyboard);
         counter_direct += determineAnxietyResponse(body);
     },
     ({ reply, body, scene: { next } }) => {
         next();
-        reply('Вопрос №13:' + '\n' + 'Обычно я чувствую себя в безопасности', null, anxiety_keyboard);
+        reply('Вопрос №13:' + '\n' + 'Обычно я чувствую себя в безопасности', null, inside_anxiety_keyboard);
         counter_direct += determineAnxietyResponse(body);
     },
     ({ reply, body, scene: { next } }) => {
         next();
         reply('Вопрос №14:' + '\n' + 'Я стараюсь избегать критических ситуаций ' +
-            'и трудностей', null, anxiety_keyboard);
+            'и трудностей', null, inside_anxiety_keyboard);
         counter_reverse += determineAnxietyResponse(body);
     },
     ({ reply, body, scene: { next } }) => {
         next();
-        reply('Вопрос №15:' + '\n' + 'У меня бывает хандра', null, anxiety_keyboard);
+        reply('Вопрос №15:' + '\n' + 'У меня бывает хандра', null, inside_anxiety_keyboard);
         counter_direct += determineAnxietyResponse(body);
     },
     ({ reply, body, scene: { next } }) => {
         next();
-        reply('Вопрос №16:' + '\n' + 'Я доволен', null, anxiety_keyboard);
+        reply('Вопрос №16:' + '\n' + 'Я доволен', null, inside_anxiety_keyboard);
         counter_direct += determineAnxietyResponse(body);
     },
     ({ reply, body, scene: { next } }) => {
         next();
-        reply('Вопрос №17:' + '\n' + 'Всякие пустяки отвлекают и волнуют меня', null, anxiety_keyboard);
+        reply('Вопрос №17:' + '\n' + 'Всякие пустяки отвлекают и волнуют меня', null, inside_anxiety_keyboard);
         counter_direct += determineAnxietyResponse(body);
     },
     ({ reply, body, scene: { next } }) => {
         next();
         reply('Вопрос №18:' + '\n' + 'Я так сильно переживаю свои разочарования, ' +
-            'что потом долго не могу о них забыть', null, anxiety_keyboard);
+            'что потом долго не могу о них забыть', null, inside_anxiety_keyboard);
         counter_reverse += determineAnxietyResponse(body);
     },
     ({ reply, body, scene: { next } }) => {
         next();
-        reply('Вопрос №19:' + '\n' + 'Я уравновешенный человек', null, anxiety_keyboard);
+        reply('Вопрос №19:' + '\n' + 'Я уравновешенный человек', null, inside_anxiety_keyboard);
         counter_direct += determineAnxietyResponse(body);
     },
     ({ reply, body, scene: { next } }) => {
         next();
         reply('Вопрос №20:' + '\n' + 'Меня охватывает беспокойство, когда я ' + 
-            'думаю о своих делах и заботах', null, anxiety_keyboard);
+            'думаю о своих делах и заботах', null, inside_anxiety_keyboard);
         counter_reverse += determineAnxietyResponse(body);
     },
     ({ reply, body, scene: { leave } }) => {
