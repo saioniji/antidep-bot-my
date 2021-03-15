@@ -629,7 +629,7 @@ bot.addScene('depression',
         var sanity = determineSanity('depression', choice);
         reply('Вы набрали: ' + counter);
         reply(checkChoice(1, choice));
-        reply('Тест завершен. Для возврата в главное меню введите команду start.');
+        reply('Тест завершен. Выберите дальнейшее действие.', null, inside_test_keyboard);
         updateResult(userId, 'depression', counter, sanity);
         counter = 0;
     }
@@ -753,7 +753,7 @@ bot.addScene('anxiety1',
         updateResult(userId, 'anxiety1', result, sanity);
         reply('Вы набрали: ' + result);
         reply(checkChoice(2, choice));
-        reply('Тест завершен. Для возврата в главное меню введите команду start.');
+        reply('Тест завершен. Выберите дальнейшее действие.', null, inside_test_keyboard);
         counter_direct = 0;
         counter_reverse = 0;
         counter = 0;
@@ -882,7 +882,7 @@ bot.addScene('anxiety2',
         updateResult(userId, 'anxiety2', result, sanity);
         reply('Вы набрали: ' + result);
         reply(checkChoice(3, choice));
-        reply('Тест завершен. Для возврата в главное меню введите команду start.');
+        reply('Тест завершен. Выберите дальнейшее действие.', null, inside_test_keyboard);
         counter_direct = 0;
         counter_reverse = 0;
         counter = 0;
@@ -1176,7 +1176,7 @@ bot.addScene('motivation',
         updateResult(userId, 'motivation', counter, sanity);
         reply('Вы набрали: ' + counter);
         reply(checkChoice(5, choice));
-        reply('Тест завершен. Для возврата в главное меню введите команду start.');
+        reply('Тест завершен. Выберите дальнейшее действие.', null, inside_test_keyboard);
         counter = 0;
     }
 );
@@ -1319,7 +1319,7 @@ bot.addScene('burnout',
         reply('Деперсонализация:' + '\n' + checkChoice(7, checkDepersonalization(depersonalization)));
         reply('Редукция личных достижений:' + '\n' + checkChoice(8, checkReduction(reduction)));
         //reply('Общая тяжесть выгорания: ' + total_burnout);
-        reply('Тест завершен. Для возврата в главное меню введите команду start.');
+        reply('Тест завершен. Выберите дальнейшее действие.', null, inside_test_keyboard);
         updateBurnout(userId, exhaustion, reduction, depersonalization, total_burnout);
         exhaustion = 0;
         depersonalization = 0;
@@ -1534,7 +1534,7 @@ bot.addScene('inclination',
         updateTemper(userId, 'inclination', type, max);
         reply('Ваш результат:');
         reply(inclinations);
-        reply('Тест завершен. Для возврата в главное меню введите команду start.');
+        reply('Тест завершен. Выберите дальнейшее действие.', null, inside_test_keyboard);
         arr = [];
     }
 );
@@ -1768,7 +1768,7 @@ bot.addScene('aggression',
         updateResult(userId, 'aggression', total, sanity);
         reply('Общий уровень агрессии: ' + total);
         reply(checkChoice(9, choice));
-        reply('Тест завершен. Для возврата в главное меню введите команду start.');
+        reply('Тест завершен. Выберите дальнейшее действие.', null, inside_test_keyboard);
         verbalAgg = 0, physicalAgg = 0, objectiveAgg = 0, emotionalAgg = 0, selfAgg = 0;
         total = 0;
     }
@@ -1924,7 +1924,7 @@ bot.addScene('lifestyle',
         updateResult(userId, 'lifestyle', counter, sanity);
         reply('Вы набрали: ' + counter);
         reply(checkChoice(10, choice));
-        reply('Тест завершен. Для возврата в главное меню введите команду start.');
+        reply('Тест завершен. Выберите дальнейшее действие.', null, inside_test_keyboard);
         counter = 0;
     }
 );
@@ -2082,7 +2082,7 @@ bot.addScene('temper',
         updateTemper(userId, 'temper', type, result)
         reply('Вы набрали: ' + result);
         reply(checkChoice(11, choice));
-        reply('Тест завершен. Для возврата в главное меню введите команду start.');
+        reply('Тест завершен. Выберите дальнейшее действие.', null, inside_test_keyboard);
         counter = 0;
     }
 );
@@ -2395,7 +2395,7 @@ bot.addScene('eysenck',
               'Стабильность: ' + neuroticism + '\n' + 
               'Достоверность: ' + lie);
         reply(checkChoice(12, choice));
-        reply('Тест завершен. Для возврата в главное меню введите команду start.');
+        reply('Тест завершен. Выберите дальнейшее действие.', null, inside_test_keyboard);
         introversion = 0, neuroticism = 0, lie = 0;
     }
 );
