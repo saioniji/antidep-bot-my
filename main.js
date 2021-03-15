@@ -497,7 +497,9 @@ const depression_keyboard = {
                     label: 'Иногда'
                 },
                 color: 'positive'
-            },
+            }
+        ],
+        [
             {
                 action: {
                     type: 'text',
@@ -611,7 +613,7 @@ bot.addScene('depression',
     },
     ({ reply, body, scene: { next } }) => {
         next();
-        reply('Вопрос №3:' + '\n' + 'У меня бывают периоды плача или близости к слезам.'), null, depression_keyboard;
+        reply('Вопрос №3:' + '\n' + 'У меня бывают периоды плача или близости к слезам.', null, depression_keyboard);
         counter += reverseScore(determineDepressionResponse(body));
     },
     ({ reply, body, scene: { next } }) => {
