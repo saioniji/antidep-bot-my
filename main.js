@@ -1576,220 +1576,220 @@ bot.addScene('aggression',
         reply('В тесте 40 вопросов. Не торопитесь отвечать на вопросы и не забывайте, ' +
               'что в тесте нет правильных и неправильных ответов')
         reply('Введите:' + '\n' +
-              '1, если согласны с утверждением' + '\n' +
-              '2, если не согласны');
-        reply('Вопрос №1:' + '\n' + 'Во время спора я часто повышаю голос.');
+              '\'Да\', если согласны с утверждением' + '\n' +
+              '\'Нет\', если не согласны');
+        reply('Вопрос №1:' + '\n' + 'Во время спора я часто повышаю голос.', null, yesno_keyboard);
     },
     ({ reply, body, scene: { next } }) => {
         next();
-        reply('Вопрос №2:' + '\n' + 'Если меня кто-то раздражает, я могу сказать ему все, что о нем думаю.');
-        if (body == '1') { verbalAgg += parseInt(body); };  
+        reply('Вопрос №2:' + '\n' + 'Если меня кто-то раздражает, я могу сказать ему все, что о нем думаю.', null, yesno_keyboard);
+        if (body == 'Да' || body == 'да') { verbalAgg += 1; };  
     },
     ({ reply, body, scene: { next } }) => {
         next();
         reply('Вопрос №3:' + '\n' + 'Если мне необходимо будет прибегнуть к физической силе ' + 
-        'для защиты своих прав, я, не раздумывая, сделаю это.');
-        if (body == '1') { verbalAgg += parseInt(body); }; 
+        'для защиты своих прав, я, не раздумывая, сделаю это.', null, yesno_keyboard);
+        if (body == 'Да' || body == 'да') { verbalAgg += 1; }; 
     },
     ({ reply, body, scene: { next } }) => {
         next();
         reply('Вопрос №4:' + '\n' + 'Когда я встречаю неприятного мне человека, ' +
-        'я могу позволить себе незаметно ущипнуть или толкнуть его.');
-        if (body == '1') { physicalAgg += parseInt(body); };
+        'я могу позволить себе незаметно ущипнуть или толкнуть его.', null, yesno_keyboard);
+        if (body == 'Да' || body == 'да') { physicalAgg += 1; };
     },
     ({ reply, body, scene: { next } }) => {
         next();
         reply('Вопрос №5:' + '\n' + 'Увлекшись спором с другим человеком, я могу ' +
-        'стукнуть кулаком по столу, чтобы привлечь к себе внимание или доказать свою правоту.');
-        if (body == '1') { physicalAgg += parseInt(body); };
+        'стукнуть кулаком по столу, чтобы привлечь к себе внимание или доказать свою правоту.', null, yesno_keyboard);
+        if (body == 'Да' || body == 'да') { physicalAgg += 1; };
     },
     ({ reply, body, scene: { next } }) => {
         next();
-        reply('Вопрос №6:' + '\n' + 'Я постоянно чувствую, что другие не уважают мои права.');
-        if (body == '1') { objectiveAgg += parseInt(body); };
+        reply('Вопрос №6:' + '\n' + 'Я постоянно чувствую, что другие не уважают мои права.', null, yesno_keyboard);
+        if (body == 'Да' || body == 'да') { objectiveAgg += 1; };
     },
     ({ reply, body, scene: { next } }) => {
         next();
-        reply('Вопрос №7:' + '\n' + 'Вспоминая прошлое, порой мне бывает обидно за себя.');
-        if (body == '1') { emotionalAgg += parseInt(body); };
+        reply('Вопрос №7:' + '\n' + 'Вспоминая прошлое, порой мне бывает обидно за себя.', null, yesno_keyboard);
+        if (body == 'Да' || body == 'да') { emotionalAgg += 1; };
     },
     ({ reply, body, scene: { next } }) => {
         next();
-        reply('Вопрос №8:' + '\n' + 'Хотя я и не подаю вида, иногда меня гложет зависть.');
-        if (body == '1') { selfAgg += parseInt(body); };
+        reply('Вопрос №8:' + '\n' + 'Хотя я и не подаю вида, иногда меня гложет зависть.', null, yesno_keyboard);
+        if (body == 'Да' || body == 'да') { selfAgg += 1; };
     },
     ({ reply, body, scene: { next } }) => {
         next();
         reply('Вопрос №9:' + '\n' + 'Если я не одобряю поведение своих знакомых, то я прямо ' +
-        'говорю им об этом.');
-        if (body == '1') { selfAgg += parseInt(body); };
+        'говорю им об этом.', null, yesno_keyboard);
+        if (body == 'Да' || body == 'да') { selfAgg += 1; };
     },
     ({ reply, body, scene: { next } }) => {
         next();
-        reply('Вопрос №10:' + '\n' + 'В сильном гневе я употребляю крепкие выражения, сквернословлю.');
-        if (body == '1') { verbalAgg += parseInt(body); }; 
+        reply('Вопрос №10:' + '\n' + 'В сильном гневе я употребляю крепкие выражения, сквернословлю.', null, yesno_keyboard);
+        if (body == 'Да' || body == 'да') { verbalAgg += 1; }; 
     },
     ({ reply, body, scene: { next } }) => {
         next();
         reply('Вопрос №11:' + '\n' + 'Если кто-нибудь поднимет на меня руку, я постараюсь ' + 
-        'ударить его первым.');
-        if (body == '1') { verbalAgg += parseInt(body); }; 
+        'ударить его первым.', null, yesno_keyboard);
+        if (body == 'Да' || body == 'да') { verbalAgg += 1; }; 
     },
     ({ reply, body, scene: { next } }) => {
         next();
-        reply('Вопрос №12:' + '\n' + 'Я бываю настолько взбешен, что швыряю разные предметы.');
-        if (body == '1') { physicalAgg += parseInt(body); };
+        reply('Вопрос №12:' + '\n' + 'Я бываю настолько взбешен, что швыряю разные предметы.', null, yesno_keyboard);
+        if (body == 'Да' || body == 'да') { physicalAgg += 1; };
     },
     ({ reply, body, scene: { next } }) => {
         next();
         reply('Вопрос №13:' + '\n' + 'У меня часто возникает потребность переставить ' +
-        'в квартире мебель или полностью сменить ее.');
-        if (body == '1') { objectiveAgg += parseInt(body); };
+        'в квартире мебель или полностью сменить ее.', null, yesno_keyboard);
+        if (body == 'Да' || body == 'да') { objectiveAgg += 1; };
     },
     ({ reply, body, scene: { next } }) => {
         next();
         reply('Вопрос №14:' + '\n' + 'В общении с людьми я часто чувствую себя «пороховой бочкой», ' +
-        'которая постоянно готова взорваться.');
-        if (body == '1') { objectiveAgg += parseInt(body); };
+        'которая постоянно готова взорваться.', null, yesno_keyboard);
+        if (body == 'Да' || body == 'да') { objectiveAgg += 1; };
     },
     ({ reply, body, scene: { next } }) => {
         next();
-        reply('Вопрос №15:' + '\n' + 'Порой у меня появляется желание зло пошутить над другим человеком.');
-        if (body == '1') { emotionalAgg += parseInt(body); };
+        reply('Вопрос №15:' + '\n' + 'Порой у меня появляется желание зло пошутить над другим человеком.', null, yesno_keyboard);
+        if (body == 'Да' || body == 'да') { emotionalAgg += 1; };
     },
     ({ reply, body, scene: { next } }) => {
         next();
-        reply('Вопрос №16:' + '\n' + 'Когда я сердит, то обычно мрачнею.');
-        if (body == '1') { emotionalAgg += parseInt(body); };
+        reply('Вопрос №16:' + '\n' + 'Когда я сердит, то обычно мрачнею.', null, yesno_keyboard);
+        if (body == 'Да' || body == 'да') { emotionalAgg += 1; };
     },
     ({ reply, body, scene: { next } }) => {
         next();
-        reply('Вопрос №17:' + '\n' + 'В разговоре с человеком я стараюсь его внимательно выслушать, не перебивая.');
-        if (body == '1') { selfAgg += parseInt(body); };
+        reply('Вопрос №17:' + '\n' + 'В разговоре с человеком я стараюсь его внимательно выслушать, не перебивая.', null, yesno_keyboard);
+        if (body == 'Да' || body == 'да') { selfAgg += 1; };
     },
     ({ reply, body, scene: { next } }) => {
         next();
-        reply('Вопрос №18:' + '\n' + 'В молодости у меня часто «чесались кулаки» и я всегда был готов пустить их в ход.');
-        if (body == '2') { verbalAgg += parseInt(body); }; 
+        reply('Вопрос №18:' + '\n' + 'В молодости у меня часто «чесались кулаки» и я всегда был готов пустить их в ход.', null, yesno_keyboard);
+        if (body == 'Нет' || body == 'нет') { verbalAgg += 1; }; 
     },
     ({ reply, body, scene: { next } }) => {
         next();
-        reply('Вопрос №19:' + '\n' + 'Если я знаю, что человек намеренно меня толкнул, то дело может дойти до драки.');
-        if (body == '1') { physicalAgg += parseInt(body); };
+        reply('Вопрос №19:' + '\n' + 'Если я знаю, что человек намеренно меня толкнул, то дело может дойти до драки.', null, yesno_keyboard);
+        if (body == 'Да' || body == 'да') { physicalAgg += 1; };
     },
     ({ reply, body, scene: { next } }) => {
         next();
-        reply('Вопрос №20:' + '\n' + 'Творческий беспорядок на моем рабочем столе позволяет мне эффективно работать.');
-        if (body == '1') { physicalAgg += parseInt(body); }; 
+        reply('Вопрос №20:' + '\n' + 'Творческий беспорядок на моем рабочем столе позволяет мне эффективно работать.', null, yesno_keyboard);
+        if (body == 'Да' || body == 'да') { physicalAgg += 1; }; 
     },
     ({ reply, body, scene: { next } }) => {
         next();
-        reply('Вопрос №21:' + '\n' + 'Я помню, что бывал настолько сердитым, что хватал все, что попадало под руку, и ломал.');
-        if (body == '2') { objectiveAgg += parseInt(body); };
+        reply('Вопрос №21:' + '\n' + 'Я помню, что бывал настолько сердитым, что хватал все, что попадало под руку, и ломал.', null, yesno_keyboard);
+        if (body == 'Нет' || body == 'нет') { objectiveAgg += 1; };
     },
     ({ reply, body, scene: { next } }) => {
         next();
-        reply('Вопрос №22:' + '\n' + 'Иногда люди раздражают меня только одним своим присутствием.');
-        if (body == '1') { objectiveAgg += parseInt(body); };    
+        reply('Вопрос №22:' + '\n' + 'Иногда люди раздражают меня только одним своим присутствием.', null, yesno_keyboard);
+        if (body == 'Да' || body == 'да') { objectiveAgg += 1; };    
     },
     ({ reply, body, scene: { next } }) => {
         next();
         reply('Вопрос №23:' + '\n' + 'Я часто удивляюсь, какие скрытые причины заставляют другого человека ' +
-        'делать мне что-нибудь хорошее.');
-        if (body == '1') { emotionalAgg += parseInt(body); };
+        'делать мне что-нибудь хорошее.', null, yesno_keyboard);
+        if (body == 'Да' || body == 'да') { emotionalAgg += 1; };
     },
     ({ reply, body, scene: { next } }) => {
         next();
         reply('Вопрос №24:' + '\n' + 'Если мне нанесут обиду, то у меня пропадет желание разговаривать ' +
-        'с кем бы, то ни было.');
-        if (body == '2') { emotionalAgg += parseInt(body); };
+        'с кем бы, то ни было.', null, yesno_keyboard);
+        if (body == 'Нет' || body == 'нет') { emotionalAgg += 1; };
     },
     ({ reply, body, scene: { next } }) => {
         next();
-        reply('Вопрос №25:' + '\n' + 'Иногда я намеренно говорю гадости о человеке, которого не люблю.');
-        if (body == '1') { selfAgg += parseInt(body); };
+        reply('Вопрос №25:' + '\n' + 'Иногда я намеренно говорю гадости о человеке, которого не люблю.', null, yesno_keyboard);
+        if (body == 'Да' || body == 'да') { selfAgg += 1; };
     },
     ({ reply, body, scene: { next } }) => {
         next();
-        reply('Вопрос №26:' + '\n' + 'Когда я взбешен, я кричу самое злобное ругательство.');
-        if (body == '1') { verbalAgg += parseInt(body); }; 
+        reply('Вопрос №26:' + '\n' + 'Когда я взбешен, я кричу самое злобное ругательство.', null, yesno_keyboard);
+        if (body == 'Да' || body == 'да') { verbalAgg += 1; }; 
     },
     ({ reply, body, scene: { next } }) => {
         next();
-        reply('Вопрос №27:' + '\n' + 'В детстве я избегал драться.');
-        if (body == '1') { verbalAgg += parseInt(body); }; 
+        reply('Вопрос №27:' + '\n' + 'В детстве я избегал драться.', null, yesno_keyboard);
+        if (body == 'Да' || body == 'да') { verbalAgg += 1; }; 
     },
     ({ reply, body, scene: { next } }) => {
         next();
-        reply('Вопрос №28:' + '\n' + 'Я знаю, по какой причине и когда можно кого-нибудь ударить.');
-        if (body == '2') { physicalAgg += parseInt(body); };
+        reply('Вопрос №28:' + '\n' + 'Я знаю, по какой причине и когда можно кого-нибудь ударить.', null, yesno_keyboard);
+        if (body == 'Нет' || body == 'нет') { physicalAgg += 1; };
     },
     ({ reply, body, scene: { next } }) => {
         next();
-        reply('Вопрос №29:' + '\n' + 'Когда я взбешен, то могу хлопнуть дверью.');
-        if (body == '1') { physicalAgg += parseInt(body); };
+        reply('Вопрос №29:' + '\n' + 'Когда я взбешен, то могу хлопнуть дверью.', null, yesno_keyboard);
+        if (body == 'Да' || body == 'да') { physicalAgg += 1; };
     },
     ({ reply, body, scene: { next } }) => {
         next();
-        reply('Вопрос №30:' + '\n' + 'Мне кажется, что окружающие люди меня не любят.');
-        if (body == '1') { objectiveAgg += parseInt(body); };    
+        reply('Вопрос №30:' + '\n' + 'Мне кажется, что окружающие люди меня не любят.', null, yesno_keyboard);
+        if (body == 'Да' || body == 'да') { objectiveAgg += 1; };    
     },
     ({ reply, body, scene: { next } }) => {
         next();
-        reply('Вопрос №31:' + '\n' + 'Я постоянно делюсь с другими своими чувствами и переживаниями.');
-        if (body == '1') { emotionalAgg += parseInt(body); };
+        reply('Вопрос №31:' + '\n' + 'Я постоянно делюсь с другими своими чувствами и переживаниями.', null, yesno_keyboard);
+        if (body == 'Да' || body == 'да') { emotionalAgg += 1; };
     },
     ({ reply, body, scene: { next } }) => {
         next();
-        reply('Вопрос №32:' + '\n' + 'Очень часто своими словами и действиями я сам себе приношу вред.');
-        if (body == '2') { selfAgg += parseInt(body); };
+        reply('Вопрос №32:' + '\n' + 'Очень часто своими словами и действиями я сам себе приношу вред.', null, yesno_keyboard);
+        if (body == 'Нет' || body == 'нет') { selfAgg += 1; };
     },
     ({ reply, body, scene: { next } }) => {
         next();
-        reply('Вопрос №33:' + '\n' + 'Когда люди орут на меня, я отвечаю тем же.');
-        if (body == '1') { selfAgg += parseInt(body); };
+        reply('Вопрос №33:' + '\n' + 'Когда люди орут на меня, я отвечаю тем же.', null, yesno_keyboard);
+        if (body == 'Да' || body == 'да') { selfAgg += 1; };
     },
     ({ reply, body, scene: { next } }) => {
         next();
-        reply('Вопрос №34:' + '\n' + 'Если кто-нибудь ударит меня первым, я в ответ ударю его.');
-        if (body == '1') { verbalAgg += parseInt(body); }; 
+        reply('Вопрос №34:' + '\n' + 'Если кто-нибудь ударит меня первым, я в ответ ударю его.', null, yesno_keyboard);
+        if (body == 'Да' || body == 'да') { verbalAgg += 1; }; 
     },
     ({ reply, body, scene: { next } }) => {
         next();
-        reply('Вопрос №35:' + '\n' + 'Меня раздражает, когда предметы лежат не на своем месте.');
-        if (body == '1') { physicalAgg += parseInt(body); };
+        reply('Вопрос №35:' + '\n' + 'Меня раздражает, когда предметы лежат не на своем месте.', null, yesno_keyboard);
+        if (body == 'Да' || body == 'да') { physicalAgg += 1; };
     },
     ({ reply, body, scene: { next } }) => {
         next();
         reply('Вопрос №36:' + '\n' + 'Если мне не удается починить сломавшийся или порвавшийся ' +
-        'предмет, то я в гневе ломаю или рву его окончательно.');
-        if (body == '1') { objectiveAgg += parseInt(body); }; 
+        'предмет, то я в гневе ломаю или рву его окончательно.', null, yesno_keyboard);
+        if (body == 'Да' || body == 'да') { objectiveAgg += 1; }; 
     },
     ({ reply, body, scene: { next } }) => {
         next();
-        reply('Вопрос №37:' + '\n' + 'Другие люди мне всегда кажутся преуспевающими.');
-        if (body == '1') { objectiveAgg += parseInt(body); };
+        reply('Вопрос №37:' + '\n' + 'Другие люди мне всегда кажутся преуспевающими.', null, yesno_keyboard);
+        if (body == 'Да' || body == 'да') { objectiveAgg += 1; };
     },
     ({ reply, body, scene: { next } }) => {
         next();
         reply('Вопрос №38:' + '\n' + 'Когда я думаю об очень неприятном мне человеке, я могу прийти ' +
-        'в возбуждение от желания причинить ему зло.');
-        if (body == '1') { emotionalAgg += parseInt(body); };
+        'в возбуждение от желания причинить ему зло.', null, yesno_keyboard);
+        if (body == 'Да' || body == 'да') { emotionalAgg += 1; };
     },
     ({ reply, body, scene: { next } }) => {
         next();
-        reply('Вопрос №39:' + '\n' + 'Иногда мне кажется, что судьба сыграла со мной злую шутку.');
-        if (body == '1') { emotionalAgg += parseInt(body); };
+        reply('Вопрос №39:' + '\n' + 'Иногда мне кажется, что судьба сыграла со мной злую шутку.', null, yesno_keyboard);
+        if (body == 'Да' || body == 'да') { emotionalAgg += 1; };
     },
     ({ reply, body, scene: { next } }) => {
         next();
         reply('Вопрос №40:' + '\n' + 'Если кто-нибудь обращается со мной не так, как следует, ' +
-        'я очень расстраиваюсь по этому поводу.');
-        if (body == '1') { selfAgg += parseInt(body); };
+        'я очень расстраиваюсь по этому поводу.', null, yesno_keyboard);
+        if (body == 'Да' || body == 'да') { selfAgg += 1; };
     },
     ({ reply, body, scene: { leave } }) => {
         leave();
-        if (body == '1') { selfAgg += parseInt(body); };
+        if (body == 'Да' || body == 'да') { selfAgg += 1; };
         var total = verbalAgg + physicalAgg + objectiveAgg + emotionalAgg + selfAgg;
         var choice = checkAggression(total);
         var sanity = determineSanity('aggression', choice);
@@ -1809,74 +1809,74 @@ bot.addScene('lifestyle',
         reply('В тесте 25 вопросов. Не торопитесь отвечать на вопросы и не забывайте, ' +
               'что в тесте нет правильных и неправильных ответов')
         reply('Введите:' + '\n' +
-              '1, если согласны с утверждением' + '\n' +
-              '2, если не согласны');
-        reply('Вопрос №1:' + '\n' + 'Регулярно ли Вы едите свежие фрукты и овощи?');
+              '\'Да\', если согласны с утверждением' + '\n' +
+              '\'Нет\', если не согласны');
+        reply('Вопрос №1:' + '\n' + 'Регулярно ли Вы едите свежие фрукты и овощи?', null, yesno_keyboard);
     },
     ({ reply, body, scene: { next } }) => {
         next();
-        reply('Вопрос №2:' + '\n' + 'Ограничиваете ли Вы себя в употреблении животных жиров?');
-        if (body == '1') { counter += 3; };  
+        reply('Вопрос №2:' + '\n' + 'Ограничиваете ли Вы себя в употреблении животных жиров?', null, yesno_keyboard);
+        if (body == 'Да' || body == 'да') { counter += 3; };  
     },//
     ({ reply, body, scene: { next } }) => {
         next();
-        reply('Вопрос №3:' + '\n' + 'Регулярно ли Вы едите волокнистую пищу, хлеб грубого помола или из отрубей?');
-        if (body == '1') { counter += 5; };  
+        reply('Вопрос №3:' + '\n' + 'Регулярно ли Вы едите волокнистую пищу, хлеб грубого помола или из отрубей?', null, yesno_keyboard);
+        if (body == 'Да' || body == 'да') { counter += 5; };  
     },
     ({ reply, body, scene: { next } }) => {
         next();
-        reply('Вопрос №4:' + '\n' + 'Ограничиваете ли Вы себя в употреблении сахара?');
-        if (body == '1') { counter += 2; };  
+        reply('Вопрос №4:' + '\n' + 'Ограничиваете ли Вы себя в употреблении сахара?', null, yesno_keyboard);
+        if (body == 'Да' || body == 'да') { counter += 2; };  
     },
     ({ reply, body, scene: { next } }) => {
         next();
-        reply('Вопрос №5:' + '\n' + 'Умеете ли Вы отдыхать и расслабляться?');
-        if (body == '1') { counter += 3; };  
+        reply('Вопрос №5:' + '\n' + 'Умеете ли Вы отдыхать и расслабляться?', null, yesno_keyboard);
+        if (body == 'Да' || body == 'да') { counter += 3; };  
     },
     ({ reply, body, scene: { next } }) => {
         next();
-        reply('Вопрос №6:' + '\n' + 'Есть ли у Вас развлечения, помимо работы?');
-        if (body == '1') { counter += 5; };  
+        reply('Вопрос №6:' + '\n' + 'Есть ли у Вас развлечения, помимо работы?', null, yesno_keyboard);
+        if (body == 'Да' || body == 'да') { counter += 5; };  
     },
     ({ reply, body, scene: { next } }) => {
         next();
-        reply('Вопрос №7:' + '\n' + 'Нравится ли Вам Ваша работа?');
-        if (body == '1') { counter += 4; };  
+        reply('Вопрос №7:' + '\n' + 'Нравится ли Вам Ваша работа?', null, yesno_keyboard);
+        if (body == 'Да' || body == 'да') { counter += 4; };  
     },
     ({ reply, body, scene: { next } }) => {
         next();
-        reply('Вопрос №8:' + '\n' + 'Есть ли у Вас друг, которому Вы полностью доверяете?');
-        if (body == '1') { counter += 4; };  
+        reply('Вопрос №8:' + '\n' + 'Есть ли у Вас друг, которому Вы полностью доверяете?', null, yesno_keyboard);
+        if (body == 'Да' || body == 'да') { counter += 4; };  
     },
     ({ reply, body, scene: { next } }) => {
         next();
-        reply('Вопрос №9:' + '\n' + 'Есть ли у Вас любимый человек?');
-        if (body == '1') { counter += 3; };  
+        reply('Вопрос №9:' + '\n' + 'Есть ли у Вас любимый человек?', null, yesno_keyboard);
+        if (body == 'Да' || body == 'да') { counter += 3; };  
     },
     ({ reply, body, scene: { next } }) => {
         next();
-        reply('Вопрос №10:' + '\n' + 'Считаете ли Вы, что должны быть более ответственны на работе?');
-        if (body == '1') { counter += 4; };  
+        reply('Вопрос №10:' + '\n' + 'Считаете ли Вы, что должны быть более ответственны на работе?', null, yesno_keyboard);
+        if (body == 'Да' || body == 'да') { counter += 4; };  
     },
     ({ reply, body, scene: { next } }) => {
         next();
-        reply('Вопрос №11:' + '\n' + 'Вы считаете, что должны брать на себя меньше обязательств?');
-        if (body == '2') { counter += 2; };  
+        reply('Вопрос №11:' + '\n' + 'Вы считаете, что должны брать на себя меньше обязательств?', null, yesno_keyboard);
+        if (body == 'Нет' || body == 'нет') { counter += 2; };  
     },
     ({ reply, body, scene: { next } }) => {
         next();
-        reply('Вопрос №12:' + '\n' + 'Часто ли Вы испытываете скуку?');
-        if (body == '2') { counter += 2; };  
+        reply('Вопрос №12:' + '\n' + 'Часто ли Вы испытываете скуку?', null, yesno_keyboard);
+        if (body == 'Нет' || body == 'нет') { counter += 2; };  
     },
     ({ reply, body, scene: { next } }) => {
         next();
-        reply('Вопрос №13:' + '\n' + 'Вы курите?');
-        if (body == '2') { counter += 2; };  
+        reply('Вопрос №13:' + '\n' + 'Вы курите?', null, yesno_keyboard);
+        if (body == 'Нет' || body == 'нет') { counter += 2; };  
     },
     ({ reply, body, scene: { next } }) => {
         next();
-        reply('Вопрос №14:' + '\n' + 'Вы курите меньше полпачки в день?');
-        if (body == '2') { counter += 6; };  
+        reply('Вопрос №14:' + '\n' + 'Вы курите меньше полпачки в день?', null, yesno_keyboard);
+        if (body == 'Нет' || body == 'нет') { counter += 6; };  
     },
     ({ reply, body, scene: { next } }) => {
         next();
@@ -1884,7 +1884,7 @@ bot.addScene('lifestyle',
               'Введите 1, если не употребляете' + '\n' +
               'Введите 2, если употребляете иногда' + '\n' +
               'Введите 3, если употребляете каждый день');
-        if (body == '1') { counter += 2; };  
+        if (body == 'Да' || body == 'да') { counter += 2; };  
     },
     ({ reply, body, scene: { next } }) => {
         next();
@@ -1898,55 +1898,55 @@ bot.addScene('lifestyle',
     },
     ({ reply, body, scene: { next } }) => {
         next();
-        reply('Вопрос №17:' + '\n' + 'Регулярно ли Вы делаете зарядку?');
+        reply('Вопрос №17:' + '\n' + 'Регулярно ли Вы делаете зарядку?', null, yesno_keyboard);
         if (body == '1') { counter += 5; }
         else if (body == '2') { counter += 4; }
         else if (body == '3') { counter += 2; }
     },
     ({ reply, body, scene: { next } }) => {
         next();
-        reply('Вопрос №18:' + '\n' + 'Вы занимаетесь зарядкой, пока не заболят мышцы?');
-        if (body == '1') { counter += 2; };  
+        reply('Вопрос №18:' + '\n' + 'Вы занимаетесь зарядкой, пока не заболят мышцы?', null, yesno_keyboard);
+        if (body == 'Да' || body == 'да') { counter += 2; };  
     },
     ({ reply, body, scene: { next } }) => {
         next();
-        reply('Вопрос №19:' + '\n' + 'Нужно ли Вам снотворное, чтобы уснуть? ');
-        if (body == '2') { counter += 1; };  
+        reply('Вопрос №19:' + '\n' + 'Нужно ли Вам снотворное, чтобы уснуть?', null, yesno_keyboard);
+        if (body == 'Нет' || body == 'нет') { counter += 1; };  
     },
     ({ reply, body, scene: { next } }) => {
         next();
-        reply('Вопрос №20:' + '\n' + 'Всегда ли Вы застегиваете ремень безопасности в машине?');
-        if (body == '2') { counter += 1; };  
+        reply('Вопрос №20:' + '\n' + 'Всегда ли Вы застегиваете ремень безопасности в машине?', null, yesno_keyboard);
+        if (body == 'Нет' || body == 'нет') { counter += 1; };  
     },
     ({ reply, body, scene: { next } }) => {
         next();
-        reply('Вопрос №21:' + '\n' + 'Часто ли Вы вынуждены покупать лекарства?');
-        if (body == '1') { counter += 1; };  
+        reply('Вопрос №21:' + '\n' + 'Часто ли Вы вынуждены покупать лекарства?', null, yesno_keyboard);
+        if (body == 'Да' || body == 'да') { counter += 1; };  
     },
     ({ reply, body, scene: { next } }) => {
         next();
-        reply('Вопрос №22:' + '\n' + 'Проверяете ли Вы хоть иногда свое артериальное давление?');
-        if (body == '2') { counter += 2; };  
+        reply('Вопрос №22:' + '\n' + 'Проверяете ли Вы хоть иногда свое артериальное давление?', null, yesno_keyboard);
+        if (body == 'Нет' || body == 'нет') { counter += 2; };  
     },
     ({ reply, body, scene: { next } }) => {
         next();
         reply('Вопрос №23:' + '\n' + 'Бывают ли у Вас постоянные болезненные симптомы и ' +
-        'Вы при этом не обращаетесь к врачу?');
-        if (body == '1') { counter += 1; };  
+        'Вы при этом не обращаетесь к врачу?', null, yesno_keyboard);
+        if (body == 'Да' || body == 'да') { counter += 1; };  
     },
     ({ reply, body, scene: { next } }) => {
         next();
-        reply('Вопрос №24:' + '\n' + 'Занимаетесь ли Вы опасными видами спорта?');
-        if (body == '2') { counter += 5; };  
+        reply('Вопрос №24:' + '\n' + 'Занимаетесь ли Вы опасными видами спорта?', null, yesno_keyboard);
+        if (body == 'Нет' || body == 'нет') { counter += 5; };  
     },
     ({ reply, body, scene: { next } }) => {
         next();
-        reply('Вопрос №25:' + '\n' + 'Часто ли Вы беспокоитесь или волнуетесь?');
-        if (body == '2') { counter += 3; };  
+        reply('Вопрос №25:' + '\n' + 'Часто ли Вы беспокоитесь или волнуетесь?', null, yesno_keyboard);
+        if (body == 'Нет' || body == 'нет') { counter += 3; };  
     },
     ({ reply, body, scene: { leave } }) => {
         leave();
-        if (body == '2') { counter += 5; };
+        if (body == 'Нет' || body == 'нет') { counter += 5; };
         var choice = checkLifeStyle(counter);
         var sanity = determineSanity('lifestyle', choice);
         updateResult(userId, 'lifestyle', counter, sanity);
@@ -2124,297 +2124,297 @@ bot.addScene('eysenck',
         reply('В тесте 57 вопросов. Не торопитесь отвечать на вопросы и не забывайте, ' +
               'что в тесте нет правильных и неправильных ответов')
         reply('Введите:' + '\n' +
-              '1, если согласны с утверждением' + '\n' +
-              '2, если не согласны');
-        reply('Вопрос №1:' + '\n' + 'Тебе нравится находиться в шумной и веселой компании?');
+              '\'Да\', если согласны с утверждением' + '\n' +
+              '\'Нет\', если не согласны');
+        reply('Вопрос №1:' + '\n' + 'Тебе нравится находиться в шумной и веселой компании?', null, yesno_keyboard);
     },
     ({ reply, body, scene: { next } }) => {
         next();
-        reply('Вопрос №2:' + '\n' + 'Часто ли ты нуждаешься в помощи других ребят?');
-        if (body == '1') { introversion += 1; };
+        reply('Вопрос №2:' + '\n' + 'Часто ли ты нуждаешься в помощи других ребят?', null, yesno_keyboard);
+        if (body == 'Да' || body == 'да') { introversion += 1; };
     },
     ({ reply, body, scene: { next } }) => {
         next();
-        reply('Вопрос №3:' + '\n' + 'Когда тебя о чем-либо спрашивают, ты чаще всего быстро находишь ответ?');
-        if (body == '1') { neuroticism += 1; };
+        reply('Вопрос №3:' + '\n' + 'Когда тебя о чем-либо спрашивают, ты чаще всего быстро находишь ответ?', null, yesno_keyboard);
+        if (body == 'Да' || body == 'да') { neuroticism += 1; };
     },
     ({ reply, body, scene: { next } }) => {
         next();
-        reply('Вопрос №4:' + '\n' + 'Бываешь ли ты очень сердитым, раздражительным?');
-        if (body == '1') { lie += 1, introversion += 1; };
+        reply('Вопрос №4:' + '\n' + 'Бываешь ли ты очень сердитым, раздражительным?', null, yesno_keyboard);
+        if (body == 'Да' || body == 'да') { lie += 1, introversion += 1; };
     },
     ({ reply, body, scene: { next } }) => {
         next();
-        reply('Вопрос №5:' + '\n' + 'Часто ли у тебя меняется настроение?');
-        if (body == '2') { lie += 1; };
+        reply('Вопрос №5:' + '\n' + 'Часто ли у тебя меняется настроение?', null, yesno_keyboard);
+        if (body == 'Нет' || body == 'нет') { lie += 1; };
     },
     ({ reply, body, scene: { next } }) => {
         next();
         reply('Вопрос №6:' + '\n' + 'Бывает ли такое, что тебе иногда больше нравится быть одному, ' +
-        'чем встречаться с другими ребятами?');
-        if (body == '1') { neuroticism += 1; };
+        'чем встречаться с другими ребятами?', null, yesno_keyboard);
+        if (body == 'Да' || body == 'да') { neuroticism += 1; };
     },
     ({ reply, body, scene: { next } }) => {
         next();
-        reply('Вопрос №7:' + '\n' + 'Тебе иногда мешают уснуть разные мысли?');
-        if (body == '2') { introversion += 1; };
+        reply('Вопрос №7:' + '\n' + 'Тебе иногда мешают уснуть разные мысли?', null, yesno_keyboard);
+        if (body == 'Нет' || body == 'нет') { introversion += 1; };
     },
     ({ reply, body, scene: { next } }) => {
         next();
-        reply('Вопрос №8:' + '\n' + 'Ты всегда выполняешь все сразу, так, как тебе говорят?');
-        if (body == '1') { neuroticism += 1; };
+        reply('Вопрос №8:' + '\n' + 'Ты всегда выполняешь все сразу, так, как тебе говорят?', null, yesno_keyboard);
+        if (body == 'Да' || body == 'да') { neuroticism += 1; };
     },
     ({ reply, body, scene: { next } }) => {
         next();
-        reply('Вопрос №9:' + '\n' + 'Любишь ли ты подшучивать над кем-нибудь?');
+        reply('Вопрос №9:' + '\n' + 'Любишь ли ты подшучивать над кем-нибудь?', null, yesno_keyboard);
     },
     ({ reply, body, scene: { next } }) => {
         next();
-        reply('Вопрос №10:' + '\n' + 'Было ли когда-нибудь так, что тебе становится грустно без особой причины?');
-        if (body == '1') { introversion += 1; };
+        reply('Вопрос №10:' + '\n' + 'Было ли когда-нибудь так, что тебе становится грустно без особой причины?', null, yesno_keyboard);
+        if (body == 'Да' || body == 'да') { introversion += 1; };
     },
     ({ reply, body, scene: { next } }) => {
         next();
-        reply('Вопрос №11:' + '\n' + 'Можешь ли ты сказать о себе, что ты вообще веселый человек?');
-        if (body == '1') { neuroticism += 1; };
+        reply('Вопрос №11:' + '\n' + 'Можешь ли ты сказать о себе, что ты вообще веселый человек?', null, yesno_keyboard);
+        if (body == 'Да' || body == 'да') { neuroticism += 1; };
     },
     ({ reply, body, scene: { next } }) => {
         next();
-        reply('Вопрос №12:' + '\n' + 'Ты когда-нибудь нарушал правила поведения в школе?');
-        if (body == '1') { introversion += 1; };
+        reply('Вопрос №12:' + '\n' + 'Ты когда-нибудь нарушал правила поведения в школе?', null, yesno_keyboard);
+        if (body == 'Да' || body == 'да') { introversion += 1; };
     },
     ({ reply, body, scene: { next } }) => {
         next();
-        reply('Вопрос №13:' + '\n' + 'Бывает ли так, что иногда тебя почти все раздражает?');
-        if (body == '2') { lie += 1; };
+        reply('Вопрос №13:' + '\n' + 'Бывает ли так, что иногда тебя почти все раздражает?', null, yesno_keyboard);
+        if (body == 'Нет' || body == 'нет') { lie += 1; };
     },
     ({ reply, body, scene: { next } }) => {
         next();
-        reply('Вопрос №14:' + '\n' + 'Тебе нравилась бы такая работа, где все надо делать очень быстро?');
-        if (body == '1') { neuroticism += 1; };
+        reply('Вопрос №14:' + '\n' + 'Тебе нравилась бы такая работа, где все надо делать очень быстро?', null, yesno_keyboard);
+        if (body == 'Да' || body == 'да') { neuroticism += 1; };
     },
     ({ reply, body, scene: { next } }) => {
         next();
         reply('Вопрос №15:' + '\n' + 'Было ли когда-нибудь так, что тебе доверили тайну, ' +
-        'а ты по каким-либо причинам не смог ее сохранить?');
-        if (body == '1') { introversion += 1; };
+        'а ты по каким-либо причинам не смог ее сохранить?', null, yesno_keyboard);
+        if (body == 'Да' || body == 'да') { introversion += 1; };
     },
     ({ reply, body, scene: { next } }) => {
         next();
-        reply('Вопрос №16:' + '\n' + 'Ты можешь без особого труда развеселить компанию скучающих ребят?');
-        if (body == '2') { lie += 1; };
+        reply('Вопрос №16:' + '\n' + 'Ты можешь без особого труда развеселить компанию скучающих ребят?', null, yesno_keyboard);
+        if (body == 'Нет' || body == 'нет') { lie += 1; };
     },
     ({ reply, body, scene: { next } }) => {
         next();
         reply('Вопрос №17:' + '\n' + 'Бывает ли так, что твое сердце начинает сильно биться, ' +
-        'даже если ты почти не волнуешься?');
-        if (body == '1') { introversion += 1; };
+        'даже если ты почти не волнуешься?', null, yesno_keyboard);
+        if (body == 'Да' || body == 'да') { introversion += 1; };
     },
     ({ reply, body, scene: { next } }) => {
         next();
         reply('Вопрос №18:' + '\n' + 'Если ты хочешь познакомиться с другим мальчиком или девочкой, ' +
-        'то ты всегда первым начинаешь разговор?');
-        if (body == '1') { neuroticism += 1; };
+        'то ты всегда первым начинаешь разговор?', null, yesno_keyboard);
+        if (body == 'Да' || body == 'да') { neuroticism += 1; };
     },
     ({ reply, body, scene: { next } }) => {
         next();
-        reply('Вопрос №19:' + '\n' + 'Ты когда-нибудь говорил неправду?');
-        if (body == '1') { introversion += 1; };
+        reply('Вопрос №19:' + '\n' + 'Ты когда-нибудь говорил неправду?', null, yesno_keyboard);
+        if (body == 'Да' || body == 'да') { introversion += 1; };
     },
     ({ reply, body, scene: { next } }) => {
         next();
-        reply('Вопрос №20:' + '\n' + 'Ты очень расстраиваешься, когда тебя ругают за что-нибудь?');
-        if (body == '2') { lie += 1; };
+        reply('Вопрос №20:' + '\n' + 'Ты очень расстраиваешься, когда тебя ругают за что-нибудь?', null, yesno_keyboard);
+        if (body == 'Нет' || body == 'нет') { lie += 1; };
     },
     ({ reply, body, scene: { next } }) => {
         next();
-        reply('Вопрос №21:' + '\n' + 'Тебе нравится шутить и рассказывать веселые истории своим друзьям?');
-        if (body == '1') { neuroticism += 1; };
+        reply('Вопрос №21:' + '\n' + 'Тебе нравится шутить и рассказывать веселые истории своим друзьям?', null, yesno_keyboard);
+        if (body == 'Да' || body == 'да') { neuroticism += 1; };
     },
     ({ reply, body, scene: { next } }) => {
         next();
-        reply('Вопрос №22:' + '\n' + 'Ты иногда чувствуешь себя усталым без особой причины?');
-        if (body == '1') { introversion += 1; };
+        reply('Вопрос №22:' + '\n' + 'Ты иногда чувствуешь себя усталым без особой причины?', null, yesno_keyboard);
+        if (body == 'Да' || body == 'да') { introversion += 1; };
     },
     ({ reply, body, scene: { next } }) => {
         next();
-        reply('Вопрос №23:' + '\n' + 'Ты всегда выполняешь то, что тебе говорят старшие?');
-        if (body == '1') { neuroticism += 1; };
+        reply('Вопрос №23:' + '\n' + 'Ты всегда выполняешь то, что тебе говорят старшие?', null, yesno_keyboard);
+        if (body == 'Да' || body == 'да') { neuroticism += 1; };
     },
     ({ reply, body, scene: { next } }) => {
         next();
-        reply('Вопрос №24:' + '\n' + 'Ты, как правило, всегда бываешь всем доволен?');
-        if (body == '1') { lie += 1; };
+        reply('Вопрос №24:' + '\n' + 'Ты, как правило, всегда бываешь всем доволен?', null, yesno_keyboard);
+        if (body == 'Да' || body == 'да') { lie += 1; };
     },
     ({ reply, body, scene: { next } }) => {
         next();
-        reply('Вопрос №25:' + '\n' + 'Можешь ли ты сказать, что ты чуть-чуть более обидчивый человек, чем другие?');
-        if (body == '1') { introversion += 1; };
-    },//
+        reply('Вопрос №25:' + '\n' + 'Можешь ли ты сказать, что ты чуть-чуть более обидчивый человек, чем другие?', null, yesno_keyboard);
+        if (body == 'Да' || body == 'да') { introversion += 1; };
+    },
     ({ reply, body, scene: { next } }) => {
         next();
-        reply('Вопрос №26:' + '\n' + 'Тебе всегда нравится играть с другими ребятами?');
-        if (body == '1') { neuroticism += 1; };
+        reply('Вопрос №26:' + '\n' + 'Тебе всегда нравится играть с другими ребятами?', null, yesno_keyboard);
+        if (body == 'Да' || body == 'да') { neuroticism += 1; };
     },
     ({ reply, body, scene: { next } }) => {
         next();
         reply('Вопрос №27:' + '\n' + 'Было ли когда-нибудь так, что тебя попросили дома помочь по хозяйству, ' +
-        'а ты по какой-то причине не смог этого сделать?');
-        if (body == '1') { introversion += 1; };
+        'а ты по какой-то причине не смог этого сделать?', null, yesno_keyboard);
+        if (body == 'Да' || body == 'да') { introversion += 1; };
     },
     ({ reply, body, scene: { next } }) => {
         next();
-        reply('Вопрос №28:' + '\n' + 'Бывает ли, что у тебя без особой причины кружится голова?');
-        if (body == '2') { lie += 1; };
+        reply('Вопрос №28:' + '\n' + 'Бывает ли, что у тебя без особой причины кружится голова?', null, yesno_keyboard);
+        if (body == 'Нет' || body == 'нет') { lie += 1; };
     },
     ({ reply, body, scene: { next } }) => {
         next();
-        reply('Вопрос №29:' + '\n' + 'У тебя временами бывает такое чувство, что тебе все надоело?');
-        if (body == '1') { neuroticism += 1; };
+        reply('Вопрос №29:' + '\n' + 'У тебя временами бывает такое чувство, что тебе все надоело?', null, yesno_keyboard);
+        if (body == 'Да' || body == 'да') { neuroticism += 1; };
     },
     ({ reply, body, scene: { next } }) => {
         next();
-        reply('Вопрос №30:' + '\n' + 'Ты любишь иногда похвастать?');
-        if (body == '1') { neuroticism += 1; };
+        reply('Вопрос №30:' + '\n' + 'Ты любишь иногда похвастать?', null, yesno_keyboard);
+        if (body == 'Да' || body == 'да') { neuroticism += 1; };
     },
     ({ reply, body, scene: { next } }) => {
         next();
         reply('Вопрос №31:' + '\n' + 'Бывает ли такое, что, находясь в обществе других ребят, ' +
-        'ты чаще всего молчишь?');
-        if (body == '2') { lie += 1; };
+        'ты чаще всего молчишь?', null, yesno_keyboard);
+        if (body == 'Нет' || body == 'нет') { lie += 1; };
     },
     ({ reply, body, scene: { next } }) => {
         next();
-        reply('Вопрос №32:' + '\n' + 'Ты обычно быстро принимаешь решения?');
-        if (body == '2') { introversion += 1; };
+        reply('Вопрос №32:' + '\n' + 'Ты обычно быстро принимаешь решения?', null, yesno_keyboard);
+        if (body == 'Нет' || body == 'нет') { introversion += 1; };
     },
     ({ reply, body, scene: { next } }) => {
         next();
-        reply('Вопрос №33:' + '\n' + 'Ты шутишь иногда в классе, особенно если там нет учителя?');
-        if (body == '1') { introversion += 1; };
+        reply('Вопрос №33:' + '\n' + 'Ты шутишь иногда в классе, особенно если там нет учителя?', null, yesno_keyboard);
+        if (body == 'Да' || body == 'да') { introversion += 1; };
     },
     ({ reply, body, scene: { next } }) => {
         next();
-        reply('Вопрос №34:' + '\n' + 'Тебе временами снятся страшные сны?');
+        reply('Вопрос №34:' + '\n' + 'Тебе временами снятся страшные сны?', null, yesno_keyboard);
     },
     ({ reply, body, scene: { next } }) => {
         next();
-        reply('Вопрос №35:' + '\n' + 'Можешь ли ты веселиться, не сдерживая себя, в компании других ребят?');
-        if (body == '2') { lie += 1, neuroticism += 1; };
+        reply('Вопрос №35:' + '\n' + 'Можешь ли ты веселиться, не сдерживая себя, в компании других ребят?', null, yesno_keyboard);
+        if (body == 'Нет' || body == 'нет') { lie += 1, neuroticism += 1; };
     },
     ({ reply, body, scene: { next } }) => {
         next();
-        reply('Вопрос №36:' + '\n' + 'Бывает ли, что ты так волнуешься, что не можешь усидеть на месте?');
-        if (body == '1') { introversion += 1; };
+        reply('Вопрос №36:' + '\n' + 'Бывает ли, что ты так волнуешься, что не можешь усидеть на месте?', null, yesno_keyboard);
+        if (body == 'Да' || body == 'да') { introversion += 1; };
     },
     ({ reply, body, scene: { next } }) => {
         next();
-        reply('Вопрос №37:' + '\n' + 'Тебя вообще легко обидеть или огорчить?');
-        if (body == '2') { lie += 1, neuroticism += 1; };
+        reply('Вопрос №37:' + '\n' + 'Тебя вообще легко обидеть или огорчить?', null, yesno_keyboard);
+        if (body == 'Нет' || body == 'нет') { lie += 1, neuroticism += 1; };
     },
     ({ reply, body, scene: { next } }) => {
         next();
-        reply('Вопрос №38:' + '\n' + 'Случалось ли тебе говорить о ком-либо плохо?');
-        if (body == '2') { neuroticism += 1; };
+        reply('Вопрос №38:' + '\n' + 'Случалось ли тебе говорить о ком-либо плохо?', null, yesno_keyboard);
+        if (body == 'Нет' || body == 'нет') { neuroticism += 1; };
     },
     ({ reply, body, scene: { next } }) => {
         next();
-        reply('Вопрос №39:' + '\n' + 'Можешь ли ты сказать о себе, что ты беззаботный человек?');
+        reply('Вопрос №39:' + '\n' + 'Можешь ли ты сказать о себе, что ты беззаботный человек?', null, yesno_keyboard);
     },
     ({ reply, body, scene: { next } }) => {
         next();
-        reply('Вопрос №40:' + '\n' + 'Если ты оказываешься в глупом положении, то ты потом долго расстраиваешься?');
-        if (body == '1') { introversion += 1; };
+        reply('Вопрос №40:' + '\n' + 'Если ты оказываешься в глупом положении, то ты потом долго расстраиваешься?', null, yesno_keyboard);
+        if (body == 'Да' || body == 'да') { introversion += 1; };
     },
     ({ reply, body, scene: { next } }) => {
         next();
-        reply('Вопрос №41:' + '\n' + 'Ты всегда ешь все, что тебе дают?');
-        if (body == '2') { neuroticism += 1; };
+        reply('Вопрос №41:' + '\n' + 'Ты всегда ешь все, что тебе дают?', null, yesno_keyboard);
+        if (body == 'Нет' || body == 'нет') { neuroticism += 1; };
     },//
     ({ reply, body, scene: { next } }) => {
         next();
-        reply('Вопрос №42:' + '\n' + 'Когда тебя о чем-то просят, тебе всегда трудно отказывать?');
-        if (body == '1') { lie += parseInt(body); };
+        reply('Вопрос №42:' + '\n' + 'Когда тебя о чем-то просят, тебе всегда трудно отказывать?', null, yesno_keyboard);
+        if (body == 'Да' || body == 'да') { lie += parseInt(body); };
     },
     ({ reply, body, scene: { next } }) => {
         next();
-        reply('Вопрос №43:' + '\n' + 'Ты любишь часто ходить в гости?');
-        if (body == '2') { neuroticism += 1; };
+        reply('Вопрос №43:' + '\n' + 'Ты любишь часто ходить в гости?', null, yesno_keyboard);
+        if (body == 'Нет' || body == 'нет') { neuroticism += 1; };
     },
     ({ reply, body, scene: { next } }) => {
         next();
-        reply('Вопрос №44:' + '\n' + 'Был ли хотя бы раз в твоей жизни случай, когда тебе было очень плохо?');
-        if (body == '1') { introversion += 1; };
+        reply('Вопрос №44:' + '\n' + 'Был ли хотя бы раз в твоей жизни случай, когда тебе было очень плохо?', null, yesno_keyboard);
+        if (body == 'Да' || body == 'да') { introversion += 1; };
     },
     ({ reply, body, scene: { next } }) => {
         next();
-        reply('Вопрос №45:' + '\n' + 'Бывало ли такое, чтобы ты когда-нибудь грубо разговаривал с родителями?');
-        if (body == '2') { neuroticism += 1; };
+        reply('Вопрос №45:' + '\n' + 'Бывало ли такое, чтобы ты когда-нибудь грубо разговаривал с родителями?', null, yesno_keyboard);
+        if (body == 'Нет' || body == 'нет') { neuroticism += 1; };
     },
     ({ reply, body, scene: { next } }) => {
         next();
-        reply('Вопрос №46:' + '\n' + 'Как ты думаешь, тебя считают веселым человеком?');
-        if (body == '2') { lie += 1; };
+        reply('Вопрос №46:' + '\n' + 'Как ты думаешь, тебя считают веселым человеком?', null, yesno_keyboard);
+        if (body == 'Нет' || body == 'нет') { lie += 1; };
     },
     ({ reply, body, scene: { next } }) => {
         next();
-        reply('Вопрос №47:' + '\n' + 'Ты часто отвлекаешься, когда делаешь уроки?');
+        reply('Вопрос №47:' + '\n' + 'Ты часто отвлекаешься, когда делаешь уроки?', null, yesno_keyboard);
     },
     ({ reply, body, scene: { next } }) => {
         next();
-        reply('Вопрос №48:' + '\n' + 'Бывает ли такое, что тебе не хочется принимать участие в общем веселье?');
-        if (body == '2') { neuroticism += 1; };
+        reply('Вопрос №48:' + '\n' + 'Бывает ли такое, что тебе не хочется принимать участие в общем веселье?', null, yesno_keyboard);
+        if (body == 'Нет' || body == 'нет') { neuroticism += 1; };
     },
     ({ reply, body, scene: { next } }) => {
         next();
-        reply('Вопрос №49:' + '\n' + 'Говоришь ли ты иногда первое, что приходит в голову?');
-        if (body == '2') { introversion += 1; };
+        reply('Вопрос №49:' + '\n' + 'Говоришь ли ты иногда первое, что приходит в голову?', null, yesno_keyboard);
+        if (body == 'Нет' || body == 'нет') { introversion += 1; };
     },
     ({ reply, body, scene: { next } }) => {
         next();
-        reply('Вопрос №50:' + '\n' + 'Ты почти всегда уверен, что справишься с делом, за которое взялся?');
-        if (body == '2') { neuroticism += 1; };
+        reply('Вопрос №50:' + '\n' + 'Ты почти всегда уверен, что справишься с делом, за которое взялся?', null, yesno_keyboard);
+        if (body == 'Нет' || body == 'нет') { neuroticism += 1; };
     },
     ({ reply, body, scene: { next } }) => {
         next();
-        reply('Вопрос №51:' + '\n' + 'Бывает, что ты чувствуешь себя одиноким?');
-        if (body == '1') { introversion += 1; };
+        reply('Вопрос №51:' + '\n' + 'Бывает, что ты чувствуешь себя одиноким?', null, yesno_keyboard);
+        if (body == 'Да' || body == 'да') { introversion += 1; };
     },
     ({ reply, body, scene: { next } }) => {
         next();
-        reply('Вопрос №52:' + '\n' + 'Ты обычно стесняешься заговаривать первым с незнакомыми людьми?');
-        if (body == '2') { neuroticism += 1; };
+        reply('Вопрос №52:' + '\n' + 'Ты обычно стесняешься заговаривать первым с незнакомыми людьми?', null, yesno_keyboard);
+        if (body == 'Нет' || body == 'нет') { neuroticism += 1; };
     },
     ({ reply, body, scene: { next } }) => {
         next();
-        reply('Вопрос №53:' + '\n' + 'Ты часто спохватываешься, когда уже поздно?');
-        if (body == '2') { introversion += 1; };
+        reply('Вопрос №53:' + '\n' + 'Ты часто спохватываешься, когда уже поздно?', null, yesno_keyboard);
+        if (body == 'Нет' || body == 'нет') { introversion += 1; };
     },
     ({ reply, body, scene: { next } }) => {
         next();
-        reply('Вопрос №54:' + '\n' + 'Когда кто-либо кричит на тебя, ты тоже кричишь в ответ?');
-        if (body == '2') { neuroticism += 1; };
+        reply('Вопрос №54:' + '\n' + 'Когда кто-либо кричит на тебя, ты тоже кричишь в ответ?', null, yesno_keyboard);
+        if (body == 'Нет' || body == 'нет') { neuroticism += 1; };
     },
     ({ reply, body, scene: { next } }) => {
         next();
         reply('Вопрос №55:' + '\n' + 'Бывает ли, что ты становишься очень веселым или печальным, ' +
-        'без особой причины?');
-        if (body == '1') { introversion += 1; };
+        'без особой причины?', null, yesno_keyboard);
+        if (body == 'Да' || body == 'да') { introversion += 1; };
     },
     ({ reply, body, scene: { next } }) => {
         next();
         reply('Вопрос №56:' + '\n' + 'Тебе иногда кажется, что трудно получить настоящее ' + 
-        'удовольствие от компании ребят?');
-        if (body == '2') { neuroticism += 1; };
+        'удовольствие от компании ребят?', null, yesno_keyboard);
+        if (body == 'Нет' || body == 'нет') { neuroticism += 1; };
     },
     ({ reply, body, scene: { next } }) => {
         next();
-        reply('Вопрос №57:' + '\n' + 'На тебя влияет погода?');
-        if (body == '2') { introversion += 1; }
+        reply('Вопрос №57:' + '\n' + 'На тебя влияет погода?', null, yesno_keyboard);
+        if (body == 'Нет' || body == 'нет') { introversion += 1; }
     },
     ({ reply, body, scene: { leave } }) => {
         leave();
-        if (body == '1') { neuroticism += 1; };
+        if (body == 'Да' || body == 'да') { neuroticism += 1; };
         var choice = checkEyseckCircle(introversion, neuroticism);
         var type = checkTemperType(choice);
         updateEysenck(userId, type, neuroticism, lie);
