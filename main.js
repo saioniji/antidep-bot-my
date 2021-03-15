@@ -418,6 +418,34 @@ const defects_keyboard = {
     ]
 };
 
+const inside_test_keyboard = {
+    one_time: true,
+    buttons: [
+        [
+            {
+                action: {
+                    type: 'text',
+                    payload: { 
+                        button: 'button30' 
+                    },
+                    label: 'Другой тест'
+                },
+                color: 'positive'
+            },
+            {
+                action: {
+                    type: 'text',
+                    payload: {
+                        button: 'button31'
+                    },
+                    label: 'Главное меню'
+                },
+                color: 'negative'
+            }
+        ]
+    ]
+};
+
 var counter = 0, counter_direct = 0, counter_reverse = 0;
 var sex, userId, exhaustion = 0, depersonalization = 0, reduction = 0;
 var arr = [], feedback_records =[];
@@ -920,7 +948,7 @@ bot.addScene('stress',
         updateResult(userId, 'stress', result, sanity);
         reply('Вы набрали: ' + result);
         reply(checkChoice(4, choice));
-        reply('Тест завершен. Для возврата в главное меню введите команду start.');
+        reply('Тест завершен. Выберите дальнейшее действие.', null, inside_test_keyboard);
         counter = 0;
     }
 );
@@ -2432,6 +2460,10 @@ bot.command('Отмена', (msg) => {
     msg.reply('Здравствуйте, вы бы хотели пройти тестирование или связаться со специалистом?', null, keyboard);
 });
 
+bot.command('Главное меню', (msg) => {
+    msg.reply('Здравствуйте, вы бы хотели пройти тестирование или связаться со специалистом?', null, keyboard);
+});
+
 bot.command('start', (msg) => {
     msg.reply('Здравствуйте, вы бы хотели пройти тестирование или связаться со специалистом?', null, keyboard);
     userId = msg.user_id;
@@ -2485,6 +2517,10 @@ bot.command('Тестирование', (msg) => {
 });
 
 bot.command('Пройти тест', (msg) => {
+    msg.reply('Выберите тест: ', null, test_keyboard);
+});
+
+bot.command('Другой тест', (msg) => {
     msg.reply('Выберите тест: ', null, test_keyboard);
 });
 
