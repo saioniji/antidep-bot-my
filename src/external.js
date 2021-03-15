@@ -1037,6 +1037,19 @@ function formatDate() {
     return custom_date;
 };
 
+function determineDepressionResponse(response) {
+    switch(response) {
+        case "Никогда":
+            return 1;
+        case "Иногда":
+            return 2;
+        case "Часто":
+            return 3;
+        case "Всегда":
+            return 4;
+    }
+};
+
 module.exports = { 
     logStart, recommendations, reverseScore, 
     checkDepression, checkAnxiety, checkStress, 
@@ -1044,5 +1057,5 @@ module.exports = {
     checkExhaustion, checkDepersonalization, checkReduction,
     checkInclination, determineInclination, determineSanity,
     determineTemper, checkAggression, checkLifeStyle, checkEyseckCircle,
-    checkTemperType, checkTemper, detInclination
+    checkTemperType, checkTemper, detInclination, determineDepressionResponse
 }; 

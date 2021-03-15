@@ -474,6 +474,54 @@ const yesno_keyboard = {
     ]
 };
 
+const depression_keyboard = {
+    one_time: true,
+    buttons: [
+        [
+            {
+                action: {
+                    type: 'text',
+                    payload: { 
+                        button: 'button34' 
+                    },
+                    label: 'Никогда'
+                },
+                color: 'positive'
+            },
+            {
+                action: {
+                    type: 'text',
+                    payload: {
+                        button: 'button35'
+                    },
+                    label: 'Иногда'
+                },
+                color: 'positive'
+            },
+            {
+                action: {
+                    type: 'text',
+                    payload: { 
+                        button: 'button36' 
+                    },
+                    label: 'Часто'
+                },
+                color: 'positive'
+            },
+            {
+                action: {
+                    type: 'text',
+                    payload: {
+                        button: 'button37'
+                    },
+                    label: 'Всегда'
+                },
+                color: 'positive'
+            }
+        ]
+    ]
+};
+
 var counter = 0, counter_direct = 0, counter_reverse = 0;
 var sex, userId, exhaustion = 0, depersonalization = 0, reduction = 0;
 var arr = [], feedback_records =[];
@@ -482,6 +530,7 @@ const { reverseScore, checkDepression, checkAnxiety, checkStress, checkChoice, c
 const { checkExhaustion, checkDepersonalization, checkReduction, checkInclination } = require("./src/external");
 const { determineInclination, determineSanity, determineTemper, checkAggression } = require('./src/external');
 const { checkEyseckCircle, detInclination, checkTemper, checkTemperType } = require('./src/external');
+const { determineDepressionResponse } = require('./src/external');
 
 const contacts = [
     ['Татьяна Владимировна Чапала' + '\n' + 'https://vk.com/id625482513' + '\n' + '89371837900'],
@@ -553,106 +602,106 @@ bot.addScene('depression',
               '2 – Иногда' + '\n' + 
               '3 – Часто' + '\n' + 
               '4 - Почти всегда или постоянно');
-        reply('Вопрос №1:' + '\n' + 'Я чувствую подавленность');
+        reply('Вопрос №1:' + '\n' + 'Я чувствую подавленность', null, depression_keyboard);
     },
     ({ reply, body, scene: { next } }) => {
         next();
-        reply('Вопрос №2:' + '\n' + 'Утром я чувствую себя лучше всего.');
-        counter += parseInt(body);
+        reply('Вопрос №2:' + '\n' + 'Утром я чувствую себя лучше всего.', null, depression_keyboard);
+        counter += determineDepressionResponse(body);
     },
     ({ reply, body, scene: { next } }) => {
         next();
-        reply('Вопрос №3:' + '\n' + 'У меня бывают периоды плача или близости к слезам.');
-        counter += reverseScore(parseInt(body));
+        reply('Вопрос №3:' + '\n' + 'У меня бывают периоды плача или близости к слезам.'), null, depression_keyboard;
+        counter += reverseScore(determineDepressionResponse(body));
     },
     ({ reply, body, scene: { next } }) => {
         next();
-        reply('Вопрос №4:' + '\n' + 'У меня плохой ночной сон.');
-        counter += parseInt(body);
+        reply('Вопрос №4:' + '\n' + 'У меня плохой ночной сон.', null, depression_keyboard);
+        counter += determineDepressionResponse(body);
     },
     ({ reply, body, scene: { next } }) => {
         next();
-        reply('Вопрос №5:' + '\n' + 'Аппетит у меня не хуже обычного.');
-        counter += parseInt(body);
+        reply('Вопрос №5:' + '\n' + 'Аппетит у меня не хуже обычного.', null, depression_keyboard);
+        counter += determineDepressionResponse(body);
     },
     ({ reply, body, scene: { next } }) => {
         next();
-        reply('Вопрос №6:' + '\n' + 'Мне приятно смотреть на привлекательных женщин, разговаривать с ними, находиться рядом.');
-        counter += reverseScore(parseInt(body));
+        reply('Вопрос №6:' + '\n' + 'Мне приятно смотреть на привлекательных женщин, разговаривать с ними, находиться рядом.', null, depression_keyboard);
+        counter += reverseScore(determineDepressionResponse(body));
     },
     ({ reply, body, scene: { next } }) => {
         next();
-        reply('Вопрос №7:' + '\n' + 'Я замечаю, что теряю вес.');
-        counter += reverseScore(parseInt(body));
+        reply('Вопрос №7:' + '\n' + 'Я замечаю, что теряю вес.', null, depression_keyboard);
+        counter += reverseScore(determineDepressionResponse(body));
     },
     ({ reply, body, scene: { next } }) => {
         next();
-        reply('Вопрос №8:' + '\n' + 'Меня беспокоят запоры.');
-        counter += parseInt(body);
+        reply('Вопрос №8:' + '\n' + 'Меня беспокоят запоры.', null, depression_keyboard);
+        counter += determineDepressionResponse(body);
     },
     ({ reply, body, scene: { next } }) => {
         next();
-        reply('Вопрос №9:' + '\n' + 'Сердце бьется быстрее, чем обычно.');
-        counter += parseInt(body);
+        reply('Вопрос №9:' + '\n' + 'Сердце бьется быстрее, чем обычно.', null, depression_keyboard);
+        counter += determineDepressionResponse(body);
     },
     ({ reply, body, scene: { next } }) => {
         next();
-        reply('Вопрос №10:' + '\n' + 'Я устаю без всяких причин.');
-        counter += parseInt(body);
+        reply('Вопрос №10:' + '\n' + 'Я устаю без всяких причин.', null, depression_keyboard);
+        counter += determineDepressionResponse(body);
     },
     ({ reply, body, scene: { next } }) => {
         next();
-        reply('Вопрос №11:' + '\n' + 'Я мыслю так же ясно, как всегда.');
-        counter += parseInt(body);
+        reply('Вопрос №11:' + '\n' + 'Я мыслю так же ясно, как всегда.', null, depression_keyboard);
+        counter += determineDepressionResponse(body);
     },
     ({ reply, body, scene: { next } }) => {
         next();
-        reply('Вопрос №12:' + '\n' + 'Мне легко делать то, что я умею.');
-        counter += reverseScore(parseInt(body));
+        reply('Вопрос №12:' + '\n' + 'Мне легко делать то, что я умею.', null, depression_keyboard);
+        counter += reverseScore(determineDepressionResponse(body));
     },
     ({ reply, body, scene: { next } }) => {
         next();
-        reply('Вопрос №13:' + '\n' + 'Чувствую беспокойство и не могу усидеть на месте.');
-        counter += reverseScore(parseInt(body));
+        reply('Вопрос №13:' + '\n' + 'Чувствую беспокойство и не могу усидеть на месте.', null, depression_keyboard);
+        counter += reverseScore(determineDepressionResponse(body));
     },
     ({ reply, body, scene: { next } }) => {
         next();
-        reply('Вопрос №14:' + '\n' + 'У меня есть надежды на будущее.');
-        counter += parseInt(body);
+        reply('Вопрос №14:' + '\n' + 'У меня есть надежды на будущее.', null, depression_keyboard);
+        counter += determineDepressionResponse(body);
     },
     ({ reply, body, scene: { next } }) => {
         next();
-        reply('Вопрос №15:' + '\n' + 'Я более раздражителен, чем обычно.');
-        counter += reverseScore(parseInt(body));
+        reply('Вопрос №15:' + '\n' + 'Я более раздражителен, чем обычно.', null, depression_keyboard);
+        counter += reverseScore(determineDepressionResponse(body));
     },
     ({ reply, body, scene: { next } }) => {
         next();
-        reply('Вопрос №16:' + '\n' + 'Мне легко принимать решения.');
-        counter += parseInt(body);
+        reply('Вопрос №16:' + '\n' + 'Мне легко принимать решения.', null, depression_keyboard);
+        counter += determineDepressionResponse(body);
     },
     ({ reply, body, scene: { next } }) => {
         next();
-        reply('Вопрос №17:' + '\n' + 'Я чувствую, что полезен и необходим.');
-        counter += reverseScore(parseInt(body));
+        reply('Вопрос №17:' + '\n' + 'Я чувствую, что полезен и необходим.', null, depression_keyboard);
+        counter += reverseScore(determineDepressionResponse(body));
     },
     ({ reply, body, scene: { next } }) => {
         next();
-        reply('Вопрос №18:' + '\n' + 'Я живу достаточно полной жизнью.');
-        counter += reverseScore(parseInt(body));
+        reply('Вопрос №18:' + '\n' + 'Я живу достаточно полной жизнью.', null, depression_keyboard);
+        counter += reverseScore(determineDepressionResponse(body));
     },
     ({ reply, body, scene: { next } }) => {
         next();
-        reply('Вопрос №19:' + '\n' + 'Я чувствую, что другим людям станет лучше, если я умру.');
-        counter += reverseScore(parseInt(body));
+        reply('Вопрос №19:' + '\n' + 'Я чувствую, что другим людям станет лучше, если я умру.', null, depression_keyboard);
+        counter += reverseScore(determineDepressionResponse(body));
     },
     ({ reply, body, scene: { next } }) => {
         next();
-        reply('Вопрос №20:' + '\n' + 'Меня до сих пор радует то, что радовало всегда.');
-        counter += parseInt(body);
+        reply('Вопрос №20:' + '\n' + 'Меня до сих пор радует то, что радовало всегда.', null, depression_keyboard);
+        counter += determineDepressionResponse(body);
     },
     ({ reply, body, scene: { leave } }) => {
         leave();
-        counter += reverseScore(parseInt(body));
+        counter += reverseScore(determineDepressionResponse(body));
         var choice = checkDepression(counter);
         var sanity = determineSanity('depression', choice);
         reply('Вы набрали: ' + counter);
