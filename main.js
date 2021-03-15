@@ -602,6 +602,74 @@ const temper_keyboard = {
     ]
 };
 
+const sex_keyboard = {
+    one_time: true,
+    buttons: [
+        [
+            {
+                action: {
+                    type: 'text',
+                    payload: { 
+                        button: 'button44' 
+                    },
+                    label: 'М'
+                },
+                color: 'positive'
+            },
+            {
+                action: {
+                    type: 'text',
+                    payload: {
+                        button: 'button45'
+                    },
+                    label: 'Ж'
+                },
+                color: 'positive'
+            }
+        ]
+    ]
+};
+
+const inclination_keyboard = {
+    one_time: true,
+    buttons: [
+        [
+            {
+                action: {
+                    type: 'text',
+                    payload: { 
+                        button: 'button46' 
+                    },
+                    label: '1'
+                },
+                color: 'positive'
+            },
+            {
+                action: {
+                    type: 'text',
+                    payload: {
+                        button: 'button47'
+                    },
+                    label: '2'
+                },
+                color: 'positive'
+            },
+            {
+                action: {
+                    type: 'text',
+                    payload: {
+                        button: 'button48'
+                    },
+                    label: '3'
+                },
+                color: 'positive'
+            }
+        ]
+    ]
+};
+
+// burnout, stress keyboard are needed
+
 var counter = 0, counter_direct = 0, counter_reverse = 0;
 var sex, userId, exhaustion = 0, depersonalization = 0, reduction = 0;
 var arr = [], feedback_records =[];
@@ -610,7 +678,7 @@ const { reverseScore, checkDepression, checkAnxiety, checkStress, checkChoice, c
 const { checkExhaustion, checkDepersonalization, checkReduction, checkInclination } = require("./src/external");
 const { determineInclination, determineSanity, determineTemper, checkAggression } = require('./src/external');
 const { checkEyseckCircle, detInclination, checkTemper, checkTemperType } = require('./src/external');
-const { determineDepressionResponse, determineAnxietyResponse } = require('./src/external');
+const { determineDepressionResponse, determineAnxietyResponse, determineSex } = require('./src/external');
 
 const contacts = [
     ['Татьяна Владимировна Чапала' + '\n' + 'https://vk.com/id625482513' + '\n' + '89371837900'],
@@ -1057,14 +1125,12 @@ bot.addScene('stress',
               '2 – Скорее, согласен' + '\n' + 
               '3 – Скорее, не согласен' + '\n' + 
               '4 - Нет, не согласен');
-        reply('Перед началом тестирования, укажите свой пол:' + '\n' + 
-              'Если вы мужчина, введите 1' + '\n' +
-              'Если вы женщина, введите 2');
+        reply('Перед началом тестирования, укажите свой пол:', null, sex_keyboard);
     },
     ({ reply, body, scene: { next } }) => {
         next();
         reply('Вопрос №1:' + '\n' + 'Пожалуй, я человек нервный');
-        sex = parseInt(body);
+        sex = determineSex(body);
     },
     ({ reply, body, scene: { next } }) => {
         next();
@@ -1495,14 +1561,14 @@ bot.addScene('inclination',
         reply('Вопрос №1:' + '\n' + 'Мне хотелось бы в своей профессиональной деятельности:' + '\n' +
             '1) Общаться с самыми разными людьми' + '\n' +
             '2) Cнимать фильмы, писать книги, рисовать, выступать на сцене и т.д.' + '\n' +
-            '3) Заниматься расчетами, вести документацию.');
+            '3) Заниматься расчетами, вести документацию.', null, inclination_keyboard);
     },
     ({ reply, body, scene: { next } }) => {
         next();
         reply('Вопрос №2:' + '\n' + 'В книге или кинофильме меня больше всего привлекает:' + '\n' +
             '1) Bозможность следить за ходом мыслей автора' + '\n' +
             '2) Художественная форма, мастерство писателя или режиссера' + '\n' +
-            '3) Сюжет, действия героев.');
+            '3) Сюжет, действия героев.', null, inclination_keyboard);
         arr[0] = parseInt(body);
     },
     ({ reply, body, scene: { next } }) => {
@@ -1510,7 +1576,7 @@ bot.addScene('inclination',
         reply('Вопрос №3:' + '\n' + 'Меня больше обрадует Нобелевская премия:' + '\n' +
             '1) За общественную деятельность' + '\n' +
             '2) В области науки' + '\n' +
-            '3) В области искусства');
+            '3) В области искусства', null, inclination_keyboard);
         arr[1] = parseInt(body);
     },
     ({ reply, body, scene: { next } }) => {
@@ -1518,7 +1584,7 @@ bot.addScene('inclination',
         reply('Вопрос №4:' + '\n' + 'Я скорее соглашусь стать:' + '\n' +
             '1) Главным механиком' + '\n' +
             '2) Начальником экспедиции' + '\n' +
-            '3) Главным бухгалтером');
+            '3) Главным бухгалтером', null, inclination_keyboard);
         arr[2] = parseInt(body);
     },
     ({ reply, body, scene: { next } }) => {
@@ -1526,7 +1592,7 @@ bot.addScene('inclination',
         reply('Вопрос №5:' + '\n' + 'Будущее людей определяют:' + '\n' +
             '1) Взаимопонимание между людьми' + '\n' +
             '2) Научные открытия' + '\n' +
-            '3) Развитие производства');
+            '3) Развитие производства', null, inclination_keyboard);
         arr[3] = parseInt(body);
     },
     ({ reply, body, scene: { next } }) => {
@@ -1534,7 +1600,7 @@ bot.addScene('inclination',
         reply('Вопрос №6:' + '\n' + 'Если я стану руководителем, то в первую очередь займусь:' + '\n' +
             '1) Созданием дружного, сплоченного коллектива' + '\n' +
             '2) Разработкой новых технологий обучения' + '\n' +
-            '3) Работой с документами');
+            '3) Работой с документами', null, inclination_keyboard);
         arr[4] = parseInt(body);
     },
     ({ reply, body, scene: { next } }) => {
@@ -1542,7 +1608,7 @@ bot.addScene('inclination',
         reply('Вопрос №7:' + '\n' + 'На технической выставке меня больше привлечет:' + '\n' +
             '1) Внутреннее устройство экспонатов' + '\n' +
             '2) Их практическое применение' + '\n' +
-            '3) Внешний вид экспонатов (цвет, форма)');
+            '3) Внешний вид экспонатов (цвет, форма)', null, inclination_keyboard);
         arr[5] = parseInt(body);
     },
     ({ reply, body, scene: { next } }) => {
@@ -1550,7 +1616,7 @@ bot.addScene('inclination',
         reply('Вопрос №8:' + '\n' + 'В людях я ценю, прежде всего:' + '\n' +
             '1) Дружелюбие и отзывчивость' + '\n' +
             '2) Смелость и выносливость' + '\n' +
-            '3) Обязательность и аккуратность');
+            '3) Обязательность и аккуратность', null, inclination_keyboard);
         arr[6] = parseInt(body);
     },
     ({ reply, body, scene: { next } }) => {
@@ -1558,7 +1624,7 @@ bot.addScene('inclination',
         reply('Вопрос №9:' + '\n' + 'В свободное время мне хотелось бы:' + '\n' +
             '1) Ставить различные опыты, эксперименты' + '\n' +
             '2) Писать стихи, сочинять музыку или рисовать' + '\n' +
-            '3) Тренироваться');
+            '3) Тренироваться', null, inclination_keyboard);
         arr[7] = parseInt(body);
     },
     ({ reply, body, scene: { next } }) => {
@@ -1566,7 +1632,7 @@ bot.addScene('inclination',
         reply('Вопрос №10:' + '\n' + 'В заграничных поездках меня скорее заинтересует:' + '\n' +
             '1) Возможность знакомства с историей и культурой другой страны' + '\n' +
             '2) Экстремальный туризм (альпинизм, виндсерфинг, горные лыжи)' + '\n' +
-            '3) Деловое общение');
+            '3) Деловое общение', null, inclination_keyboard);
         arr[8] = parseInt(body);
     },
     ({ reply, body, scene: { next } }) => {
@@ -1574,7 +1640,7 @@ bot.addScene('inclination',
         reply('Вопрос №11:' + '\n' + 'Мне интереснее беседовать о:' + '\n' +
             '1) Человеческих взаимоотношениях' + '\n' +
             '2) Новой научной гипотезе' + '\n' +
-            '3) Технических характеристиках новой модели машины, компьютера');
+            '3) Технических характеристиках новой модели машины, компьютера', null, inclination_keyboard);
         arr[9] = parseInt(body);
     },
     ({ reply, body, scene: { next } }) => {
@@ -1582,7 +1648,7 @@ bot.addScene('inclination',
         reply('Вопрос №12:' + '\n' + 'Если бы в моей школе было всего три кружка, я бы выбрал(а):' + '\n' +
             '1) Технический' + '\n' +
             '2) Музыкальный' + '\n' +
-            '3) Спортивный');
+            '3) Спортивный', null, inclination_keyboard);
         arr[10] = parseInt(body);
     },
     ({ reply, body, scene: { next } }) => {
@@ -1590,7 +1656,7 @@ bot.addScene('inclination',
         reply('Вопрос №13:' + '\n' + 'В школе следует обратить особое внимание на:' + '\n' +
             '1) Улучшение взаимопонимания между учителями и учениками' + '\n' +
             '2) Поддержание здоровья учащихся, занятия спортом' + '\n' +
-            '3) Укрепление дисциплины');
+            '3) Укрепление дисциплины', null, inclination_keyboard);
         arr[11] = parseInt(body);
     },
     ({ reply, body, scene: { next } }) => {
@@ -1598,7 +1664,7 @@ bot.addScene('inclination',
         reply('Вопрос №14:' + '\n' + 'Я с большим удовольствием смотрю:' + '\n' +
             '1) Научно-популярные фильмы' + '\n' +
             '2) Программы о культуре и искусстве' + '\n' +
-            '3) Спортивные программы');
+            '3) Спортивные программы', null, inclination_keyboard);
         arr[12] = parseInt(body);
     },
     ({ reply, body, scene: { next } }) => {
@@ -1606,7 +1672,7 @@ bot.addScene('inclination',
         reply('Вопрос №15:' + '\n' + 'Мне хотелось бы работать:' + '\n' +
             '1) С детьми или сверстниками' + '\n' +
             '2) С машинами, механизмами' + '\n' +
-            '3) С объектами природы');
+            '3) С объектами природы', null, inclination_keyboard);
         arr[13] = parseInt(body);
     },
     ({ reply, body, scene: { next } }) => {
@@ -1614,7 +1680,7 @@ bot.addScene('inclination',
         reply('Вопрос №16:' + '\n' + 'Школа в первую очередь должна:' + '\n' +
             '1) Учить общению с другими людьми' + '\n' +
             '2) Давать знания' + '\n' +
-            '3) Обучать навыкам работы');
+            '3) Обучать навыкам работы', null, inclination_keyboard);
         arr[14] = parseInt(body);
     },
     ({ reply, body, scene: { next } }) => {
@@ -1622,7 +1688,7 @@ bot.addScene('inclination',
         reply('Вопрос №17:' + '\n' + 'Главное в жизни:' + '\n' +
             '1) Иметь возможность заниматься творчеством' + '\n' +
             '2) Вести здоровый образ жизни' + '\n' +
-            '3) Тщательно планировать свои дела');
+            '3) Тщательно планировать свои дела', null, inclination_keyboard);
         arr[15] = parseInt(body);
     },
     ({ reply, body, scene: { next } }) => {
@@ -1630,7 +1696,7 @@ bot.addScene('inclination',
         reply('Вопрос №18:' + '\n' + 'Государство должно в первую очередь заботиться о:' + '\n' +
             '1) Защите интересов и прав граждан' + '\n' +
             '2) Достижениях в области науки и техники' + '\n' +
-            '3) Материальном благополучии граждан');
+            '3) Материальном благополучии граждан', null, inclination_keyboard);
         arr[16] = parseInt(body);
     },
     ({ reply, body, scene: { next } }) => {
@@ -1638,7 +1704,7 @@ bot.addScene('inclination',
         reply('Вопрос №19:' + '\n' + 'Мне больше всего нравятся уроки:' + '\n' +
             '1) Труда' + '\n' +
             '2) Физкультуры' + '\n' +
-            '3) Математики');
+            '3) Математики', null, inclination_keyboard);
         arr[17] = parseInt(body);
     },
     ({ reply, body, scene: { next } }) => {
@@ -1646,7 +1712,7 @@ bot.addScene('inclination',
         reply('Вопрос №20:' + '\n' + 'Мне интереснее было бы:' + '\n' +
             '1) Заниматься сбытом товаров' + '\n' +
             '2) Изготавливать изделия' + '\n' +
-            '3) Планировать производство товаров');
+            '3) Планировать производство товаров', null, inclination_keyboard);
         arr[18] = parseInt(body);
     },
     ({ reply, body, scene: { next } }) => {
@@ -1654,7 +1720,7 @@ bot.addScene('inclination',
         reply('Вопрос №21:' + '\n' + 'Я предпочитаю читать статьи о:' + '\n' +
             '1) Выдающихся ученых и их открытиях' + '\n' +
             '2) Интересных изобретениях' + '\n' +
-            '3) Жизни и творчестве писателей, художников, музыкантов');
+            '3) Жизни и творчестве писателей, художников, музыкантов', null, inclination_keyboard);
         arr[19] = parseInt(body);
     },
     ({ reply, body, scene: { next } }) => {
@@ -1662,7 +1728,7 @@ bot.addScene('inclination',
         reply('Вопрос №22:' + '\n' + 'В свободное время я люблю:' + '\n' +
             '1) Читать, думать, рассуждать' + '\n' +
             '2) Что-нибудь мастерить, шить, ухаживать за животными, растениями' + '\n' +
-            '3) Ходить на выставки, концерты, в музеи');
+            '3) Ходить на выставки, концерты, в музеи', null, inclination_keyboard);
         arr[20] = parseInt(body);
     },
     ({ reply, body, scene: { next } }) => {
@@ -1670,7 +1736,7 @@ bot.addScene('inclination',
         reply('Вопрос №23:' + '\n' + 'Больший интерес у меня вызовет сообщение о:' + '\n' +
             '1) Научном открытии' + '\n' +
             '2) Художественной выставке' + '\n' +
-            '3) Экономической ситуации');
+            '3) Экономической ситуации', null, inclination_keyboard);
         arr[21] = parseInt(body);
     },
     ({ reply, body, scene: { next } }) => {
@@ -1678,7 +1744,7 @@ bot.addScene('inclination',
         reply('Вопрос №24:' + '\n' + 'Я предпочту работать:' + '\n' +
             '1) В помещении, где много людей' + '\n' +
             '2) В необычных условиях' + '\n' +
-            '3) В обычном кабинете');
+            '3) В обычном кабинете', null, inclination_keyboard);
         arr[22] = parseInt(body);
     },
     ({ reply, body, scene: { leave } }) => {

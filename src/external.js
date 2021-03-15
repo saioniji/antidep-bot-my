@@ -1063,6 +1063,15 @@ function determineAnxietyResponse(response) {
     }
 };
 
+function determineSex(response) {
+    switch(response) {
+        case "М":
+            return 1;
+        case "Ж":
+            return 2;
+    }
+};
+
 module.exports = { 
     logStart, recommendations, reverseScore, 
     checkDepression, checkAnxiety, checkStress, 
@@ -1071,5 +1080,5 @@ module.exports = {
     checkInclination, determineInclination, determineSanity,
     determineTemper, checkAggression, checkLifeStyle, checkEyseckCircle,
     checkTemperType, checkTemper, detInclination, 
-    determineDepressionResponse, determineAnxietyResponse
+    determineDepressionResponse, determineAnxietyResponse, determineSex
 }; 
