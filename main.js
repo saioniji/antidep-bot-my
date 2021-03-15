@@ -988,15 +988,15 @@ bot.addScene('motivation',
         reply('В тесте 41 вопрос. Не торопитесь отвечать на вопросы и не забывайте, ' +
               'что в тесте нет правильных и неправильных ответов')
         reply('Введите:' + '\n' +
-            'Да, если согласны с утверждением' + '\n' +
-            'Нет, если не согласны');
+            '\'Да\', если согласны с утверждением' + '\n' +
+            '\'Нет\', если не согласны');
         reply('Вопрос №1:' + '\n' + 'Когда имеется выбор между двумя вариантами, ' + 
         'его лучше сделать быстрее, чем отложить на определенное время.', null, yesno_keyboard);
     },
     ({ reply, body, scene: { next } }) => {
         next();
         reply('Вопрос №2:' + '\n' + 'Я легко раздражаюсь, когда замечаю, ' + 
-            'что не могу на все 100% выполнить задание.', null, yesno_keyboard);
+            'что не могу выполнить задание на все 100%.', null, yesno_keyboard);
     },
     ({ reply, body, scene: { next } }) => {
         next();
@@ -1012,12 +1012,12 @@ bot.addScene('motivation',
     },
     ({ reply, body, scene: { next } }) => {
         next();
-        reply('Вопрос №5:' + '\n' + 'Когда у меня два дня подряд нет дела, я теряю покой.', null, yesno_keyboard);
+        reply('Вопрос №5:' + '\n' + 'Когда у меня 2 дня подряд нет дела, я теряю покой.', null, yesno_keyboard);
         if (body == 'Да' || body == 'да') { counter += 1; };
     },
     ({ reply, body, scene: { next } }) => {
         next();
-        reply('Вопрос №6:' + '\n' + 'В некоторые дни мои успехи ниже средних.', null, yesno_keyboard);
+        reply('Вопрос №6:' + '\n' + 'В некоторые дни, мои успехи ниже средних.', null, yesno_keyboard);
         if (body == 'Да' || body == 'да') { counter += 1; };
     },
     ({ reply, body, scene: { next } }) => {
@@ -1033,7 +1033,7 @@ bot.addScene('motivation',
     ({ reply, body, scene: { next } }) => {
         next();
         reply('Вопрос №9:' + '\n' + 'Когда я отказываюсь от трудного задания, ' +
-        'я потом сурово осуждаю себя, так как знаю, что в нем я добился бы успеха.', null, yesno_keyboard);
+        'я потом сурово осуждаю себя, так как знаю, что в нем я бы добился успеха.', null, yesno_keyboard);
         if (body == 'Да' || body == 'да') { counter += 1; };
     },
     ({ reply, body, scene: { next } }) => {
@@ -1061,7 +1061,7 @@ bot.addScene('motivation',
     },
     ({ reply, body, scene: { next } }) => {
         next();
-        reply('Вопрос №15:' + '\n' + 'Я знаю, что мои коллеги считают меня дельным человеком.', null, yesno_keyboard);
+        reply('Вопрос №15:' + '\n' + 'Я знаю, что мои коллеги считают меня полезным для дела человеком.', null, yesno_keyboard);
         if (body == 'Да' || body == 'да') { counter += 1; };    
     },
     ({ reply, body, scene: { next } }) => {
@@ -1071,7 +1071,7 @@ bot.addScene('motivation',
     },
     ({ reply, body, scene: { next } }) => {
         next();
-        reply('Вопрос №17:' + '\n' + 'У меня легко вызвать честолюбие.', null, yesno_keyboard);
+        reply('Вопрос №17:' + '\n' + 'У меня легко вызвать чувство тщеславия.', null, yesno_keyboard);
         if (body == 'Да' || body == 'да') { counter += 1; };    
     },
     ({ reply, body, scene: { next } }) => {
@@ -1086,7 +1086,7 @@ bot.addScene('motivation',
     },
     ({ reply, body, scene: { next } }) => {
         next();
-        reply('Вопрос №20:' + '\n' + 'Иногда я откладываю то, что должен был сделать сейчас.', null, yesno_keyboard);
+        reply('Вопрос №20:' + '\n' + 'Иногда я откладываю то, что могу сделать прямо сейчас.', null, yesno_keyboard);
         if (body == 'Нет' || body == 'нет') { counter += 1; };
     },
     ({ reply, body, scene: { next } }) => {
@@ -1107,7 +1107,7 @@ bot.addScene('motivation',
     },
     ({ reply, body, scene: { next } }) => {
         next();
-        reply('Вопрос №24:' + '\n' + 'Я менее честолюбив, чем многие другие.', null, yesno_keyboard);
+        reply('Вопрос №24:' + '\n' + 'Я менее тщеславен, чем многие другие.', null, yesno_keyboard);
     },
     ({ reply, body, scene: { next } }) => {
         next();
@@ -1117,7 +1117,7 @@ bot.addScene('motivation',
     ({ reply, body, scene: { next } }) => {
         next();
         reply('Вопрос №26:' + '\n' + 'Когда я расположен к работе, ' + 
-            'я делаю ее лучше и квалифицированнее, чем другие.', null, yesno_keyboard);
+            'я делаю ее лучше и квалифицированней, чем другие.', null, yesno_keyboard);
         if (body == 'Да' || body == 'да') { counter += 1; };    
     },
     ({ reply, body, scene: { next } }) => {
@@ -1135,7 +1135,7 @@ bot.addScene('motivation',
         next();
         reply('Вопрос №29:' + '\n' + 'Мне приходится выполнять ответственную ' +
             'работу чаще, чем другим.', null, yesno_keyboard);
-        if (body == 'Да' || body == 'да') { counter += parseInt(body); };    
+        if (body == 'Да' || body == 'да') { counter += 1; };    
     },
     ({ reply, body, scene: { next } }) => {
         next();
@@ -1164,7 +1164,7 @@ bot.addScene('motivation',
     },
     ({ reply, body, scene: { next } }) => {
         next();
-        reply('Вопрос №35:' + '\n' + 'Когда что-то не ладиться, я нетерпелив.', null, yesno_keyboard);
+        reply('Вопрос №35:' + '\n' + 'Когда что-то не ладится, я нетерпелив.', null, yesno_keyboard);
     },
     ({ reply, body, scene: { next } }) => {
         next();
@@ -1183,7 +1183,7 @@ bot.addScene('motivation',
     },
     ({ reply, body, scene: { next } }) => {
         next();
-        reply('Вопрос №39:' + '\n' + 'Я завидую людям, которые но загружены работой.', null, yesno_keyboard);
+        reply('Вопрос №39:' + '\n' + 'Я завидую людям, которые не загружены работой.', null, yesno_keyboard);
         if (body == 'Нет' || body == 'нет') { counter += 1; };
     },
     ({ reply, body, scene: { next } }) => {
