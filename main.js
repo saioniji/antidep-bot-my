@@ -865,7 +865,7 @@ bot.addScene('registration',
         if (body == 'Да' || body == 'да') { approval = true; }
         else approval = false;
         createUser(userId, sex, age, eduLevel, maritalStatus, socialStatus, approval);
-        reply('Спасибо за регистрацию!');
+        reply('Спасибо за регистрацию!', null, inside_test_keyboard);
         sex = 0, age = 0;
     }
 );
