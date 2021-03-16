@@ -668,7 +668,132 @@ const inclination_keyboard = {
     ]
 };
 
-// burnout, stress keyboard are needed
+const stress_keyboard = {
+    one_time: true,
+    buttons: [
+        [
+            {
+                action: {
+                    type: 'text',
+                    payload: { 
+                        button: 'button48' 
+                    },
+                    label: 'Да, согласен'
+                },
+                color: 'positive'
+            },
+            {
+                action: {
+                    type: 'text',
+                    payload: {
+                        button: 'button49'
+                    },
+                    label: 'Скорее, согласен'
+                },
+                color: 'positive'
+            }
+        ],
+        [
+            {
+                action: {
+                    type: 'text',
+                    payload: {
+                        button: 'button50'
+                    },
+                    label: 'Скорее, не согласен'
+                },
+                color: 'positive'
+            },
+            {
+                action: {
+                    type: 'text',
+                    payload: {
+                        button: 'button51'
+                    },
+                    label: 'Нет, не согласен'
+                }
+            }
+        ]
+    ]
+};
+
+const burnout_keyboard = {
+    one_time: true,
+    buttons: [
+        [
+            {
+                action: {
+                    type: 'text',
+                    payload: { 
+                        button: 'button52' 
+                    },
+                    label: 'Никогда'
+                },
+                color: 'positive'
+            },
+            {
+                action: {
+                    type: 'text',
+                    payload: {
+                        button: 'button53'
+                    },
+                    label: 'Очень редко'
+                },
+                color: 'positive'
+            }
+        ],
+        [
+            {
+                action: {
+                    type: 'text',
+                    payload: {
+                        button: 'button54'
+                    },
+                    label: 'Редко'
+                },
+                color: 'positive'
+            },
+            {
+                action: {
+                    type: 'text',
+                    payload: {
+                        button: 'button55'
+                    },
+                    label: 'Иногда'
+                }
+            },
+            {
+                action: {
+                    type: 'text',
+                    payload: {
+                        button: 'button55'
+                    },
+                    label: 'Часто'
+                }
+            }
+        ],
+        [
+            {
+                action: {
+                    type: 'text',
+                    payload: {
+                        button: 'button56'
+                    },
+                    label: 'Очень часто'
+                }
+            },
+            {
+                action: {
+                    type: 'text',
+                    payload: {
+                        button: 'button57'
+                    },
+                    label: 'Каждый день'
+                }
+            }
+        ]
+    ]
+};
 
 var counter = 0, counter_direct = 0, counter_reverse = 0;
 var sex, userId, exhaustion = 0, depersonalization = 0, reduction = 0;
@@ -679,6 +804,7 @@ const { checkExhaustion, checkDepersonalization, checkReduction, checkInclinatio
 const { determineInclination, determineSanity, determineTemper, checkAggression } = require('./src/external');
 const { checkEyseckCircle, detInclination, checkTemper, checkTemperType } = require('./src/external');
 const { determineDepressionResponse, determineAnxietyResponse, determineSex } = require('./src/external');
+const { determineStressResponse, determineBurnoutResponse } = require('./src/external');
 
 const contacts = [
     ['Татьяна Владимировна Чапала' + '\n' + 'https://vk.com/id625482513' + '\n' + '89371837900'],
@@ -1129,42 +1255,42 @@ bot.addScene('stress',
     },
     ({ reply, body, scene: { next } }) => {
         next();
-        reply('Вопрос №1:' + '\n' + 'Пожалуй, я человек нервный');
+        reply('Вопрос №1:' + '\n' + 'Пожалуй, я человек нервный', null, stress_keyboard);
         sex = determineSex(body);
     },
     ({ reply, body, scene: { next } }) => {
         next();
-        reply('Вопрос №2:' + '\n' + 'Я очень беспокоюсь о своей работе');
-        counter += parseInt(body);
+        reply('Вопрос №2:' + '\n' + 'Я очень беспокоюсь о своей работе', null, stress_keyboard);
+        counter += determineStressResponse(body);
     },
     ({ reply, body, scene: { next } }) => {
         next();
-        reply('Вопрос №3:' + '\n' + 'Я часто ощущаю нервное напряжение');
-        counter += parseInt(body);
+        reply('Вопрос №3:' + '\n' + 'Я часто ощущаю нервное напряжение', null, stress_keyboard);
+        counter += determineStressResponse(body);
     },
     ({ reply, body, scene: { next } }) => {
         next();
-        reply('Вопрос №4:' + '\n' + 'Моя повседневная деятельность вызывает большое напряжение');
-        counter += parseInt(body);
+        reply('Вопрос №4:' + '\n' + 'Моя повседневная деятельность вызывает большое напряжение', null, stress_keyboard);
+        counter += determineStressResponse(body);
     },
     ({ reply, body, scene: { next } }) => {
         next();
-        reply('Вопрос №5:' + '\n' + 'Общаясь с людьми, я часто ощущаю нервное напряжение');
-        counter += parseInt(body);
+        reply('Вопрос №5:' + '\n' + 'Общаясь с людьми, я часто ощущаю нервное напряжение', null, stress_keyboard);
+        counter += determineStressResponse(body);
     },
     ({ reply, body, scene: { next } }) => {
         next();
-        reply('Вопрос №6:' + '\n' + 'К концу дня я совершенно истощен физически и психически');
-        counter += parseInt(body);
+        reply('Вопрос №6:' + '\n' + 'К концу дня я совершенно истощен физически и психически', null, stress_keyboard);
+        counter += determineStressResponse(body);
     },
     ({ reply, body, scene: { next } }) => {
         next();
-        reply('Вопрос №7:' + '\n' + 'В моей семье часто возникают напряженные отношения');
-        counter += parseInt(body);
+        reply('Вопрос №7:' + '\n' + 'В моей семье часто возникают напряженные отношения', null, stress_keyboard);
+        counter += determineStressResponse(body);
     },
     ({ reply, body, scene: { leave } }) => {
         leave();
-        counter += parseInt(body);
+        counter += determineStressResponse(body);
         var result = (counter/7).toFixed(2);
         var choice = checkStress(sex, result);
         var sanity = determineSanity('stress', choice);
@@ -1418,125 +1544,125 @@ bot.addScene('burnout',
             '4 - часто' + '\n' +
             '5 - очень часто' + '\n' +
             '6 - каждый день');
-        reply('Вопрос №1:' + '\n' + 'Я чувствую себя эмоционально опустошенным.');
+        reply('Вопрос №1:' + '\n' + 'Я чувствую себя эмоционально опустошенным.', null, burnout_keyboard);
     },
     ({ reply, body, scene: { next } }) => {
         next();
-        reply('Вопрос №2:' + '\n' + 'После работы я чувствую себя, как «выжатый лимон».');
-        exhaustion += parseInt(body);
+        reply('Вопрос №2:' + '\n' + 'После работы я чувствую себя, как «выжатый лимон».', null, burnout_keyboard);
+        exhaustion += determineBurnoutResponse(body);
     },
     ({ reply, body, scene: { next } }) => {
         next();
-        reply('Вопрос №3:' + '\n' + 'Утром я чувствую усталость и нежелание идти на работу.');
-        exhaustion += parseInt(body);
+        reply('Вопрос №3:' + '\n' + 'Утром я чувствую усталость и нежелание идти на работу.', null, burnout_keyboard);
+        exhaustion += determineBurnoutResponse(body);
     },
     ({ reply, body, scene: { next } }) => {
         next();
         reply('Вопрос №4:' + '\n' + 'Я хорошо понимаю, что чувствуют мои ' + 
-            'подчинённые и коллеги, и стараюсь учитывать это в интересах дела.');
-        exhaustion += parseInt(body);
+            'подчинённые и коллеги, и стараюсь учитывать это в интересах дела.', null, burnout_keyboard);
+        exhaustion += determineBurnoutResponse(body);
     },
     ({ reply, body, scene: { next } }) => {
         next();
         reply('Вопрос №5:' + '\n' + 'Я чувствую, что общаюсь с некоторыми ' + 
-            'подчинёнными и коллегами как с предметами (без теплоты и расположения к ним).');
-        reduction += parseInt(body);
+            'подчинёнными и коллегами как с предметами (без теплоты и расположения к ним).', null, burnout_keyboard);
+        reduction += determineBurnoutResponse(body);
     },
     ({ reply, body, scene: { next } }) => {
         next();
-        reply('Вопрос №6:' + '\n' + 'После работы на некоторое время хочется уединиться от всех и всего.');
-        depersonalization += parseInt(body);
+        reply('Вопрос №6:' + '\n' + 'После работы на некоторое время хочется уединиться от всех и всего.', null, burnout_keyboard);
+        depersonalization += determineBurnoutResponse(body);
     },
     ({ reply, body, scene: { next } }) => {
         next();
         reply('Вопрос №7:' + '\n' + 'Я умею находить правильное решение ' + 
-            'в конфликтных ситуациях, возникающих при общении с коллегами.');
-        exhaustion += parseInt(body);
+            'в конфликтных ситуациях, возникающих при общении с коллегами.', null, burnout_keyboard);
+        exhaustion += determineBurnoutResponse(body);
     },
     ({ reply, body, scene: { next } }) => {
         next();
-        reply('Вопрос №8:' + '\n' + 'Я чувствую угнетённость и апатию.');
-        reduction += parseInt(body);
+        reply('Вопрос №8:' + '\n' + 'Я чувствую угнетённость и апатию.', null, burnout_keyboard);
+        reduction += determineBurnoutResponse(body);
     },
     ({ reply, body, scene: { next } }) => {
         next();
-        reply('Вопрос №9:' + '\n' + 'Я уверен, что моя работа нужна людям.');
-        exhaustion += parseInt(body);
+        reply('Вопрос №9:' + '\n' + 'Я уверен, что моя работа нужна людям.', null, burnout_keyboard);
+        exhaustion += determineBurnoutResponse(body);
     },
     ({ reply, body, scene: { next } }) => {
         next();
         reply('Вопрос №10:' + '\n' + 'В последнее время я стал более «чёрствым» ' +
-            'по отношению к тем, с кем работаю.');
-        reduction += parseInt(body);
+            'по отношению к тем, с кем работаю.', null, burnout_keyboard);
+        reduction += determineBurnoutResponse(body);
     },
     ({ reply, body, scene: { next } }) => {
         next();
-        reply('Вопрос №11:' + '\n' + 'Я замечаю, что моя работа ожесточает меня.');
-        depersonalization += parseInt(body);
+        reply('Вопрос №11:' + '\n' + 'Я замечаю, что моя работа ожесточает меня.', null, burnout_keyboard);
+        depersonalization += determineBurnoutResponse(body);
     },
     ({ reply, body, scene: { next } }) => {
         next();
-        reply('Вопрос №12:' + '\n' + 'У меня много планов на будущее, и я верю в их осуществление.');
-        depersonalization += parseInt(body);
+        reply('Вопрос №12:' + '\n' + 'У меня много планов на будущее, и я верю в их осуществление.', null, burnout_keyboard);
+        depersonalization += determineBurnoutResponse(body);
     },
     ({ reply, body, scene: { next } }) => {
         next();
-        reply('Вопрос №13:' + '\n' + 'Моя работа всё больше меня разочаровывает.');
-        reduction += parseInt(body);
+        reply('Вопрос №13:' + '\n' + 'Моя работа всё больше меня разочаровывает.', null, burnout_keyboard);
+        reduction += determineBurnoutResponse(body);
     },
     ({ reply, body, scene: { next } }) => {
         next();
-        reply('Вопрос №14:' + '\n' + 'Мне кажется, что я слишком много работаю.');
-        exhaustion += parseInt(body);
+        reply('Вопрос №14:' + '\n' + 'Мне кажется, что я слишком много работаю.', null, burnout_keyboard);
+        exhaustion += determineBurnoutResponse(body);
     },
     ({ reply, body, scene: { next } }) => {
         next();
         reply('Вопрос №15:' + '\n' + 'Бывает, что мне действительно безразлично то, ' + 
-            'что происходит с некоторыми моими подчиненными и коллегами.');
-        exhaustion += parseInt(body);
+            'что происходит с некоторыми моими подчиненными и коллегами.', null, burnout_keyboard);
+        exhaustion += determineBurnoutResponse(body);
     },
     ({ reply, body, scene: { next } }) => {
         next();
-        reply('Вопрос №16:' + '\n' + 'Мне хочется уединиться и отдохнуть от всего и всех.');
-        depersonalization += parseInt(body);
+        reply('Вопрос №16:' + '\n' + 'Мне хочется уединиться и отдохнуть от всего и всех.', null, burnout_keyboard);
+        depersonalization += determineBurnoutResponse(body);
     },
     ({ reply, body, scene: { next } }) => {
         next();
         reply('Вопрос №17:' + '\n' + 'Я легко могу создать атмосферу доброжелательности и ' +
-            'сотрудничества в коллективе.');
-        exhaustion += parseInt(body);
+            'сотрудничества в коллективе.', null, burnout_keyboard);
+        exhaustion += determineBurnoutResponse(body);
     },
     ({ reply, body, scene: { next } }) => {
         next();
-        reply('Вопрос №18:' + '\n' + 'Во время работы я чувствую приятное оживление.');
-        reduction += parseInt(body);
+        reply('Вопрос №18:' + '\n' + 'Во время работы я чувствую приятное оживление.', null, burnout_keyboard);
+        reduction += determineBurnoutResponse(body);
     },
     ({ reply, body, scene: { next } }) => {
         next();
         reply('Вопрос №19:' + '\n' + 'Благодаря своей работе я уже сделал в жизни много ' +
-            'действительно ценного.');
-        reduction += parseInt(body);
+            'действительно ценного.', null, burnout_keyboard);
+        reduction += determineBurnoutResponse(body);
     },
     ({ reply, body, scene: { next } }) => {
         next();
         reply('Вопрос №20:' + '\n' + 'Я чувствую равнодушие и потерю интереса ко многому, ' +
-            'что радовало меня в моей работе.');
-        reduction += parseInt(body);
+            'что радовало меня в моей работе.', null, burnout_keyboard);
+        reduction += determineBurnoutResponse(body);
     },
     ({ reply, body, scene: { next } }) => {
         next();
-        reply('Вопрос №21:' + '\n' + 'На работе я спокойно справляюсь с эмоциональными проблемами.');
-        exhaustion += parseInt(body);
+        reply('Вопрос №21:' + '\n' + 'На работе я спокойно справляюсь с эмоциональными проблемами.', null, burnout_keyboard);
+        exhaustion += determineBurnoutResponse(body);
     },
     ({ reply, body, scene: { next } }) => {
         next();
         reply('Вопрос №22:' + '\n' + 'В последнее время мне кажется, что коллеги и подчинённые ' +
-        'всё чаще перекладывают на меня груз своих проблем и обязанностей.');
-        reduction += parseInt(body);
+        'всё чаще перекладывают на меня груз своих проблем и обязанностей.', null, burnout_keyboard);
+        reduction += determineBurnoutResponse(body);
     },
     ({ reply, body, scene: { leave } }) => {
         leave();
-        depersonalization += parseInt(body);
+        depersonalization += determineBurnoutResponse(body);
         var total_burnout = exhaustion + depersonalization + reduction;
         reply('Эмоциональное истощение:' + '\n' + checkChoice(6, checkExhaustion(exhaustion)));
         reply('Деперсонализация:' + '\n' + checkChoice(7, checkDepersonalization(depersonalization)));

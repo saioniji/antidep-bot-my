@@ -1072,6 +1072,38 @@ function determineSex(response) {
     }
 };
 
+function determineStressResponse(response) {
+    switch(response) {
+        case "Да, согласен":
+            return 1;
+        case "Скорее, согласен":
+            return 2;
+        case "Скорее, не согласен":
+            return 3;
+        case "Нет, не согласен":
+            return 4;
+    }
+};
+
+function determineBurnoutResponse(response) {
+    switch(response) {
+        case "Никогда":
+            return 0;
+        case "Очень редко":
+            return 1;
+        case "Редко":
+            return 2;
+        case "Иногда":
+            return 3;
+        case "Часто":
+            return 4;
+        case "Очень часто":
+            return 5;
+        case "Каждый день":
+            return 6;
+    }
+};
+
 module.exports = { 
     logStart, recommendations, reverseScore, 
     checkDepression, checkAnxiety, checkStress, 
@@ -1080,5 +1112,6 @@ module.exports = {
     checkInclination, determineInclination, determineSanity,
     determineTemper, checkAggression, checkLifeStyle, checkEyseckCircle,
     checkTemperType, checkTemper, detInclination, 
-    determineDepressionResponse, determineAnxietyResponse, determineSex
+    determineDepressionResponse, determineAnxietyResponse, determineSex,
+    determineStressResponse, determineBurnoutResponse
 }; 
