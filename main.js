@@ -711,7 +711,8 @@ const stress_keyboard = {
                         button: 'button51'
                     },
                     label: 'Нет, не согласен'
-                }
+                },
+                color: 'positive'
             }
         ]
     ]
@@ -760,7 +761,8 @@ const burnout_keyboard = {
                         button: 'button55'
                     },
                     label: 'Иногда'
-                }
+                },
+                color: 'positive'
             },
             {
                 action: {
@@ -769,7 +771,8 @@ const burnout_keyboard = {
                         button: 'button55'
                     },
                     label: 'Часто'
-                }
+                },
+                color: 'positive'
             }
         ],
         [
@@ -780,7 +783,8 @@ const burnout_keyboard = {
                         button: 'button56'
                     },
                     label: 'Очень часто'
-                }
+                },
+                color: 'positive'
             },
             {
                 action: {
@@ -789,7 +793,8 @@ const burnout_keyboard = {
                         button: 'button57'
                     },
                     label: 'Каждый день'
-                }
+                },
+                color: 'positive'
             }
         ]
     ]
