@@ -800,6 +800,34 @@ const burnout_keyboard = {
     ]
 };
 
+const agreement_keyboard = {
+    one_time: true,
+    buttons: [
+        [
+            {
+                action: {
+                    type: 'text',
+                    payload: { 
+                        button: 'button58' 
+                    },
+                    label: 'Тест'
+                },
+                color: 'positive'
+            },
+            {
+                action: {
+                    type: 'text',
+                    payload: {
+                        button: 'button59'
+                    },
+                    label: 'Главное меню'
+                },
+                color: 'negative'
+            }
+        ]
+    ]
+};
+
 var counter = 0, counter_direct = 0, counter_reverse = 0;
 var sex, userId, exhaustion = 0, depersonalization = 0, reduction = 0;
 var arr = [], feedback_records =[];
@@ -865,7 +893,7 @@ bot.addScene('registration',
         if (body == 'Да' || body == 'да') { approval = true; }
         else approval = false;
         createUser(userId, sex, age, eduLevel, maritalStatus, socialStatus, approval);
-        reply('Спасибо за регистрацию!', null, inside_test_keyboard);
+        reply('Спасибо за регистрацию!', null, agreement_keyboard);
         sex = 0, age = 0;
     }
 );
@@ -2852,6 +2880,10 @@ bot.command('Психологи', (msg) => {
 
 bot.command('Дефектологи', (msg) => {
     msg.reply('Список контактов доступных специалистов:', null, defects_keyboard);
+});
+
+bot.command('Тест', (msg) => {
+    msg.reply('Выберите тест: ', null, test_keyboard);
 });
 
 bot.command('test', (msg) => {
