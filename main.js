@@ -857,12 +857,12 @@ bot.addScene('registration',
     ({ reply, body, scene: { next } }) => {
         next();
         reply('Согласны ли вы пройти тестирование для диагностики вашего психологического здоровья?' + '\n' +
-            'Если согласны – введите 1, если нет – введите 2');
+            'Если согласны – введите \'Да\', если нет – введите \'Нет\'', null, yesno_keyboard);
         socialStatus = body;
     },
     ({ reply, body, scene: { leave } }) => {
         leave();
-        if (body == '1') { approval = true; }
+        if (body == 'Да' || body == 'да') { approval = true; }
         else approval = false;
         createUser(userId, sex, age, eduLevel, maritalStatus, socialStatus, approval);
         reply('Спасибо за регистрацию!');
