@@ -382,6 +382,16 @@ const shrinks_keyboard = {
                     payload: {
                         button: 'button27'
                     },
+                    label: 'Юлия Галимова'
+                },
+                color: 'positive'
+            },
+            {
+                action: {
+                    type: 'text',
+                    payload: {
+                        button: 'button28'
+                    },
                     label: 'Отмена'
                 },
                 color: 'negative'
@@ -398,7 +408,7 @@ const defects_keyboard = {
                 action: {
                     type: 'text',
                     payload: { 
-                        button: 'button28' 
+                        button: 'button29' 
                     },
                     label: 'Алина Гельметдинова'
                 },
@@ -408,7 +418,7 @@ const defects_keyboard = {
                 action: {
                     type: 'text',
                     payload: {
-                        button: 'button29'
+                        button: 'button30'
                     },
                     label: 'Отмена'
                 },
@@ -426,7 +436,7 @@ const inside_test_keyboard = {
                 action: {
                     type: 'text',
                     payload: { 
-                        button: 'button30' 
+                        button: 'button31' 
                     },
                     label: 'Другой тест'
                 },
@@ -436,7 +446,7 @@ const inside_test_keyboard = {
                 action: {
                     type: 'text',
                     payload: {
-                        button: 'button31'
+                        button: 'button32'
                     },
                     label: 'Главное меню'
                 },
@@ -454,7 +464,7 @@ const yesno_keyboard = {
                 action: {
                     type: 'text',
                     payload: { 
-                        button: 'button32' 
+                        button: 'button33' 
                     },
                     label: 'Да'
                 },
@@ -464,7 +474,7 @@ const yesno_keyboard = {
                 action: {
                     type: 'text',
                     payload: {
-                        button: 'button33'
+                        button: 'button34'
                     },
                     label: 'Нет'
                 },
@@ -482,7 +492,7 @@ const depression_keyboard = {
                 action: {
                     type: 'text',
                     payload: { 
-                        button: 'button34' 
+                        button: 'button35' 
                     },
                     label: 'Никогда'
                 },
@@ -492,7 +502,7 @@ const depression_keyboard = {
                 action: {
                     type: 'text',
                     payload: {
-                        button: 'button35'
+                        button: 'button36'
                     },
                     label: 'Иногда'
                 },
@@ -532,7 +542,7 @@ const inside_anxiety_keyboard = {
                 action: {
                     type: 'text',
                     payload: { 
-                        button: 'button38' 
+                        button: 'button39' 
                     },
                     label: 'Нет, это не так'
                 },
@@ -542,7 +552,7 @@ const inside_anxiety_keyboard = {
                 action: {
                     type: 'text',
                     payload: {
-                        button: 'button39'
+                        button: 'button40'
                     },
                     label: 'Пожалуй так'
                 },
@@ -554,7 +564,7 @@ const inside_anxiety_keyboard = {
                 action: {
                     type: 'text',
                     payload: { 
-                        button: 'button40' 
+                        button: 'button41' 
                     },
                     label: 'Верно'
                 },
@@ -564,7 +574,7 @@ const inside_anxiety_keyboard = {
                 action: {
                     type: 'text',
                     payload: {
-                        button: 'button41'
+                        button: 'button42'
                     },
                     label: 'Совершенно верно'
                 },
@@ -582,7 +592,7 @@ const temper_keyboard = {
                 action: {
                     type: 'text',
                     payload: { 
-                        button: 'button42' 
+                        button: 'button43' 
                     },
                     label: '1'
                 },
@@ -592,7 +602,7 @@ const temper_keyboard = {
                 action: {
                     type: 'text',
                     payload: {
-                        button: 'button43'
+                        button: 'button44'
                     },
                     label: '2'
                 },
@@ -610,7 +620,7 @@ const sex_keyboard = {
                 action: {
                     type: 'text',
                     payload: { 
-                        button: 'button44' 
+                        button: 'button45' 
                     },
                     label: 'М'
                 },
@@ -620,7 +630,7 @@ const sex_keyboard = {
                 action: {
                     type: 'text',
                     payload: {
-                        button: 'button45'
+                        button: 'button46'
                     },
                     label: 'Ж'
                 },
@@ -638,7 +648,7 @@ const inclination_keyboard = {
                 action: {
                     type: 'text',
                     payload: { 
-                        button: 'button46' 
+                        button: 'button47' 
                     },
                     label: '1'
                 },
@@ -648,7 +658,7 @@ const inclination_keyboard = {
                 action: {
                     type: 'text',
                     payload: {
-                        button: 'button47'
+                        button: 'button48'
                     },
                     label: '2'
                 },
@@ -658,7 +668,7 @@ const inclination_keyboard = {
                 action: {
                     type: 'text',
                     payload: {
-                        button: 'button48'
+                        button: 'button49'
                     },
                     label: '3'
                 },
@@ -676,7 +686,7 @@ const stress_keyboard = {
                 action: {
                     type: 'text',
                     payload: { 
-                        button: 'button48' 
+                        button: 'button50' 
                     },
                     label: 'Да, согласен'
                 },
@@ -686,7 +696,7 @@ const stress_keyboard = {
                 action: {
                     type: 'text',
                     payload: {
-                        button: 'button49'
+                        button: 'button51'
                     },
                     label: 'Скорее, согласен'
                 },
@@ -698,7 +708,7 @@ const stress_keyboard = {
                 action: {
                     type: 'text',
                     payload: {
-                        button: 'button50'
+                        button: 'button52'
                     },
                     label: 'Скорее, не согласен'
                 },
@@ -708,7 +718,7 @@ const stress_keyboard = {
                 action: {
                     type: 'text',
                     payload: {
-                        button: 'button51'
+                        button: 'button53'
                     },
                     label: 'Нет, не согласен'
                 },
@@ -726,7 +736,7 @@ const burnout_keyboard = {
                 action: {
                     type: 'text',
                     payload: { 
-                        button: 'button52' 
+                        button: 'button54' 
                     },
                     label: 'Никогда'
                 },
@@ -736,7 +746,7 @@ const burnout_keyboard = {
                 action: {
                     type: 'text',
                     payload: {
-                        button: 'button53'
+                        button: 'button55'
                     },
                     label: 'Очень редко'
                 },
@@ -748,7 +758,7 @@ const burnout_keyboard = {
                 action: {
                     type: 'text',
                     payload: {
-                        button: 'button54'
+                        button: 'button56'
                     },
                     label: 'Редко'
                 },
@@ -758,7 +768,7 @@ const burnout_keyboard = {
                 action: {
                     type: 'text',
                     payload: {
-                        button: 'button55'
+                        button: 'button57'
                     },
                     label: 'Иногда'
                 },
@@ -768,7 +778,7 @@ const burnout_keyboard = {
                 action: {
                     type: 'text',
                     payload: {
-                        button: 'button55'
+                        button: 'button58'
                     },
                     label: 'Часто'
                 },
@@ -780,7 +790,7 @@ const burnout_keyboard = {
                 action: {
                     type: 'text',
                     payload: {
-                        button: 'button56'
+                        button: 'button59'
                     },
                     label: 'Очень часто'
                 },
@@ -790,7 +800,7 @@ const burnout_keyboard = {
                 action: {
                     type: 'text',
                     payload: {
-                        button: 'button57'
+                        button: 'button60'
                     },
                     label: 'Каждый день'
                 },
@@ -808,7 +818,7 @@ const agreement_keyboard = {
                 action: {
                     type: 'text',
                     payload: { 
-                        button: 'button58' 
+                        button: 'button61' 
                     },
                     label: 'Тест'
                 },
@@ -818,7 +828,7 @@ const agreement_keyboard = {
                 action: {
                     type: 'text',
                     payload: {
-                        button: 'button59'
+                        button: 'button62'
                     },
                     label: 'Главное меню'
                 },
@@ -844,7 +854,8 @@ const contacts = [
     ['Мария Илич' + '\n' + 'https://vk.com/ilich.mariya' + '\n' + '+77057733086'],
     ['Юлия Петрова' + '\n' + 'https://vk.com/id6037251'],
     ['Оксана Зотова' + '\n' + 'https://vk.com/id128316097'],
-    ['Алина Гельметдинова' + '\n' + 'https://vk.com/id73431394']
+    ['Алина Гельметдинова' + '\n' + 'https://vk.com/id73431394'],
+    ['Юлия Галимова' + '\n' + 'https://vk.com/blon_jul']
 ];
 
 var age, eduLevel, maritalStatus, socialStatus, approval;
@@ -2957,6 +2968,10 @@ bot.command('Оксана Зотова', (msg) => {
 });
 bot.command('Алина Гельметдинова', (msg) => {
     msg.reply(contacts[4]);
+});
+
+bot.command('Юлия Галимова', (msg) => {
+    msg.reply(contacts[5]);
 });
 
 bot.catch((msg,err) => {
