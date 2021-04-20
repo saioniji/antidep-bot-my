@@ -20,11 +20,11 @@ if (process.env.VK_TOKEN) {
             auth_pass: redis.auth.split(':')[1]
         }
     });
-    // mongoose.connect(process.env.DB_URL, {
-	// 	useNewUrlParser: true,
-	// 	useUnifiedTopology: true
-	// }).then(() => console.log('MongoDB was connected'))
-	//   .catch((err) => console.log(err));
+    mongoose.connect(process.env.DB_URL, {
+		useNewUrlParser: true,
+		useUnifiedTopology: true
+	}).then(() => console.log('MongoDB was connected'))
+	  .catch((err) => console.log(err));
 }
 else {
     const config = require('./src/config.json');
