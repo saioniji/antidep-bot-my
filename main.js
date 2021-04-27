@@ -1356,7 +1356,6 @@ bot.addScene('stress',
         updateResult(userId, 'stress', result, sanity);
         reply('Вы набрали: ' + result);
         reply(checkChoice(4, choice));
-        reply('Схема:', 'photo-192832710_457239178');
         reply('Тест завершен. Выберите дальнейшее действие.', null, inside_test_keyboard);
         counter = 0;
     }
@@ -2804,6 +2803,7 @@ bot.addScene('eysenck',
               'Стабильность: ' + neuroticism + '\n' + 
               'Достоверность: ' + lie);
         reply(checkChoice(12, choice));
+        reply('Схема:', 'photo-192832710_457239178');
         reply('Тест завершен. Выберите дальнейшее действие.', null, inside_test_keyboard);
         introversion = 0, neuroticism = 0, lie = 0;
     }
