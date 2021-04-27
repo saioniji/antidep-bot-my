@@ -1039,12 +1039,16 @@ function formatDate() {
 
 function determineDepressionResponse(response) {
     switch(response) {
+        case "1":
         case "Никогда":
             return 1;
+        case "2":
         case "Иногда":
             return 2;
+        case "3":
         case "Часто":
             return 3;
+        case "4":
         case "Всегда":
             return 4;
     }
@@ -1078,12 +1082,16 @@ function determineSex(response) {
 
 function determineStressResponse(response) {
     switch(response) {
+        case "1":
         case "Да, согласен":
             return 1;
+        case "2":
         case "Скорее, согласен":
             return 2;
+        case "3":
         case "Скорее, не согласен":
             return 3;
+        case "4":
         case "Нет, не согласен":
             return 4;
     }
@@ -1091,18 +1099,25 @@ function determineStressResponse(response) {
 
 function determineBurnoutResponse(response) {
     switch(response) {
+        case "0":
         case "Никогда":
             return 0;
+        case "1":
         case "Очень редко":
             return 1;
+        case "2":
         case "Редко":
             return 2;
+        case "3":
         case "Иногда":
             return 3;
+        case "4":
         case "Часто":
             return 4;
+        case "5":
         case "Очень часто":
             return 5;
+        case "6":
         case "Каждый день":
             return 6;
     }
