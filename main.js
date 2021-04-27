@@ -2714,7 +2714,7 @@ bot.addScene('eysenck',
     ({ reply, body, scene: { next } }) => {
         next();
         reply('Вопрос №42:' + '\n' + 'Когда тебя о чем-то просят, тебе всегда трудно отказывать?', null, yesno_keyboard);
-        if (body == 'Да' || body == 'да') { lie += parseInt(body); };
+        if (body == 'Да' || body == 'да') { lie += 1; };
     },
     ({ reply, body, scene: { next } }) => {
         next();
