@@ -959,7 +959,7 @@ bot.addScene('depression',
     },
     ({ reply, body, scene: { next } }) => {
         next();
-        reply('Вопрос №6:' + '\n' + 'Мне приятно смотреть на привлекательных женщин, разговаривать с ними, находиться рядом.', null, depression_keyboard);
+        reply('Вопрос №6:' + '\n' + 'Мне приятно смотреть на привлекательных девушек/парней, разговаривать с ними, находиться рядом.', null, depression_keyboard);
         counter += reverseScore(determineDepressionResponse(body));
     },
     ({ reply, body, scene: { next } }) => {
