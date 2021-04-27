@@ -270,10 +270,15 @@ var recommendations = [
         'В некоторых случаях у Вас может преобладать подавленное настроение и слабость воли, ' + 
         'которая может проявляться как, неуверенность в себе и нерешительность. ' + 
         'В привычной обстановке Вы весьма успешно можете справляться с жизненными задачами и поставленными целями.'],
-        // амбиверт с признаками невротизма
-        ['амбиверт в нестабильном состоянии'],
-        // амбиверт без признаков невротизма
-        ['амбиверт в стабильном состоянии']
+        ['--> Меланхолически-холерический <--' + '\n' + 'У Вас смешанный тип темпераметра.' +
+        'Данный тип объединяет черты меланхолического и холерического темпераметра. '],
+        ['--> Сангвинически-флегматический <--' + '\n' + 'У Вас смешанный тип темпераметра.' +
+        'Данный тип объединяет черты сангвистического и флегматического темпераметра. '],
+        ['--> Холерически-сангвинический <--' + '\n' + 'У Вас смешанный тип темпераметра.' +
+        'Данный тип объединяет черты холерического и сангвистического темпераметра. '],
+        ['--> Флегматико-меланхолический <--' + '\n' + 'У Вас смешанный тип темпераметра.' +
+        'Данный тип объединяет черты флегматического и меланхолического темпераметра. ' ],
+        ['--> Нормальный тип <--' + '\n' + ' ']
     ]
 ];
 
@@ -482,6 +487,16 @@ function checkChoice(typeNumber, choice) {
                     return recommendations[11][3];
                 case 4:
                     return recommendations[11][4];
+                case 5:
+                    return recommendations[11][5];
+                case 6:
+                    return recommendations[11][6];
+                case 7:
+                    return recommendations[11][7];
+                case 8:
+                    return recommendations[11][8];
+                case 9:
+                    return recommendations[11][9];
             }
     }
 };
@@ -985,6 +1000,15 @@ function checkEyseckCircle(introversion, neuroticism) {
     else if (introversion == 12 && neuroticism < 12) {
         return 6;
     }
+    else if (introversion > 12 && neuroticism == 12) {
+        return 7;
+    }
+    else if (introversion < 12 && neuroticism == 12) {
+        return 8;
+    }
+    else if (introversion == 12 && neuroticism == 12) {
+        return 9;
+    }
 };
 
 function checkTemperType(choice) {
@@ -999,6 +1023,21 @@ function checkTemperType(choice) {
     }
     else if (choice == 4) {
         return 'melancholic';
+    }
+    else if (choice == 5) {
+        return 'melancholic-choleric';
+    }
+    else if (choice == 6) {
+        return 'phlegmatic-sanguine';
+    }
+    else if (choice == 7) {
+        return 'choleric-sanguine';
+    }
+    else if (choice == 8) {
+        return 'melancholic-phlegmatic';
+    }
+    else if (choice == 9) {
+        return 'normal';
     }
     else {
         return 'error'

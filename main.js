@@ -2802,8 +2802,8 @@ bot.addScene('eysenck',
               'Интроверсия: ' + introversion + '\n' +
               'Стабильность: ' + neuroticism + '\n' + 
               'Достоверность: ' + lie);
+        reply('Круг Айзенка:', 'photo-192832710_457239178');
         reply(checkChoice(12, choice));
-        reply('Схема:', 'photo-192832710_457239178');
         reply('Тест завершен. Выберите дальнейшее действие.', null, inside_test_keyboard);
         introversion = 0, neuroticism = 0, lie = 0;
     }
