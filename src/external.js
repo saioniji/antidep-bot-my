@@ -1052,12 +1052,16 @@ function determineDepressionResponse(response) {
 
 function determineAnxietyResponse(response) {
     switch(response) {
+        case "1":
         case "Нет, это не так":
             return 1;
+        case "2":
         case "Пожалуй так":
             return 2;
+        case "3":
         case "Верно":
             return 3;
+        case "4":
         case "Совершенно верно":
             return 4;
     }

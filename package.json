@@ -34,7 +34,7 @@
     "mongoose": "^5.11.8",
     "ngrok": "^3.3.0",
     "node-vk-bot-api": "^3.3.7",
-    "redis": "^3.0.2",
+    "redis": "^3.1.2",
     "redis-server": "^1.2.2"
   }
 }
