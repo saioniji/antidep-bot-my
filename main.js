@@ -1039,7 +1039,7 @@ bot.addScene('depression',
         var sanity = determineSanity('depression', choice);
         reply('Вы набрали: ' + counter);
         reply(checkChoice(1, choice));
-        reply('Рекомендуем к просмотру видео "Прогрессивная мышечная реолаксация по Э. Джекобсону":','video-192832710_456239034');
+        reply('Рекомендуем к просмотру видео "Прогрессивная мышечная релаксация по Э. Джекобсону":','video-192832710_456239034');
         reply('Тест завершен. Выберите дальнейшее действие.', null, inside_test_keyboard);
         updateResult(userId, 'depression', counter, sanity);
         counter = 0;
@@ -1164,7 +1164,7 @@ bot.addScene('anxiety1',
         updateResult(userId, 'anxiety1', result, sanity);
         reply('Вы набрали: ' + result);
         reply(checkChoice(2, choice));
-        reply('Рекомендуем к просмотру видео "Прогрессивная мышечная реолаксация по Э. Джекобсону":','video-192832710_456239034');
+        reply('Рекомендуем к просмотру видео "Прогрессивная мышечная релаксация по Э. Джекобсону":','video-192832710_456239034');
         reply('Тест завершен. Выберите дальнейшее действие.', null, inside_test_keyboard);
         counter_direct = 0;
         counter_reverse = 0;
@@ -1294,7 +1294,7 @@ bot.addScene('anxiety2',
         updateResult(userId, 'anxiety2', result, sanity);
         reply('Вы набрали: ' + result);
         reply(checkChoice(3, choice));
-        reply('Рекомендуем к просмотру видео "Прогрессивная мышечная реолаксация по Э. Джекобсону":','video-192832710_456239034');
+        reply('Рекомендуем к просмотру видео "Прогрессивная мышечная релаксация по Э. Джекобсону":','video-192832710_456239034');
         reply('Тест завершен. Выберите дальнейшее действие.', null, inside_test_keyboard);
         counter_direct = 0;
         counter_reverse = 0;
@@ -1359,7 +1359,7 @@ bot.addScene('stress',
         updateResult(userId, 'stress', result, sanity);
         reply('Вы набрали: ' + result);
         reply(checkChoice(4, choice));
-        reply('Рекомендуем к просмотру видео "Прогрессивная мышечная реолаксация по Э. Джекобсону":','video-192832710_456239034');
+        reply('Рекомендуем к просмотру видео "Прогрессивная мышечная релаксация по Э. Джекобсону":','video-192832710_456239034');
         reply('Тест завершен. Выберите дальнейшее действие.', null, inside_test_keyboard);
         counter = 0;
     }
