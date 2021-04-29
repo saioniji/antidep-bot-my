@@ -2358,7 +2358,7 @@ bot.addScene('temper',
         reply('Вопрос №2:' + '\n' + 'Какие книги Вы предпочитаете читать?' + '\n' +
               '1) С занимательным сюжетом' + '\n' +
               '2) С раскрытием переживаний другого', null, temper_keyboard);
-        if (body == '2') { counter += parseInt(body); };      
+        if (body == '2') { counter += (parseInt(body) - 1); };
     },
     ({ reply, body, scene: { next } }) => {
         next();
@@ -2372,7 +2372,7 @@ bot.addScene('temper',
         reply('Вопрос №4:' + '\n' + 'Если Вы совершаете дурной поступок, то:' + '\n' +
               '1) Остро переживаете' + '\n' +
               '2) Острых переживаний нет', null, temper_keyboard);
-        if (body == '2') { counter += parseInt(body); };
+        if (body == '2') { counter += (parseInt(body) - 1); };
     },
     ({ reply, body, scene: { next } }) => {
         next();
@@ -2392,7 +2392,7 @@ bot.addScene('temper',
         reply('Вопрос №7:' + '\n' + 'Склонны ли Вы смеяться от души?' + '\n' +
                 '1) Да' + '\n' +
                 '2) Нет', null, temper_keyboard);
-        if (body == '2') { counter += parseInt(body); };
+        if (body == '2') { counter += (parseInt(body) - 1); };
     },
     ({ reply, body, scene: { next } }) => {
         next();
@@ -2406,7 +2406,7 @@ bot.addScene('temper',
         reply('Вопрос №9:' + '\n' + 'Откровенны ли Вы или скрытны?' + '\n' +
                 '1) Откровенен' + '\n' +
                 '2) Скрытен', null, temper_keyboard);
-        if (body == '2') { counter += parseInt(body); };
+        if (body == '2') { counter += (parseInt(body) - 1); };
     },
     ({ reply, body, scene: { next } }) => {
         next();
@@ -2420,7 +2420,7 @@ bot.addScene('temper',
         reply('Вопрос №11:' + '\n' + 'Находясь в обществе, Вы предпочитаете:' + '\n' +
               '1) Говорить' + '\n' +
               '2) Слушать', null, temper_keyboard);
-        if (body == '2') { counter += parseInt(body); };
+        if (body == '2') { counter += (parseInt(body) - 1); };
     },
     ({ reply, body, scene: { next } }) => {
         next();
@@ -2434,7 +2434,7 @@ bot.addScene('temper',
         reply('Вопрос №13:' + '\n' + 'Любите ли Вы что-нибудь организовывать?' + '\n' +
                 '1) Да' + '\n' +
                 '2) Нет', null, temper_keyboard);
-        if (body == '2') { counter += parseInt(body); };
+        if (body == '2') { counter += (parseInt(body) - 1); };
     },
     ({ reply, body, scene: { next } }) => {
         next();
@@ -2448,7 +2448,7 @@ bot.addScene('temper',
         reply('Вопрос №15:' + '\n' + 'Быстро ли Вы переходите от решения к выполнению?' + '\n' +
                 '1) Да' + '\n' +
                 '2) Нет', null, temper_keyboard);
-        if (body == '2') { counter += parseInt(body); };
+        if (body == '2') { counter += (parseInt(body) - 1); };
     },
     ({ reply, body, scene: { next } }) => {
         next();
@@ -2483,7 +2483,7 @@ bot.addScene('temper',
         reply('Вопрос №20:' + '\n' + 'В затруднительных случаях Вы:' + '\n' +
               '1) Спешите обратиться за помощью' + '\n' +
               '2) Не обращаетесь', null, temper_keyboard);
-        if (body == '2') { counter += parseInt(body); };
+        if (body == '2') { counter += (parseInt(body) - 1); };
     },
     ({ reply, body, scene: { leave } }) => {
         leave();
