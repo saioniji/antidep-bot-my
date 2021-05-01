@@ -2552,6 +2552,7 @@ bot.addScene('eysenck',
     ({ reply, body, scene: { next } }) => {
         next();
         reply('Вопрос №9:' + '\n' + 'Любишь ли ты подшучивать над кем-нибудь?', null, yesno_keyboard);
+        if (body == 'Да' || body == 'да') { introversion += 1; };
     },
     ({ reply, body, scene: { next } }) => {
         next();
@@ -2681,6 +2682,7 @@ bot.addScene('eysenck',
     ({ reply, body, scene: { next } }) => {
         next();
         reply('Вопрос №34:' + '\n' + 'Тебе временами снятся страшные сны?', null, yesno_keyboard);
+        if (body == 'Да' || body == 'да') { neuroticism += 1; };
     },
     ({ reply, body, scene: { next } }) => {
         next();
@@ -2705,6 +2707,7 @@ bot.addScene('eysenck',
     ({ reply, body, scene: { next } }) => {
         next();
         reply('Вопрос №39:' + '\n' + 'Можешь ли ты сказать о себе, что ты беззаботный человек?', null, yesno_keyboard);
+        if (body == 'Да' || body == 'да') { neuroticism += 1; };
     },
     ({ reply, body, scene: { next } }) => {
         next();
@@ -2744,6 +2747,7 @@ bot.addScene('eysenck',
     ({ reply, body, scene: { next } }) => {
         next();
         reply('Вопрос №47:' + '\n' + 'Ты часто отвлекаешься, когда делаешь уроки?', null, yesno_keyboard);
+        if (body == 'Да' || body == 'да') { introversion += 1; };
     },
     ({ reply, body, scene: { next } }) => {
         next();
