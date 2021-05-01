@@ -2379,6 +2379,7 @@ bot.addScene('temper',
         reply('Вопрос №5:' + '\n' + 'Как Вы сходитесь с людьми?' + '\n' +
                 '1) Быстро, легко' + '\n' +
                 '2) Медленно, осторожно', null, temper_keyboard);
+        if (body == '2') { counter += (parseInt(body) - 1); };
     },
     ({ reply, body, scene: { next } }) => {
         next();
