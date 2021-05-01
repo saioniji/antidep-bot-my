@@ -2682,7 +2682,7 @@ bot.addScene('eysenck',
     ({ reply, body, scene: { next } }) => {
         next();
         reply('Вопрос №34:' + '\n' + 'Тебе временами снятся страшные сны?', null, yesno_keyboard);
-        if (body == 'Да' || body == 'да') { neuroticism += 1; };
+        if (body == 'Да' || body == 'да') { introversion += 1; };
     },
     ({ reply, body, scene: { next } }) => {
         next();
