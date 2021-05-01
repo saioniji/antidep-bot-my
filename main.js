@@ -2526,7 +2526,7 @@ bot.addScene('eysenck',
     ({ reply, body, scene: { next } }) => {
         next();
         reply('Вопрос №4:' + '\n' + 'Бываешь ли ты очень сердитым, раздражительным?', null, yesno_keyboard);
-        if (body == 'Да' || body == 'да') { lie += 1, introversion += 1; };
+        if (body == 'Да' || body == 'да') { introversion += 1; };
     },
     ({ reply, body, scene: { next } }) => {
         next();
@@ -2552,7 +2552,7 @@ bot.addScene('eysenck',
     ({ reply, body, scene: { next } }) => {
         next();
         reply('Вопрос №9:' + '\n' + 'Любишь ли ты подшучивать над кем-нибудь?', null, yesno_keyboard);
-        if (body == 'Да' || body == 'да') { introversion += 1; };
+        if (body == 'Да' || body == 'да') { lie += 1; };
     },
     ({ reply, body, scene: { next } }) => {
         next();
@@ -2687,7 +2687,7 @@ bot.addScene('eysenck',
     ({ reply, body, scene: { next } }) => {
         next();
         reply('Вопрос №35:' + '\n' + 'Можешь ли ты веселиться, не сдерживая себя, в компании других ребят?', null, yesno_keyboard);
-        if (body == 'Нет' || body == 'нет') { lie += 1, neuroticism += 1; };
+        if (body == 'Нет' || body == 'нет') { neuroticism += 1; };
     },
     ({ reply, body, scene: { next } }) => {
         next();
@@ -2697,7 +2697,7 @@ bot.addScene('eysenck',
     ({ reply, body, scene: { next } }) => {
         next();
         reply('Вопрос №37:' + '\n' + 'Тебя вообще легко обидеть или огорчить?', null, yesno_keyboard);
-        if (body == 'Нет' || body == 'нет') { lie += 1, neuroticism += 1; };
+        if (body == 'Нет' || body == 'нет') { neuroticism += 1; };
     },
     ({ reply, body, scene: { next } }) => {
         next();
@@ -2707,7 +2707,7 @@ bot.addScene('eysenck',
     ({ reply, body, scene: { next } }) => {
         next();
         reply('Вопрос №39:' + '\n' + 'Можешь ли ты сказать о себе, что ты беззаботный человек?', null, yesno_keyboard);
-        if (body == 'Да' || body == 'да') { neuroticism += 1; };
+        if (body == 'Нет' || body == 'нет') { lie += 1; };
     },
     ({ reply, body, scene: { next } }) => {
         next();
