@@ -6,6 +6,11 @@ const mongoose = require('mongoose');
 
 const server = express();
 
+process.on('unhandledRejection', (reason, p) => {
+    console.log('Unhandled Rejection at: Promise', p, 'reason:', reason);
+    // application specific logging, throwing an error, or other logic here
+  });
+  
 var bot;
 if (process.env.VK_TOKEN) {
     var redis = require('url').parse(process.env.REDIS_URL);
