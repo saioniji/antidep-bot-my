@@ -192,7 +192,7 @@ const anxienty2 = new Scene('anxiety2',
         var choice = checkAnxiety(result);
         var sanity = determineSanity('anxiety2', choice);
         updateResult(ctx.message.user_id, 'anxiety2', result, sanity);
-        let recomend = checkChoice(3, choice)[0];
+        let recomend = checkChoice(3, choice);
         ctx.reply('Вы набрали: ' + result +
             "\n" +
             recomend +

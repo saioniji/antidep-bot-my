@@ -394,130 +394,130 @@ function checkChoice(typeNumber, choice) {
         case 1:
             switch(choice) {
                 case 1:
-                    return recommendations[0][1];
+                    return recommendations[0][1][0];
                 case 2:
-                    return recommendations[0][2];
+                    return recommendations[0][2][0];
                 case 3:
-                    return recommendations[0][3];
+                    return recommendations[0][3][0];
                 case 4:
-                    return recommendations[0][4];
+                    return recommendations[0][4][0];
             }
         case 2:
             switch(choice) {
                 case 1:
-                    return recommendations[1][1];
+                    return recommendations[1][1][0];
                 case 2:
-                    return recommendations[1][2];
+                    return recommendations[1][2][0];
                 case 3:
-                    return recommendations[1][3];
+                    return recommendations[1][3][0];
             }
         case 3:
             switch(choice) {
                 case 1:
-                    return recommendations[2][1];
+                    return recommendations[2][1][0];
                 case 2:
-                    return recommendations[2][2];
+                    return recommendations[2][2][0];
                 case 3:
-                    return recommendations[2][3];
+                    return recommendations[2][3][0];
             }
         case 4:
             switch(choice) {
                 case 1:
-                    return recommendations[3][1];
+                    return recommendations[3][1][0];
                 case 2:
-                    return recommendations[3][2];
+                    return recommendations[3][2][0];
                 case 3:
-                    return recommendations[3][3];
+                    return recommendations[3][3][0];
             }
         case 5:
             switch(choice) {
                 case 1:
-                    return recommendations[4][1];
+                    return recommendations[4][1][0];
                 case 2:
-                    return recommendations[4][2];
+                    return recommendations[4][2][0];
                 case 3:
-                    return recommendations[4][3];
+                    return recommendations[4][3][0];
                 case 4:
-                    return recommendations[4][4];
+                    return recommendations[4][4][0];
             }
         case 6:
             switch(choice) {
                 case 1:
-                    return recommendations[5][1];
+                    return recommendations[5][1][0];
                 case 2:
-                    return recommendations[5][2];
+                    return recommendations[5][2][0];
                 case 3:
-                    return recommendations[5][3];
+                    return recommendations[5][3][0];
                 case 4:
-                    return recommendations[5][4];
+                    return recommendations[5][4][0];
                 case 5:
-                    return recommendations[5][5];
+                    return recommendations[5][5][0];
             }
         case 7:
             switch(choice) {
                 case 1:
-                    return recommendations[6][1];
+                    return recommendations[6][1][0];
                 case 2:
-                    return recommendations[6][2];
+                    return recommendations[6][2][0];
                 case 3:
-                    return recommendations[6][3];
+                    return recommendations[6][3][0];
             }
         case 8:
             switch(choice) {
                 case 1:
-                    return recommendations[7][1];
+                    return recommendations[7][1][0];
                 case 2:
-                    return recommendations[7][2];
+                    return recommendations[7][2][0];
                 case 3:
-                    return recommendations[7][3];
+                    return recommendations[7][3][0];
             }
         case 9:
             switch(choice) {
                 case 1:
-                    return recommendations[8][1];
+                    return recommendations[8][1][0];
                 case 2:
-                    return recommendations[8][2];
+                    return recommendations[8][2][0];
                 case 3:
-                    return recommendations[8][3];
+                    return recommendations[8][3][0];
             }
         case 10:
             switch(choice) {
                 case 1:
-                    return recommendations[9][1];
+                    return recommendations[9][1][0];
                 case 2:
-                    return recommendations[9][2];
+                    return recommendations[9][2][0];
                 case 3:
-                    return recommendations[9][3];
+                    return recommendations[9][3][0];
             }
         case 11:
             switch(choice) {
                 case 1:
-                    return recommendations[10][1];
+                    return recommendations[10][1][0];
                 case 2:
-                    return recommendations[10][2];
+                    return recommendations[10][2][0];
                 case 3:
-                    return recommendations[10][3];
+                    return recommendations[10][3][0];
             }
         case 12:
             switch(choice) {
                 case 1:
-                    return recommendations[11][1];
+                    return recommendations[11][1][0];
                 case 2:
-                    return recommendations[11][2];
+                    return recommendations[11][2][0];
                 case 3:
-                    return recommendations[11][3];
+                    return recommendations[11][3][0];
                 case 4:
-                    return recommendations[11][4];
+                    return recommendations[11][4][0];
                 case 5:
-                    return recommendations[11][5];
+                    return recommendations[11][5][0];
                 case 6:
-                    return recommendations[11][6];
+                    return recommendations[11][6][0];
                 case 7:
-                    return recommendations[11][7];
+                    return recommendations[11][7][0];
                 case 8:
-                    return recommendations[11][8];
+                    return recommendations[11][8][0];
                 case 9:
-                    return recommendations[11][9];
+                    return recommendations[11][9][0];
             }
     }
 };

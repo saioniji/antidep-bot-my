@@ -143,7 +143,7 @@ const anxienty1 = new Scene('anxiety1',
         var result = counter_direct - counter_reverse + 50;
         var choice = checkAnxiety(result);
         var sanity = determineSanity('anxiety1', choice);
-        let checkedRes = checkChoice(2, choice);
+        let checkedRes = checkChoice(2, choice)
         updateResult(ctx.message.user_id, 'anxiety1', result, sanity);
         ctx.reply('Вы набрали: ' + result + "\n" + checkedRes + "\n" +
             'Рекомендуем к просмотру видео "Прогрессивная мышечная релаксация по Э. Джекобсону": video-192832710_456239034' +
