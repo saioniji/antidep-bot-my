@@ -129,7 +129,7 @@ const depression = new Scene('depression',
             'Рекомендуем к просмотру видео "Прогрессивная мышечная релаксация по Э. Джекобсону": video-192832710_456239034' +
             "\n" +
             'Тест завершен. Выберите дальнейшее действие.', null, INSIDE_TEST_BUTTONS);
-        updateResult(userId, 'depression', counter, sanity);
+        updateResult(ctx.message.user_id, 'depression', counter, sanity);
         counter = 0;
     }
 );

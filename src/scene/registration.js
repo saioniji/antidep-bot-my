@@ -70,7 +70,7 @@ const registration = new Scene('registration',
         if (ctx.message.body == 'Да' ||ctx.message.body == 'да') {
             approval = true;
         } else approval = false;
-        createUser(userId, sex, age, eduLevel, maritalStatus, socialStatus, approval);
+        createUser(ctx.message.user_id, sex, age, eduLevel, maritalStatus, socialStatus, approval);
         ctx.reply('Спасибо за регистрацию!', null, AGREEMENT_BUTTONS);
         sex = 0, age = 0;
     }

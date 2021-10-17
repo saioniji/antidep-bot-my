@@ -24,6 +24,7 @@ const registration = require("./src/scene/registration");
 const contacts = require("./src/contacts");
 const depression = require("./src/scene/depression");
 const anxienty1 = require("./src/scene/anxienty1");
+const {checkLifeStyle} = require("./src/external");
 const {updateEysenck} = require("./src/repository/ResultRepository");
 const {updateTemper} = require("./src/repository/ResultRepository");
 const {updateBurnout} = require("./src/repository/ResultRepository");
@@ -190,7 +191,7 @@ const anxienty2 = new Scene('anxiety2',
         var result = counter_direct - counter_reverse + 35;
         var choice = checkAnxiety(result);
         var sanity = determineSanity('anxiety2', choice);
-        updateResult(userId, 'anxiety2', result, sanity);
+        updateResult(ctx.message.user_id, 'anxiety2', result, sanity);
         let recomend = checkChoice(3, choice)[0];
         ctx.reply('Вы набрали: ' + result +
             "\n" +
@@ -258,7 +259,7 @@ const stress = new Scene('stress',
         var result = (counter / 7).toFixed(2);
         var choice = checkStress(sex, result);
         var sanity = determineSanity('stress', choice);
-        updateResult(userId, 'stress', result, sanity);
+        updateResult(ctx.message.user_id, 'stress', result, sanity);
         ctx.reply('Вы набрали: ' + result);
         ctx.reply(checkChoice(4, choice));
         ctx.reply('Рекомендуем к просмотру видео "Прогрессивная мышечная релаксация по Э. Джекобсону":', 'video-192832710_456239034');
@@ -583,7 +584,7 @@ const motivation = new Scene('motivation',
 
         var choice = checkMotiv(counter);
         var sanity = determineSanity('motivation', choice);
-        updateResult(userId, 'motivation', counter, sanity);
+        updateResult(ctx.message.user_id, 'motivation', counter, sanity);
         ctx.reply('Вы набрали: ' + counter);
         ctx.reply(checkChoice(5, choice));
         ctx.reply('Тест завершен. Выберите дальнейшее действие.', null, INSIDE_TEST_BUTTONS);
@@ -751,7 +752,7 @@ const burnout = new Scene('burnout',
         ctx.reply('Редукция личных достижений:' + '\n' + checkChoice(8, checkReduction(reduction)));
         //reply('Общая тяжесть выгорания: ' + total_burnout);
         ctx.reply('Тест завершен. Выберите дальнейшее действие.', null, INSIDE_TEST_BUTTONS);
-        updateBurnout(userId, exhaustion, reduction, depersonalization, total_burnout);
+        updateBurnout(ctx.message.user_id, exhaustion, reduction, depersonalization, total_burnout);
         exhaustion = 0;
         depersonalization = 0;
         reduction = 0;
@@ -962,7 +963,7 @@ const inclination = new Scene('inclination',
         var max = Math.max(...arr_res);
         var inclinations = determineInclination(max, ...arr_res);
         var type = detInclination(...arr_res);
-        updateTemper(userId, 'inclination', type, max);
+        updateTemper(ctx.message.user_id, 'inclination', type, max);
         ctx.reply('Ваш результат:');
         ctx.reply(inclinations);
         ctx.reply('Тест завершен. Выберите дальнейшее действие.', null, INSIDE_TEST_BUTTONS);
@@ -1316,7 +1317,7 @@ const aggression = new Scene('aggression',
         var total = verbalAgg + physicalAgg + objectiveAgg + emotionalAgg + selfAgg;
         var choice = checkAggression(total);
         var sanity = determineSanity('aggression', choice);
-        updateResult(userId, 'aggression', total, sanity);
+        updateResult(ctx.message.user_id, 'aggression', total, sanity);
         ctx.reply('Общий уровень агрессии: ' + total);
         ctx.reply(checkChoice(9, choice));
         ctx.reply('Тест завершен. Выберите дальнейшее действие.', null, INSIDE_TEST_BUTTONS);
@@ -1549,7 +1550,7 @@ const lifestyle = new Scene('lifestyle',
 
         var choice = checkLifeStyle(counter);
         var sanity = determineSanity('lifestyle', choice);
-        updateResult(userId, 'lifestyle', counter, sanity);
+        updateResult(ctx.message.user_id, 'lifestyle', counter, sanity);
         ctx.reply('Вы набрали: ' + counter);
         ctx.reply(checkChoice(10, choice));
         ctx.reply('Тест завершен. Выберите дальнейшее действие.', null, INSIDE_TEST_BUTTONS);
@@ -1768,7 +1769,7 @@ const temper = new Scene('temper',
         var result = counter * 5;
         var choice = determineTemper(result);
         var type = checkTemper(choice);
-        updateTemper(userId, 'temper', type, result)
+        updateTemper(ctx.message.user_id, 'temper', type, result)
         ctx.reply('Вы набрали: ' + result);
         ctx.reply(checkChoice(11, choice));
         ctx.reply('Тест завершен. Выберите дальнейшее действие.', null, INSIDE_TEST_BUTTONS);
@@ -2252,7 +2253,7 @@ const eysenck = new Scene('eysenck',
 
         var choice = checkEyseckCircle(introversion, neuroticism);
         var type = checkTemperType(choice);
-        updateEysenck(userId, type, neuroticism, lie);
+        updateEysenck(ctx.message.user_id, type, neuroticism, lie);
         ctx.reply('Ваш результат:' + '\n' +
             'Интроверсия: ' + introversion + '\n' +
             'Стабильность: ' + neuroticism + '\n' +
@@ -2272,7 +2273,7 @@ const feedback = new Scene('feedback',
     },
     (ctx) => {
         ctx.scene.leave();
-        addFeedback(userId, ctx.message.body);
+        addFeedback(ctx.message.user_id, ctx.message.body);
         ctx.reply('Спасибо, мы вас услышали!');
     }
 );
