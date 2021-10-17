@@ -64,28 +64,20 @@ if (process.env.VK_TOKEN) {
         useUnifiedTopology: true
     }).then(() => console.log('MongoDB was connected'))
         .catch((err) => console.log(err));
+
 } else {
-    // const config = require('./src/config.json');
+    const config = require('./src/config.json');
     bot = new VkBot({
-        token: 'f620ea2962ed9f96d77233eb5873a345f3810851d3fb42b169b891b86f3eb2ea6658f6b0a82ed7f5483e7',
-        confirmation: 'f329b28b',
+        token: config.VK_TOKEN,
+        confirmation: config.CONFIRM_KEY
     });
-    // bot = new VkBot({
-    //     token: config.VK_TOKEN,
-    //     confirmation: config.CONFIRM_KEY
-    // });
 
-    // mongoose.connect(process.env.DB_URL, {
-    //     useNewUrlParser: true,
-    //     useUnifiedTopology: true
-    // }).then(() => console.log('MongoDB was connected'))
-    //     .catch((err) => console.log(err));
-
-    mongoose.connect('mongodb+srv://dazzle:Hbjifvfyrbyu18@antidepression.dkdvm.mongodb.net/bot-antidepression-db?retryWrites=true&w=majority', {
+    mongoose.connect(process.env.DB_URL, {
         useNewUrlParser: true,
         useUnifiedTopology: true
     }).then(() => console.log('MongoDB was connected'))
         .catch((err) => console.log(err));
+
 }
 
 const app = express();
