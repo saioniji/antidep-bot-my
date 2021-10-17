@@ -2,15 +2,11 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const VkBot = require('node-vk-bot-api');
 const mongoose = require("mongoose");
-const REGISRATION_BUTTONS = require("./src/keyboards/registration");
-const {createUser} = require("./src/repository/UserRepository");
 const {createResult} = require("./src/repository/ResultRepository");
 const Scene = require('node-vk-bot-api/lib/scene')
 const Stage = require('node-vk-bot-api/lib/stage')
 const YES_NO_BUTTONS = require("./src/keyboards/yes-no");
-const AGREEMENT_BUTTONS = require("./src/keyboards/agreement");
 const Session = require('node-vk-bot-api/lib/session');
-const DEPRESSION_BUTTONS = require("./src/keyboards/depression");
 const INSIDE_ANXIETY_BUTTONS = require("./src/keyboards/insideAnxiety");
 const INSIDE_TEST_BUTTONS = require("./src/keyboards/insideTest");
 const SEX_BUTTONS = require("./src/keyboards/sex");
@@ -24,33 +20,26 @@ const DEFECTS_BUTTONS = require("./src/keyboards/defects");
 const STAFF_BUTTONS = require("./src/keyboards/staff");
 const ANXIETY_BUTTONS = require("./src/keyboards/anxienty");
 const DEFAULT_BUTTONS = require("./src/keyboards/default");
+const registration = require("./src/scene/registration");
+const contacts = require("./src/contacts");
+const depression = require("./src/scene/depression");
+const anxienty1 = require("./src/scene/anxienty1");
 const {updateEysenck} = require("./src/repository/ResultRepository");
 const {updateTemper} = require("./src/repository/ResultRepository");
 const {updateBurnout} = require("./src/repository/ResultRepository");
 const {addFeedback} = require("./src/repository/FeedbackRepository");
 const {updateResult} = require("./src/repository/ResultRepository");
-const {formatDate} = require("./src/external");
 
 let counter = 0, counter_direct = 0, counter_reverse = 0;
 let sex, userId, exhaustion = 0, depersonalization = 0, reduction = 0;
 let arr = [], feedback_records = [];
-let age, eduLevel, maritalStatus, socialStatus, approval;
 
-const {reverseScore, checkDepression, checkAnxiety, checkStress, checkChoice, checkMotiv} = require("./src/external");
+const {checkAnxiety, checkStress, checkChoice, checkMotiv} = require("./src/external");
 const {checkExhaustion, checkDepersonalization, checkReduction, checkInclination} = require("./src/external");
 const {determineInclination, determineSanity, determineTemper, checkAggression} = require('./src/external');
 const {checkEyseckCircle, detInclination, checkTemper, checkTemperType} = require('./src/external');
-const {determineDepressionResponse, determineAnxietyResponse, determineSex} = require('./src/external');
+const {determineAnxietyResponse, determineSex} = require('./src/external');
 const {determineStressResponse, determineBurnoutResponse} = require('./src/external');
-
-const contacts = [
-    ['Татьяна Владимировна Чапала' + '\n' + 'https://vk.com/id625482513' + '\n' + '89371837900'],
-    ['Мария Илич' + '\n' + 'https://vk.com/ilich.mariya' + '\n' + '+77057733086'],
-    ['Юлия Петрова' + '\n' + 'https://vk.com/id6037251'],
-    ['Оксана Зотова' + '\n' + 'https://vk.com/id128316097'],
-    ['Алина Гельметдинова' + '\n' + 'https://vk.com/id73431394'],
-    ['Юлия Галимова' + '\n' + 'https://vk.com/blon_jul']
-];
 
 let bot;
 if (process.env.VK_TOKEN) {
@@ -81,342 +70,6 @@ if (process.env.VK_TOKEN) {
 }
 
 const app = express();
-
-const registration = new Scene('registration',
-    (ctx) => {
-        ctx.scene.next();
-        ctx.reply('Вы выбрали пункт меню регистрации.' + '\n' +
-            'Последовательно ответьте на все вопросы, вводя запрашиваемую информацию.' +
-            'Укажите свой пол: ' + '\n' +
-            'Если вы мужчина – введите М' + '\n' +
-            'Если вы женщина – введите Ж', null, SEX_BUTTONS);
-    },
-    (ctx) => {
-        ctx.scene.next();
-        ctx.reply('Укажите свой возраст: ', null, null);
-        if (ctx.message.body == 'M' || ctx.message.body == 'М') {
-            sex = 'male';
-        }
-        if (ctx.message.body == 'Ж') {
-            sex = 'female';
-        }
-    },
-    (ctx) => {
-        ctx.scene.next();
-        ctx.reply('Укажите уровень своего образования: ' + '\n' +
-            'С – Среднее образование (окончена школа)' + '\n' + 'СС – Среднее Специальное (окончен колледж)' + '\n' +
-            'В – Высшее образование' + '\n' + 'М – Магистратура' + '\n' + 'А – Аспирантура' + '\n' +
-            'К – Кандидат наук' + '\n' + 'Д – Доктор наук');
-        age = parseInt(ctx.message.body);
-    },
-    (ctx) => {
-        ctx.scene.next();
-        ctx.reply('Укажите семейное положение: ');
-        eduLevel = ctx.message.body;
-    },
-    (ctx) => {
-        ctx.scene.next();
-        ctx.reply('Укажите социальный статус: ');
-        maritalStatus = ctx.message.body;
-    },
-    (ctx) => {
-        ctx.scene.next();
-        ctx.reply('Информированное добровольное согласие клиента г. Тольятти' + '\n' +
-            'Настоящее добровольное согласие составлено в соответствии со статьей 20. ' +
-            'Федеральный закон от 21.11.2011 N 323-ФЗ (ред. от 29.05.2019) ' +
-            'Об основах охраны здоровья граждан в Российской Федерации. ' +
-            'И соответствует Этическому кодексу психолога принят “14” ' +
-            'февраля 2012 года V съездом Российского психологического общества.' +
-            'На страничке БОТ-психолога под названием Doctor Calm, которая размещена в социальной сети ' +
-            'ВКонтакте, проводится анонимная психологическая диагностика, без раскрытия личных данных и ' +
-            'идентичности пользователя соответствующей программы. ' + '\n' +
-            '1. Настоящим я доверяю провести психологическую диагностику. ' + '\n' +
-            '2. Содержание указанных выше психологических действий, связанный с ними риск и последствия мне известны. ' +
-            'Я хорошо понял(а) все разъяснения.' + '\n' +
-            '3. Мне известно, что 100% гарантии хороших результатов психокоррекции в целом дано быть не может.' + '\n' +
-            '4. Я согласен на исследование данных моего исследования в научных целях.' + '\n' +
-            'Содержание настоящего документа мною прочитано, свое согласие с его содержанием я удостоверяю.' + '\n' +
-            formatDate() + '\n' +
-            'Если согласны на проведение диагностики – введите \'Да\', если нет – введите \'Нет\'', null, YES_NO_BUTTONS);
-        socialStatus = ctx.message.body;
-    },
-    (ctx) => {
-        ctx.scene.leave();
-        if (ctx.message.body == 'Да' ||ctx.message.body == 'да') {
-            approval = true;
-        } else approval = false;
-        createUser(userId, sex, age, eduLevel, maritalStatus, socialStatus, approval);
-        ctx.reply('Спасибо за регистрацию!', null, AGREEMENT_BUTTONS);
-        sex = 0, age = 0;
-    }
-);
-
-const depression = new Scene('depression',
-    (ctx) => {
-        ctx.scene.next();
-        ctx.reply('Вы выбрали тест для определения уровня депрессии')
-        ctx.reply('В тесте 20 вопросов. Не торопитесь отвечать на вопросы и не забывайте, ' +
-            'что в тесте нет правильных и неправильных ответов')
-        ctx.reply('В каждом вопросе введите число от 1 до 4, где:' + '\n' +
-            '1 – Никогда или изредка' + '\n' +
-            '2 – Иногда' + '\n' +
-            '3 – Часто' + '\n' +
-            '4 - Почти всегда или постоянно');
-        ctx.reply('Вопрос №1:' + '\n' + 'Я чувствую подавленность', null, DEPRESSION_BUTTONS);
-    },
-    (ctx) => {
-        ctx.scene.next();
-        ctx.reply('Вопрос №2:' + '\n' + 'Утром я чувствую себя лучше всего.', null, DEPRESSION_BUTTONS);
-        counter += determineDepressionResponse(ctx.message.body);
-    },
-    (ctx) => {
-        ctx.scene.next();
-        ctx.reply('Вопрос №3:' + '\n' + 'У меня бывают периоды плача или близости к слезам.', null, DEPRESSION_BUTTONS);
-        counter += reverseScore(determineDepressionResponse(ctx.message.body));
-    },
-    (ctx) => {
-        ctx.scene.next();
-        ctx.reply('Вопрос №4:' + '\n' + 'У меня плохой ночной сон.', null, DEPRESSION_BUTTONS);
-        counter += determineDepressionResponse(ctx.message.body);
-    },
-    (ctx) => {
-        ctx.scene.next();
-        ctx.reply('Вопрос №5:' + '\n' + 'Аппетит у меня не хуже обычного.', null, DEPRESSION_BUTTONS);
-        counter += determineDepressionResponse(ctx.message.body);
-    },
-    (ctx) => {
-        ctx.scene.next();
-        ctx.reply('Вопрос №6:' + '\n' + 'Мне приятно смотреть на привлекательных девушек/парней, разговаривать с ними, находиться рядом.', null, DEPRESSION_BUTTONS);
-        counter += reverseScore(determineDepressionResponse(ctx.message.body));
-    },
-    (ctx) => {
-        ctx.scene.next();
-        ctx.reply('Вопрос №7:' + '\n' + 'Я замечаю, что теряю вес.', null, DEPRESSION_BUTTONS);
-        counter += reverseScore(determineDepressionResponse(ctx.message.body));
-    },
-    (ctx) => {
-        ctx.scene.next();
-        ctx.reply('Вопрос №8:' + '\n' + 'Меня беспокоят запоры.', null, DEPRESSION_BUTTONS);
-        counter += determineDepressionResponse(ctx.message.body);
-    },
-    (ctx) => {
-        ctx.scene.next();
-        ctx.reply('Вопрос №9:' + '\n' + 'Сердце бьется быстрее, чем обычно.', null, DEPRESSION_BUTTONS);
-        counter += determineDepressionResponse(ctx.message.body);
-    },
-    (ctx) => {
-        ctx.scene.next();
-        ctx.reply('Вопрос №10:' + '\n' + 'Я устаю без всяких причин.', null, DEPRESSION_BUTTONS);
-        counter += determineDepressionResponse(ctx.message.body);
-    },
-    (ctx) => {
-        ctx.scene.next();
-        ctx.reply('Вопрос №11:' + '\n' + 'Я мыслю так же ясно, как всегда.', null, DEPRESSION_BUTTONS);
-        counter += determineDepressionResponse(ctx.message.body);
-    },
-    (ctx) => {
-        ctx.scene.next();
-        ctx.reply('Вопрос №12:' + '\n' + 'Мне легко делать то, что я умею.', null, DEPRESSION_BUTTONS);
-        counter += reverseScore(determineDepressionResponse(ctx.message.body));
-    },
-    (ctx) => {
-        ctx.scene.next();
-        ctx.reply('Вопрос №13:' + '\n' + 'Чувствую беспокойство и не могу усидеть на месте.', null, DEPRESSION_BUTTONS);
-        counter += reverseScore(determineDepressionResponse(ctx.message.body));
-    },
-    (ctx) => {
-        ctx.scene.next();
-        ctx.reply('Вопрос №14:' + '\n' + 'У меня есть надежды на будущее.', null, DEPRESSION_BUTTONS);
-        counter += determineDepressionResponse(ctx.message.body);
-    },
-    (ctx) => {
-        ctx.scene.next();
-        ctx.reply('Вопрос №15:' + '\n' + 'Я более раздражителен, чем обычно.', null, DEPRESSION_BUTTONS);
-        counter += reverseScore(determineDepressionResponse(ctx.message.body));
-    },
-    (ctx) => {
-        ctx.scene.next();
-        ctx.reply('Вопрос №16:' + '\n' + 'Мне легко принимать решения.', null, DEPRESSION_BUTTONS);
-        counter += determineDepressionResponse(ctx.message.body);
-    },
-    (ctx) => {
-        ctx.scene.next();
-        ctx.reply('Вопрос №17:' + '\n' + 'Я чувствую, что полезен и необходим.', null, DEPRESSION_BUTTONS);
-        counter += reverseScore(determineDepressionResponse(ctx.message.body));
-    },
-    (ctx) => {
-        ctx.scene.next();
-        ctx.reply('Вопрос №18:' + '\n' + 'Я живу достаточно полной жизнью.', null, DEPRESSION_BUTTONS);
-        counter += reverseScore(determineDepressionResponse(ctx.message.body));
-    },
-    (ctx) => {
-        ctx.scene.next();
-        ctx.reply('Вопрос №19:' + '\n' + 'Я чувствую, что другим людям станет лучше, если я умру.', null, DEPRESSION_BUTTONS);
-        counter += reverseScore(determineDepressionResponse(ctx.message.body));
-    },
-    (ctx) => {
-        ctx.scene.next();
-        ctx.reply('Вопрос №20:' + '\n' + 'Меня до сих пор радует то, что радовало всегда.', null, DEPRESSION_BUTTONS);
-        counter += determineDepressionResponse(ctx.message.body);
-    },
-    (ctx) => {
-        ctx.scene.leave();
-        counter += reverseScore(determineDepressionResponse(ctx.message.body));
-        var choice = checkDepression(counter);
-        var sanity = determineSanity('depression', choice);
-        ctx.reply('Вы набрали: ' + counter);
-        ctx.reply(checkChoice(1, choice));
-        ctx.reply('Рекомендуем к просмотру видео "Прогрессивная мышечная релаксация по Э. Джекобсону":', 'video-192832710_456239034');
-        ctx.reply('Тест завершен. Выберите дальнейшее действие.', null, INSIDE_TEST_BUTTONS);
-        updateResult(userId, 'depression', counter, sanity);
-        counter = 0;
-    }
-);
-
-const anxienty1 = new Scene('anxiety1',
-    (ctx) => {
-        ctx.scene.next();
-        ctx.reply('Вы выбрали тест для анализа ситуативной тревожности')
-        ctx.reply('В тесте 20 вопросов. Не торопитесь отвечать на вопросы и не забывайте, ' +
-            'что в тесте нет правильных и неправильных ответов')
-        ctx.reply('В каждом вопросе введите число от 1 до 4, где:' + '\n' +
-            '1 – Нет, это не так' + '\n' +
-            '2 – Пожалуй так' + '\n' +
-            '3 – Верно' + '\n' +
-            '4 - Совершенно верно');
-        ctx.reply('КАК ВЫ ЧУВСТВУЕТЕ СЕБЯ В ДАННЫЙ МОМЕНТ?');
-        ctx.reply('Вопрос №1:' + '\n' + 'Я спокоен', null, INSIDE_ANXIETY_BUTTONS);
-    },
-    (ctx) => {
-        ctx.scene.next();
-        ctx.reply('Вопрос №2:' + '\n' + 'Мне ничто не угрожает', null, INSIDE_ANXIETY_BUTTONS
-        );
-        counter_reverse += determineAnxietyResponse(ctx.message.body);
-    },
-    (ctx) => {
-        ctx.scene.next();
-        ctx.reply('Вопрос №3:' + '\n' + 'Я нахожусь в напряжении', null, INSIDE_ANXIETY_BUTTONS
-        );
-        counter_reverse += determineAnxietyResponse(ctx.message.body);
-    },
-    (ctx) => {
-        ctx.scene.next();
-        ctx.reply('Вопрос №4:' + '\n' + 'Я испытываю сожаление', null, INSIDE_ANXIETY_BUTTONS
-        );
-        counter_direct += determineAnxietyResponse(ctx.message.body);
-    },
-    (ctx) => {
-        ctx.scene.next();
-        ctx.reply('Вопрос №5:' + '\n' + 'Я чувствую себя свободно', null, INSIDE_ANXIETY_BUTTONS
-        );
-        counter_direct += determineAnxietyResponse(ctx.message.body);
-    },
-    (ctx) => {
-        ctx.scene.next();
-        ctx.reply('Вопрос №6:' + '\n' + 'Я расстроен', null, INSIDE_ANXIETY_BUTTONS
-        );
-        counter_reverse += determineAnxietyResponse(ctx.message.body);
-    },
-    (ctx) => {
-        ctx.scene.next();
-        ctx.reply('Вопрос №7:' + '\n' + 'Меня волнуют возможные неудачи', null, INSIDE_ANXIETY_BUTTONS
-        );
-        counter_direct += determineAnxietyResponse(ctx.message.body);
-    },
-    (ctx) => {
-        ctx.scene.next();
-        ctx.reply('Вопрос №8:' + '\n' + 'Я чувствую себя отдохнувшим', null, INSIDE_ANXIETY_BUTTONS
-        );
-        counter_direct += determineAnxietyResponse(ctx.message.body);
-    },
-    (ctx) => {
-        ctx.scene.next();
-        ctx.reply('Вопрос №9:' + '\n' + 'Я встревожен', null, INSIDE_ANXIETY_BUTTONS
-        );
-        counter_reverse += determineAnxietyResponse(ctx.message.body);
-    },
-    (ctx) => {
-        ctx.scene.next();
-        ctx.reply('Вопрос №10:' + '\n' + 'Я испытываю чувство внутреннего удовлетворения', null, INSIDE_ANXIETY_BUTTONS
-        );
-        counter_direct += determineAnxietyResponse(ctx.message.body);
-    },
-    (ctx) => {
-        ctx.scene.next();
-        ctx.reply('Вопрос №11:' + '\n' + 'Я уверен в себе', null, INSIDE_ANXIETY_BUTTONS
-        );
-        counter_reverse += determineAnxietyResponse(ctx.message.body);
-    },
-    (ctx) => {
-        ctx.scene.next();
-        ctx.reply('Вопрос №12:' + '\n' + 'Я нервничаю', null, INSIDE_ANXIETY_BUTTONS
-        );
-        counter_reverse += determineAnxietyResponse(ctx.message.body);
-    },
-    (ctx) => {
-        ctx.scene.next();
-        ctx.reply('Вопрос №13:' + '\n' + 'Я не нахожу себе места', null, INSIDE_ANXIETY_BUTTONS
-        );
-        counter_direct += determineAnxietyResponse(ctx.message.body);
-    },
-    (ctx) => {
-        ctx.scene.next();
-        ctx.reply('Вопрос №14:' + '\n' + 'Я взвинчен', null, INSIDE_ANXIETY_BUTTONS
-        );
-        counter_direct += determineAnxietyResponse(ctx.message.body);
-    },
-    (ctx) => {
-        ctx.scene.next();
-        ctx.reply('Вопрос №15:' + '\n' + 'Я не чувствую скованности', null, INSIDE_ANXIETY_BUTTONS
-        );
-        counter_direct += determineAnxietyResponse(ctx.message.body);
-    },
-    (ctx) => {
-        ctx.scene.next();
-        ctx.reply('Вопрос №16:' + '\n' + 'Я доволен', null, INSIDE_ANXIETY_BUTTONS
-        );
-        counter_reverse += determineAnxietyResponse(ctx.message.body);
-    },
-    (ctx) => {
-        ctx.scene.next();
-        ctx.reply('Вопрос №17:' + '\n' + 'Я озабочен', null, INSIDE_ANXIETY_BUTTONS
-        );
-        counter_reverse += determineAnxietyResponse(ctx.message.body);
-    },
-    (ctx) => {
-        ctx.scene.next();
-        ctx.reply('Вопрос №18:' + '\n' + 'Я слишком возбужден и мне не по себе', null, INSIDE_ANXIETY_BUTTONS
-        );
-        counter_direct += determineAnxietyResponse(ctx.message.body);
-    },
-    (ctx) => {
-        ctx.scene.next();
-        ctx.reply('Вопрос №19:' + '\n' + 'Мне радостно', null, INSIDE_ANXIETY_BUTTONS
-        );
-        counter_direct += determineAnxietyResponse(ctx.message.body);
-    },
-    (ctx) => {
-        ctx.scene.next();
-        ctx.reply('Вопрос №20:' + '\n' + 'Мне приятно', null, INSIDE_ANXIETY_BUTTONS
-        );
-        counter_reverse += determineAnxietyResponse(ctx.message.body);
-    },
-    (ctx) => {
-        ctx.scene.leave();
-        counter_reverse += determineAnxietyResponse(ctx.message.body);
-        var result = counter_direct - counter_reverse + 50;
-        var choice = checkAnxiety(result);
-        var sanity = determineSanity('anxiety1', choice);
-        updateResult(userId, 'anxiety1', result, sanity);
-        ctx.reply('Вы набрали: ' + result);
-        ctx.reply(checkChoice(2, choice));
-        ctx.reply('Рекомендуем к просмотру видео "Прогрессивная мышечная релаксация по Э. Джекобсону":', 'video-192832710_456239034');
-        ctx.reply('Тест завершен. Выберите дальнейшее действие.', null, INSIDE_TEST_BUTTONS);
-        counter_direct = 0;
-        counter_reverse = 0;
-        counter = 0;
-    }
-);
 
 const anxienty2 = new Scene('anxiety2',
     (ctx) => {
