@@ -2749,4 +2749,5 @@ app.use(bodyParser.json());
 
 app.post('/', bot.webhookCallback);
 
-app.listen(3000, () => console.log('Started!'));
+app.listen(process.env.PORT || 5000, () => console.log('Server is running ... '));
+setInterval(function () { app.get('http://bot-antidep.herokuapp.com/'); }, 300000);
