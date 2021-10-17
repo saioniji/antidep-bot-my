@@ -1,20 +1,20 @@
 const Markup = require('node-vk-bot-api/lib/markup');
 
-const AGREEMENT_BUTTONS = Markup.keyboard([
+const SEX_BUTTONS = Markup.keyboard([
     [Markup.button({
         action: {
             type: "text",
-            label: "Тест"
+            label: "М"
         },
-        color: "secondary"
+        color: "positive"
     })],
     [Markup.button({
         action: {
             type: "text",
-            label: "Главное меню"
+            label: "Ж"
         },
-        color: "negative"
+        color: "positive"
     })]
 ])
 
-module.exports = AGREEMENT_BUTTONS
+module.exports = SEX_BUTTONS
