@@ -66,10 +66,12 @@ const stress = new Scene('stress',
         var choice = checkStress(sex, result);
         var sanity = determineSanity('stress', choice);
         updateResult(ctx.message.user_id, 'stress', result, sanity);
-        ctx.reply('Вы набрали: ' + result);
-        ctx.reply(checkChoice(4, choice));
-        ctx.reply('Рекомендуем к просмотру видео "Прогрессивная мышечная релаксация по Э. Джекобсону":', 'video-192832710_456239034');
-        ctx.reply('Тест завершен. Выберите дальнейшее действие.', null, INSIDE_TEST_BUTTONS);
+        ctx.reply('Вы набрали: ' + result + '\n' +
+        checkChoice(4, choice) + '\n' +
+            '\n' +
+        'Рекомендуем к просмотру видео "Прогрессивная мышечная релаксация по Э. Джекобсону":', 'video-192832710_456239034' + '\n' +
+            '\n' +
+        'Тест завершен. Выберите дальнейшее действие.', null, INSIDE_TEST_BUTTONS);
         counter = 0;
     }
 );

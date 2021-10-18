@@ -214,9 +214,10 @@ const inclination = new Scene('inclination',
         var inclinations = determineInclination(max, ...arr_res);
         var type = detInclination(...arr_res);
         updateTemper(ctx.message.user_id, 'inclination', type, max);
-        ctx.reply('Ваш результат:');
-        ctx.reply(inclinations);
-        ctx.reply('Тест завершен. Выберите дальнейшее действие.', null, INSIDE_TEST_BUTTONS);
+        ctx.reply('Ваш результат:' + '\n' +
+            + '\n' + inclinations + '\n' +
+            '\n' +
+        'Тест завершен. Выберите дальнейшее действие.', null, INSIDE_TEST_BUTTONS);
         arr = [];
     }
 );

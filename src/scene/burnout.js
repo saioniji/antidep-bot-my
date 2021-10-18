@@ -168,11 +168,12 @@ const burnout = new Scene('burnout',
         ctx.scene.leave();
         depersonalization += determineBurnoutResponse(ctx.message.body);
         var total_burnout = exhaustion + depersonalization + reduction;
-        ctx.reply('Эмоциональное истощение:' + '\n' + checkChoice(6, checkExhaustion(exhaustion)));
-        ctx.reply('Деперсонализация:' + '\n' + checkChoice(7, checkDepersonalization(depersonalization)));
-        ctx.reply('Редукция личных достижений:' + '\n' + checkChoice(8, checkReduction(reduction)));
+        ctx.reply('Эмоциональное истощение:' + '\n' + checkChoice(6, checkExhaustion(exhaustion)) + '\n' +
+        'Деперсонализация:' + '\n' + checkChoice(7, checkDepersonalization(depersonalization)) + '\n' +
+        'Редукция личных достижений:' + '\n' + checkChoice(8, checkReduction(reduction)) + '\n' +
         //reply('Общая тяжесть выгорания: ' + total_burnout);
-        ctx.reply('Тест завершен. Выберите дальнейшее действие.', null, INSIDE_TEST_BUTTONS);
+            '\n' +
+        'Тест завершен. Выберите дальнейшее действие.', null, INSIDE_TEST_BUTTONS);
         updateBurnout(ctx.message.user_id, exhaustion, reduction, depersonalization, total_burnout);
         exhaustion = 0;
         depersonalization = 0;
