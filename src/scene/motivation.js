@@ -325,9 +325,10 @@ const motivation = new Scene('motivation',
         var choice = checkMotiv(counter);
         var sanity = determineSanity('motivation', choice);
         updateResult(ctx.message.user_id, 'motivation', counter, sanity);
-        ctx.reply('Вы набрали: ' + counter);
-        ctx.reply(checkChoice(5, choice));
-        ctx.reply('Тест завершен. Выберите дальнейшее действие.', null, INSIDE_TEST_BUTTONS);
+        ctx.reply('Вы набрали: ' + counter + '\n' +
+        checkChoice(5, choice) + '\n' +
+            '\n' +
+        'Тест завершен. Выберите дальнейшее действие.', null, INSIDE_TEST_BUTTONS);
         counter = 0;
     }
 );
