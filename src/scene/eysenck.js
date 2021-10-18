@@ -487,11 +487,10 @@ const eysenck = new Scene('eysenck',
         ctx.reply('Ваш результат:' + '\n' +
             'Интроверсия: ' + introversion + '\n' +
             'Стабильность: ' + neuroticism + '\n' +
-            'Достоверность: ' + lie + '\n' +
-        'Круг Айзенка:', 'photo-192832710_457239178' + '\n' +
-        checkChoice(12, choice) + '\n' +
-            '\n' +
-        'Тест завершен. Выберите дальнейшее действие.', null, INSIDE_TEST_BUTTONS);
+            'Достоверность: ' + lie);
+        ctx.reply('Круг Айзенка:', 'photo-192832710_457239178');
+        ctx.reply(checkChoice(12, choice));
+        ctx.reply('Тест завершен. Выберите дальнейшее действие.', null, INSIDE_TEST_BUTTONS);
         introversion = 0; neuroticism = 0; lie = 0;
     }
 );

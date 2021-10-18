@@ -221,10 +221,9 @@ const temper = new Scene('temper',
         var choice = determineTemper(result);
         var type = checkTemper(choice);
         updateTemper(ctx.message.user_id, 'temper', type, result)
-        ctx.reply('Вы набрали: ' + result + '\n' +
-        checkChoice(11, choice) + '\n' +
-            '\n' +
-        'Тест завершен. Выберите дальнейшее действие.', null, INSIDE_TEST_BUTTONS);
+        ctx.reply('Вы набрали: ' + result);
+        ctx.reply(checkChoice(11, choice));
+        ctx.reply('Тест завершен. Выберите дальнейшее действие.', null, INSIDE_TEST_BUTTONS);
         counter = 0;
     }
 );

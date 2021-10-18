@@ -234,10 +234,9 @@ const lifestyle = new Scene('lifestyle',
         var choice = checkLifeStyle(counter);
         var sanity = determineSanity('lifestyle', choice);
         updateResult(ctx.message.user_id, 'lifestyle', counter, sanity);
-        ctx.reply('Вы набрали: ' + counter + '\n' +
-        checkChoice(10, choice) + '\n' +
-            '\n' +
-        'Тест завершен. Выберите дальнейшее действие.', null, INSIDE_TEST_BUTTONS);
+        ctx.reply('Вы набрали: ' + counter);
+        ctx.reply(checkChoice(10, choice));
+        ctx.reply('Тест завершен. Выберите дальнейшее действие.', null, INSIDE_TEST_BUTTONS);
         counter = 0;
     }
 );

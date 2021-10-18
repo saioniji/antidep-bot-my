@@ -354,10 +354,9 @@ const aggression = new Scene('aggression',
         var choice = checkAggression(total);
         var sanity = determineSanity('aggression', choice);
         updateResult(ctx.message.user_id, 'aggression', total, sanity);
-        ctx.reply('Общий уровень агрессии: ' + total + '\n' +
-        checkChoice(9, choice) + '\n' +
-            '\n' +
-        'Тест завершен. Выберите дальнейшее действие.', null, INSIDE_TEST_BUTTONS);
+        ctx.reply('Общий уровень агрессии: ' + total);
+        ctx.reply(checkChoice(9, choice));
+        ctx.reply('Тест завершен. Выберите дальнейшее действие.', null, INSIDE_TEST_BUTTONS);
         verbalAgg = 0, physicalAgg = 0, objectiveAgg = 0, emotionalAgg = 0, selfAgg = 0;
         total = 0;
     }
