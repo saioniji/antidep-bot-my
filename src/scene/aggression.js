@@ -358,7 +358,7 @@ const aggression = new Scene('aggression',
         checkChoice(9, choice) + '\n' +
             '\n' +
         'Тест завершен. Выберите дальнейшее действие.', null, INSIDE_TEST_BUTTONS);
-        verbalAgg = 0; physicalAgg = 0; objectiveAgg = 0; emotionalAgg = 0; selfAgg = 0;
+        verbalAgg = 0, physicalAgg = 0, objectiveAgg = 0, emotionalAgg = 0, selfAgg = 0,
         total = 0;
     }
 );
