@@ -3,11 +3,8 @@ const bodyParser = require('body-parser');
 const VkBot = require('node-vk-bot-api');
 const mongoose = require("mongoose");
 const {createResult} = require("./src/repository/ResultRepository");
-// const Scene = require('node-vk-bot-api/lib/scene')
 const Stage = require('node-vk-bot-api/lib/stage')
-// const YES_NO_BUTTONS = require("./src/keyboards/yes-no");
 const Session = require('node-vk-bot-api/lib/session');
-// const INSIDE_TEST_BUTTONS = require("./src/keyboards/insideTest");
 const TEST_BUTTONS = require("./src/keyboards/test");
 const ADMIN_BUTTONS = require("./src/keyboards/admin");
 const SHRINKS_BUTTONS = require("./src/keyboards/shrinks");
@@ -29,23 +26,7 @@ const lifestyle = require("./src/scene/lifestyle");
 const temper = require("./src/scene/temper");
 const eysenck = require("./src/scene/eysenck");
 const feedback = require("./src/scene/feedback");
-// const {checkLifeStyle} = require("./src/external");
-// const {updateEysenck} = require("./src/repository/ResultRepository");
-// const {updateTemper} = require("./src/repository/ResultRepository");
-// const {updateBurnout} = require("./src/repository/ResultRepository");
-// const {addFeedback} = require("./src/repository/FeedbackRepository");
-// const {updateResult} = require("./src/repository/ResultRepository");
-//
-// let counter = 0, counter_direct = 0, counter_reverse = 0;
-// let sex, userId, exhaustion = 0, depersonalization = 0, reduction = 0;
 let feedback_records = [];
-
-// const {checkAnxiety, checkStress, checkChoice, checkMotiv} = require("./src/external");
-// const {checkExhaustion, checkDepersonalization, checkReduction, checkInclination} = require("./src/external");
-// const {determineInclination, determineSanity, determineTemper, checkAggression} = require('./src/external');
-// const {checkEyseckCircle, detInclination, checkTemper, checkTemperType} = require('./src/external');
-// const {determineAnxietyResponse, determineSex} = require('./src/external');
-// const {determineStressResponse, determineBurnoutResponse} = require('./src/external');
 
 let bot;
 if (process.env.VK_TOKEN) {
