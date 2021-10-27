@@ -1,4 +1,5 @@
 const SEX_BUTTONS = require("../keyboards/sex");
+const STRESS_BUTTONS = require("../keyboards/stress");
 const INSIDE_TEST_BUTTONS = require("../keyboards/insideTest");
 const {updateResult} = require("../repository/ResultRepository");
 const {checkChoice} = require("../external");
@@ -26,37 +27,37 @@ const stress = new Scene('stress',
     },
     (ctx) => {
         ctx.scene.next();
-        ctx.reply('Вопрос №1:' + '\n' + 'Пожалуй, я человек нервный', null, SEX_BUTTONS);
+        ctx.reply('Вопрос №1:' + '\n' + 'Пожалуй, я человек нервный', null, STRESS_BUTTONS);
         sex = determineSex(ctx.message.body);
     },
     (ctx) => {
         ctx.scene.next();
-        ctx.reply('Вопрос №2:' + '\n' + 'Я очень беспокоюсь о своей работе', null, SEX_BUTTONS);
+        ctx.reply('Вопрос №2:' + '\n' + 'Я очень беспокоюсь о своей работе', null, STRESS_BUTTONS);
         counter += determineStressResponse(ctx.message.body);
     },
     (ctx) => {
         ctx.scene.next();
-        ctx.reply('Вопрос №3:' + '\n' + 'Я часто ощущаю нервное напряжение', null, SEX_BUTTONS);
+        ctx.reply('Вопрос №3:' + '\n' + 'Я часто ощущаю нервное напряжение', null, STRESS_BUTTONS);
         counter += determineStressResponse(ctx.message.body);
     },
     (ctx) => {
         ctx.scene.next();
-        ctx.reply('Вопрос №4:' + '\n' + 'Моя повседневная деятельность вызывает большое напряжение', null, SEX_BUTTONS);
+        ctx.reply('Вопрос №4:' + '\n' + 'Моя повседневная деятельность вызывает большое напряжение', null, STRESS_BUTTONS);
         counter += determineStressResponse(ctx.message.body);
     },
     (ctx) => {
         ctx.scene.next();
-        ctx.reply('Вопрос №5:' + '\n' + 'Общаясь с людьми, я часто ощущаю нервное напряжение', null, SEX_BUTTONS);
+        ctx.reply('Вопрос №5:' + '\n' + 'Общаясь с людьми, я часто ощущаю нервное напряжение', null, STRESS_BUTTONS);
         counter += determineStressResponse(ctx.message.body);
     },
     (ctx) => {
         ctx.scene.next();
-        ctx.reply('Вопрос №6:' + '\n' + 'К концу дня я совершенно истощен физически и психически', null, SEX_BUTTONS);
+        ctx.reply('Вопрос №6:' + '\n' + 'К концу дня я совершенно истощен физически и психически', null, STRESS_BUTTONS);
         counter += determineStressResponse(ctx.message.body);
     },
     (ctx) => {
         ctx.scene.next();
-        ctx.reply('Вопрос №7:' + '\n' + 'В моей семье часто возникают напряженные отношения', null, SEX_BUTTONS);
+        ctx.reply('Вопрос №7:' + '\n' + 'В моей семье часто возникают напряженные отношения', null, STRESS_BUTTONS);
         counter += determineStressResponse(ctx.message.body);
     },
     (ctx) => {
