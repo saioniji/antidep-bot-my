@@ -8,13 +8,13 @@ const DEFAULT_BUTTONS = Markup.keyboard([
         },
         color: "secondary"
     })],
-    [Markup.button({
-        action: {
-            type: "text",
-            label: "Анкета"
-        },
-        color: "secondary"
-    })],
+    // [Markup.button({
+    //     action: {
+    //         type: "text",
+    //         label: "Анкета"
+    //     },
+    //     color: "secondary"
+    // })],
     [Markup.button({
         action: {
             type: "text",
