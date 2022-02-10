@@ -12,6 +12,7 @@ const DEFECTS_BUTTONS = require("./src/keyboards/defects");
 const STAFF_BUTTONS = require("./src/keyboards/staff");
 const ANXIETY_BUTTONS = require("./src/keyboards/anxienty");
 const DEFAULT_BUTTONS = require("./src/keyboards/default");
+const newAnketa = require("./src/scene/createanketa");
 const registration = require("./src/scene/registration");
 const contacts = require("./src/contacts");
 const depression = require("./src/scene/depression");
@@ -62,6 +63,7 @@ const session = new Session();
 
 const stage = new Stage(
     registration,
+    newAnketa,
     depression,
     anxienty1,
     anxienty2,
@@ -73,13 +75,14 @@ const stage = new Stage(
     lifestyle,
     temper,
     eysenck,
-    feedback
+    feedback,
 );
 
 bot.use(session.middleware())
 bot.use(stage.middleware())
 
 bot.command('Регистрация', (ctx) => ctx.scene.enter('registration'));
+bot.command('Анкета', (ctx) => ctx.scene.enter('newAnketa'));
 bot.command('Депрессия', (ctx) => ctx.scene.enter('depression'));
 bot.command('Реактивная', (ctx) => ctx.scene.enter('anxiety1'));
 bot.command('Личностная', (ctx) => ctx.scene.enter('anxiety2'));
