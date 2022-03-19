@@ -28,7 +28,7 @@
     "botact": "^2.4.2",
     "connect-redis": "^5.0.0",
     "es6-promise": "^4.2.8",
-    "express": "^4.17.1",
+    "express": "^4.17.3",
     "html-to-text": "^6.0.0",
     "isomorphic-fetch": "^3.0.0",
     "moment": "^2.29.1",
