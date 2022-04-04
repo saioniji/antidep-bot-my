@@ -180,7 +180,7 @@ bot.command('Юлия Галимова', (ctx) => {
     bot.sendMessage(ctx.message.user_id, contacts[5][0]);
 });
 
-//bot.startPolling()
+//bot.startPolling() //Для локального запуска
 
 app.use(bodyParser.json());
 
