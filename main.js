@@ -180,11 +180,11 @@ bot.command('Юлия Галимова', (ctx) => {
     bot.sendMessage(ctx.message.user_id, contacts[5][0]);
 });
 
-//bot.startPolling() //Для локального запуска
+bot.startPolling() //Для локального запуска
 
 app.use(bodyParser.json());
 
 app.post('/', bot.webhookCallback);
 
 app.listen(process.env.PORT || 5000, () => console.log('Server is running ... '));
-setInterval(function () { app.get('https://git.heroku.com/bor-antidep.git'); }, 300000);
+setInterval(function () { app.get('http://bot-antidep.herokuapp.com/'); }, 300000);
